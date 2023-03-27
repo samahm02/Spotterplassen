@@ -1,6 +1,7 @@
 package com.example.test.data
 
 import com.example.test.model.FlyData
+import com.example.test.model.Warning
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -20,6 +21,9 @@ class DataSourceFly(var path: String) {
         return client.get(path).body()
     }
 
+    suspend fun fetchSigmet(): List<Warning> {
+        return Warningparser().parse(client.get(path).body())
+    }
 }
 
 

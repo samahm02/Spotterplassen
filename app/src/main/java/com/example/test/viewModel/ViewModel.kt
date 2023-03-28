@@ -7,7 +7,6 @@ import com.example.test.data.DataSourceFly
 import com.example.test.ui.FlyUiState
 import com.example.test.ui.WarningUiState
 import com.example.test.data.fetchXML
-import com.example.test.model.Warning
 import com.example.test.ui.WeatherUiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

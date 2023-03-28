@@ -8,14 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 import androidx.compose.material.Text
-import androidx.compose.foundation.layout.*
-//Lazy er greit i importere manuelt:
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.ui.unit.dp
-import com.example.test.model.Warning
 import com.example.test.viewModel.ViewModel
-import androidx.compose.material.Card
 import com.example.test.screen.WarningsView
 
 @Composable

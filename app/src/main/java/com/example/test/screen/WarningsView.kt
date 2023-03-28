@@ -18,8 +18,6 @@ fun WarningsView(
     viewModel: ViewModel,
 ) {
     viewModel.loadWarnings()
-    println("test3")
-    println(warnings)
 
     LazyColumn(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -35,7 +33,6 @@ fun WarningsView(
         }
         items(warnings) { sigmetData ->
             WarningCard(warningData = sigmetData)
-            println("test3")
         }
     }
 }

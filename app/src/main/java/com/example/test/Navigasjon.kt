@@ -2,7 +2,6 @@ package com.example.test
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ScaffoldState
-import androidx.compose.material.SnackbarDuration
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -11,14 +10,14 @@ import kotlinx.coroutines.launch
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.test.screen.MainScreen
 import com.example.test.viewModel.ViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 
 enum class Navigasjon() {
+    //Klasse for navigasjonsdestinasjoner/skjermer
     Map,
     Airport
 }
@@ -26,24 +25,18 @@ enum class Navigasjon() {
 @Composable
 fun Navigasjon(
     modifier: Modifier = Modifier,
-    //viewModel: OrderViewModel = viewModel(),
     navController: NavHostController = rememberNavController()
 ) {
-    // Get current back stack entry
-    //val backStackEntry by navController.currentBackStackEntryAsState()
-    // Get the name of the current screen
-    /*
-    val currentScreen = PalindromeScreen().valueOf(
-        backStackEntry?.destination?.route ?: PalindromeScreen.Start.name
-    )
-    */
+    //Scaffold for navigasjon. Lager viewModel her, kansjke gjøre det et annet sted?
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val ViewModel = ViewModel()
 
+    //Scaffold med ønsket paramet.
     androidx.compose.material.Scaffold(
         scaffoldState = scaffoldState
     ) { innerPadding ->
+        //NavHos som holder oversikt over composables
         NavHost(
             navController = navController,
             startDestination = Navigasjon.Map.name,

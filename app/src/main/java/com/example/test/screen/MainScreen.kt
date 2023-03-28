@@ -1,4 +1,4 @@
-package com.example.test
+package com.example.test.screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,6 +9,7 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import androidx.compose.foundation.layout.*
+import com.example.test.R
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.test.viewModel.ViewModel
@@ -18,10 +19,11 @@ import kotlinx.coroutines.delay
 
 import com.google.maps.android.compose.*
 
+@OptIn(MapsComposeExperimentalApi::class)
 @Composable
 fun MainScreen(onAirportButtonClicked: () -> Unit = {}, ViewModel: ViewModel) {
-
-    //Camera
+    //Hovedskjerm, onAirportButtonClicked kalles når man trykker på marker sin infoboks. Forteller
+    //Camera ved start
     val osloLufthavn = LatLng(60.121,11.0502)
     val cameraPositionState: CameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(osloLufthavn, 11f)
@@ -29,30 +31,37 @@ fun MainScreen(onAirportButtonClicked: () -> Unit = {}, ViewModel: ViewModel) {
     // Set properties using MapProperties which you can use to recompose the map
     var mapProperties by remember {
         mutableStateOf(
-            MapProperties(maxZoomPreference = 50f, minZoomPreference = 5f)
+            MapProperties(maxZoomPreference = 70f, minZoomPreference = 1f)
         )
     }
+
+    //UI-related configurations
     var mapUiSettings by remember {
         mutableStateOf(
             MapUiSettings(mapToolbarEnabled = false)
         )
     }
+
     Box(Modifier.fillMaxSize()) {
+        //GoogleMap composable:
         GoogleMap(
             properties = mapProperties,
             uiSettings = mapUiSettings,
             cameraPositionState = cameraPositionState
         ) {
+            //Preben sin flyplass metode, mMap er erstattet med maps-compose componenter:
             val airports = loadAirports()
             for (airport in airports) {
                 Marker(
                     state = MarkerState(position = LatLng(airport.Latitude, airport.Longitude)),
                     title = airport.name,
                     snippet = airport.ICAO,
+                    //Navigerer til angitt skjerm når infoboksen trykkes på.
+                    //Vi kan gjøre det samme for fly.
                     onInfoWindowClick = {onAirportButtonClicked()}
                 )
                 //mMap.addMarker(MarkerOptions().position(LatLng(airport.Latitude, airport.Longitude)).title(airport.name))
-
+                //MapEffect der selve GoogleMap o
                 MapEffect {
                     while (ViewModel.flyUiState.value.fly.isEmpty()){
                         delay(100)
@@ -115,6 +124,7 @@ fun MainScreen(onAirportButtonClicked: () -> Unit = {}, ViewModel: ViewModel) {
 
     /*
     Virker ikke siden supportFragmentManager krever AppCompat tror jeg.
+    AppCompat er gammel aktivitet for støtte til gammle android versjoner.
     // Obtain the SupportMapFragment and get notified when the map is ready to be used.
     val mapFragment = supportFragmentManager
         .findFragmentById(R.id.map) as SupportMapFragment

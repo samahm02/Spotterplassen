@@ -1,20 +1,21 @@
 package com.example.test
 
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.test.data.loadAirports
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.example.test.databinding.ActivityMapsBinding
 import com.example.test.viewModel.ViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.maps.android.compose.MarkerInfoWindow
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -54,9 +55,41 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val ViewModel = ViewModel()
         val airports = loadAirports()
+        //mMap.setOnMarkerClickListener(this)
         for (airport in airports) {
-            mMap.addMarker(MarkerOptions().position(LatLng(airport.Latitude, airport.Longitude)).title(airport.name))
+            mMap.addMarker(
+                MarkerOptions()
+                    .position(LatLng(airport.Latitude, airport.Longitude))
+                    .title(airport.name)
+                //.setTag(airport.ICAO)
+                //.onClick
+            )?.tag = airport.ICAO
+
         }
+
+        mMap.setOnMarkerClickListener {marker ->
+            if (marker.tag != null){
+                Log.v("Click", marker.tag as String)
+                ViewModel.changeairPortICAO(marker.tag as String)
+            }
+            true
+
+        }
+        /*
+        mMap.setOnMarkerClickListener { marker ->
+            if (marker.isInfoWindowShown) {
+                //changeairPortICAO(maker.get)
+                if(marker.tag is String) {
+                    ViewModel.changeairPortICAO(marker.tag as String)
+                }
+                marker.hideInfoWindow()
+            }
+            else {
+                marker.showInfoWindow()
+            }
+            true
+        }
+*/
 
         lifecycleScope.launch {
             while (ViewModel.flyUiState.value.fly.isEmpty()){

@@ -1,5 +1,6 @@
 package com.example.test.data
 
+import android.util.Log
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.coroutines.awaitString
 
@@ -10,6 +11,7 @@ private const val apiHeader = "headers={'X-Gravitee-API-Key': 'a7cc3ee4-1921-48b
 //
 
 suspend fun fetchXML(icao: String): List<WeatherForecast> {
+    Log.v("taget", TARGET.plus(icao))
     val xml = Fuel.get(TARGET.plus(icao))
         .header("X-Gravitee-API-Key", "a7cc3ee4-1921-48b1-b301-40bd185e6b0b")
         .awaitString()

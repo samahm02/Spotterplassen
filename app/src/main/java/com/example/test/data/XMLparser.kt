@@ -12,15 +12,23 @@ import java.io.InputStream
 private val ns: String? = null
 
 class XmlParser {
+
     @Throws(XmlPullParserException::class, IOException::class)
     fun parse(inputStream: InputStream): List<WeatherForecast> {
-        inputStream.use {
-            val parser: XmlPullParser = Xml.newPullParser()
-            parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
-            parser.setInput(it, null)
-            parser.nextTag()
-            return readFeed(parser)
-        }
+            inputStream.use {
+                val parser: XmlPullParser = Xml.newPullParser()
+                parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
+                parser.setInput(it, null)
+                try {
+                    parser.nextTag()
+                }
+                catch (e: XmlPullParserException) {
+                    return emptyList()
+                }
+                return readFeed(parser)
+            }
+
+
     }
 
     @Throws(XmlPullParserException::class, IOException::class)

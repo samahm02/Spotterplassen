@@ -21,7 +21,7 @@ class DataSourceFly(var path: String) {
         return client.get(path).body()
     }
 
-    suspend fun fetchSigmet(): List<Warning> {
+    suspend fun fetchWarning(): List<Warning> {
         return Warningparser().parse(client.get(path).body())
     }
 }

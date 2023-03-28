@@ -19,8 +19,8 @@ import kotlinx.coroutines.delay
 import com.google.maps.android.compose.*
 
 @Composable
-fun MainScreen(onAirportButtonClicked: () -> Unit = {}) {
-    val ViewModel = ViewModel()
+fun MainScreen(onAirportButtonClicked: () -> Unit = {}, ViewModel: ViewModel) {
+
     //Camera
     val osloLufthavn = LatLng(60.121,11.0502)
     val cameraPositionState: CameraPositionState = rememberCameraPositionState {

@@ -32,6 +32,7 @@ fun AirportScreen(ViewModel: ViewModel) {
         //Temporary text until tafmetar is implemented
         Text("Tafmetar: (not implemented yet)")
 
+        //Warnings. Obs Airmet, Sigmet og windshear er på samme. API. Win
         WarningsView(
             warnings = warningUiState.warnings, viewModel = ViewModel
         )

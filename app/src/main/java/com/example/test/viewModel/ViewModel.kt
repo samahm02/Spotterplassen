@@ -19,9 +19,9 @@ class ViewModel : ViewModel() {
     private val dataSource = DataSourceFly("https://opensky-network.org/api/states/all?lamin=55.0&lomin=0.5&lamax=80.0&lomax=31.0")
     private val _flyUiState = MutableStateFlow(FlyUiState(fly = listOf()))
 
-    var warnings: List<Warning> = listOf()
+
     private var endPointWarnings = DataSourceFly("https://api.met.no/weatherapi/sigmets/2.0/")
-    private val _warningUiState =  MutableStateFlow((WarningUiState(listOf())))
+    private val _warningUiState =  MutableStateFlow((WarningUiState(warnings = listOf())))
     val warningUiState: StateFlow<WarningUiState> = _warningUiState.asStateFlow()
 
     private val _weatherUiState = MutableStateFlow(
@@ -53,7 +53,8 @@ class ViewModel : ViewModel() {
 
     fun loadWarnings() {
         viewModelScope.launch(Dispatchers.IO) {
-            warnings = endPointWarnings.fetchWarning()
+            val warnings = endPointWarnings.fetchWarning()
+            _warningUiState.value = WarningUiState(warnings = warnings)
         }
     }
 

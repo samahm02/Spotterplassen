@@ -17,10 +17,14 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+
     }
     dependencies {
         classpath "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1"
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.42'
+        classpath "com.android.tools.build:gradle:7.0.0-alpha02"
+        //added android gradle classpath for KEV v1.7.20, might break something?
+
     }
     ext {
         compose_version = '1.2.0'
@@ -31,6 +35,7 @@ plugins {
     id 'com.android.library' version '7.4.0' apply false
     id 'org.jetbrains.kotlin.android' version '1.7.20' apply false
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin' version '2.0.1' apply false
+
 }
 
 task clean(type: Delete) {

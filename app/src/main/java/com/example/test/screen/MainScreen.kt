@@ -21,8 +21,9 @@ import com.google.maps.android.compose.*
 
 @OptIn(MapsComposeExperimentalApi::class)
 @Composable
-fun MainScreen(onAirportButtonClicked: () -> Unit = {}, ViewModel: ViewModel) {
-    //Hovedskjerm, onAirportButtonClicked kalles når man trykker på marker sin infoboks. Forteller
+fun MainScreen(onAirportButtonClicked: (icao: String) -> Unit = {}, ViewModel: ViewModel) {
+    //Hovedskjerm, onAirportButtonClicked kalles når man trykker på marker sin infoboks og forteller
+    // navigator om hvilken flyplass som er trykket på.
     //Camera ved start
     val osloLufthavn = LatLng(60.121,11.0502)
     val cameraPositionState: CameraPositionState = rememberCameraPositionState {
@@ -58,7 +59,7 @@ fun MainScreen(onAirportButtonClicked: () -> Unit = {}, ViewModel: ViewModel) {
                     snippet = airport.ICAO,
                     //Navigerer til angitt skjerm når infoboksen trykkes på.
                     //Vi kan gjøre det samme for fly.
-                    onInfoWindowClick = {onAirportButtonClicked()}
+                    onInfoWindowClick = {onAirportButtonClicked(airport.ICAO)}
                 )
                 //mMap.addMarker(MarkerOptions().position(LatLng(airport.Latitude, airport.Longitude)).title(airport.name))
                 //MapEffect der selve GoogleMap o
@@ -83,11 +84,6 @@ fun MainScreen(onAirportButtonClicked: () -> Unit = {}, ViewModel: ViewModel) {
                                     .position(flyPos)
                                     .anchor(0.5f, 0.5f)
                                     .rotation(i[10].toString().toFloat()))
-
-
-
-
-
                             }
                             else{
                                 it.addMarker(MarkerOptions()

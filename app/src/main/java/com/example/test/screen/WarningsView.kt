@@ -10,14 +10,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.test.model.Warning
+import com.example.test.model.Windshear
 import com.example.test.viewModel.ViewModel
 
 @Composable
 fun WarningsView(
-    warnings: List<Warning>,
+    warnings: List<Any>,
     viewModel: ViewModel,
+    airPortIcao: String
 ) {
     viewModel.loadWarnings()
+    val windshearForThisAirport: MutableList<Windshear> = mutableListOf<Windshear>()
 
     LazyColumn(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -26,19 +29,26 @@ fun WarningsView(
             .fillMaxWidth()
             .fillMaxHeight()
     ) {
+        for (warning in warnings) {
+            if (warning is Windshear && warning.icao == airPortIcao ) {
+                windshearForThisAirport.add(warning)
+            }
+        }
+
         item() {
-            if(warnings.isEmpty()) {
+            if(windshearForThisAirport.isEmpty()) {
                 Text("No warnings")
             }
         }
-        items(warnings) { sigmetData ->
-            WarningCard(warningData = sigmetData)
+        //Forrvirrende variabel navn her, skal endres
+        items(windshearForThisAirport) { windshareData ->
+            WindshearCard(windshearData = windshareData)
         }
     }
 }
 
 @Composable
-fun WarningCard(warningData: Warning) {
+fun WindshearCard(windshearData: Windshear) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -51,7 +61,7 @@ fun WarningCard(warningData: Warning) {
                 .height(20.dp)
                 .fillMaxWidth()
             )
-            Text(text = warningData.content)
+            Text(text = windshearData.content)
         }
     }
 }

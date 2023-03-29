@@ -1,4 +1,4 @@
-package com.example.test
+package com.example.test.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,7 +12,7 @@ import com.example.test.viewModel.ViewModel
 import com.example.test.screen.WarningsView
 
 @Composable
-fun AirportScreen(ViewModel: ViewModel) {
+fun AirportScreen(ViewModel: ViewModel, icao: String) {
     val warningUiState by ViewModel.warningUiState.collectAsState()
     val tafmetarUiState by ViewModel.weatherUiState.collectAsState()
 
@@ -22,6 +22,7 @@ fun AirportScreen(ViewModel: ViewModel) {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text("Flyplass ICAO: $icao")
         Text(
             text = "Warnings og tafmetar",
             modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -32,10 +33,8 @@ fun AirportScreen(ViewModel: ViewModel) {
         //Temporary text until tafmetar is implemented
         Text("Tafmetar: (not implemented yet)")
 
-        //Warnings. Obs Airmet, Sigmet og windshear er på samme. API. Win
-        WarningsView(
-            warnings = warningUiState.warnings, viewModel = ViewModel
-        )
+        //Warnings. Obs Airmet, Sigmet og windshear er på samme API. Her vises Windshear
+        WarningsView(warnings = warningUiState.warnings, viewModel = ViewModel, icao)
     }
 }
 

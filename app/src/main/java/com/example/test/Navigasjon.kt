@@ -11,6 +11,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.test.screen.AirportScreen
 import com.example.test.screen.MainScreen
 import com.example.test.viewModel.ViewModel
 import kotlinx.coroutines.Dispatchers
@@ -31,6 +32,7 @@ fun Navigasjon(
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val ViewModel = ViewModel()
+    var selectedAirPort: String = ""
 
     //Scaffold med ønsket paramet.
     androidx.compose.material.Scaffold(
@@ -50,12 +52,13 @@ fun Navigasjon(
                         //https://stackoverflow.com/questions/70279262/navigating-with-compose-not-working-with-google-maps-on-android
                         GlobalScope.launch(Dispatchers.Main) {
                             navController.navigate(Navigasjon.Airport.name)
+                            selectedAirPort = it
                         }
                     }
                 )
             }
             composable(route = Navigasjon.Airport.name) {
-                AirportScreen(ViewModel)
+                AirportScreen(ViewModel, selectedAirPort)
             }
         }
     }

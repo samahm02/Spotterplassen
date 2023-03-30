@@ -17,7 +17,7 @@ import com.example.test.ui.WeatherUiState
 @Composable
 fun AirportScreen(ViewModel: ViewModel, icao: String) {
     val warningUiState by ViewModel.warningUiState.collectAsState()
-    ViewModel.changeairPortICAO(icao)
+    //ViewModel.changeairPortICAO(icao)
     val tafmetarUiState by ViewModel.weatherUiState.collectAsState()
 
     Column(

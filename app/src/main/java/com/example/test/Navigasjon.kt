@@ -54,12 +54,12 @@ fun Navigasjon(
                         GlobalScope.launch(Dispatchers.Main) {
                             navController.navigate(Navigasjon.Airport.name)
                             selectedAirPort = it
-                            //ViewModel.changeairPortICAO(selectedAirPort)
+                            ViewModel.changeairPortICAO(selectedAirPort)
+                            ViewModel.loadWarnings()
                         }
                     }
                 )
             }
-            Log.v("Nav", "Called.")
             composable(route = Navigasjon.Airport.name) {
                 AirportScreen(ViewModel, selectedAirPort)
             }

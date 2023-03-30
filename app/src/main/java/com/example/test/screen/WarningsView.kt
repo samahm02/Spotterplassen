@@ -21,7 +21,7 @@ fun WarningsView(
     airPortIcao: String,
     forecast: List<WeatherForecast>
 ) {
-    viewModel.loadWarnings()
+    //viewModel.loadWarnings()
     val windshearForThisAirport: MutableList<Windshear> = mutableListOf<Windshear>()
 
     LazyColumn(

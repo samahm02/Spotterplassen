@@ -41,3 +41,10 @@ fun loadAirports(): List<AirportData> {
     airportList.add(AirportData(666,"Stavanger Airport Sola","Stavanger","Norway","SVG","ENZV",58.876701354,5.6377801895,29,1,"E","Europe/Oslo","airport","OurAirports"))
     return airportList
 }
+
+fun loadPlaneSpottingLocation(): List<planeSpottingLocation> {
+    //PlaneSpottingLocationList.add()
+    val PlaneSpottingLocationList = mutableListOf<planeSpottingLocation>()
+    //PlaneSpottingLocationList.add()
+    return PlaneSpottingLocationList
+}

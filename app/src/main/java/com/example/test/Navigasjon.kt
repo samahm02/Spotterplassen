@@ -1,5 +1,6 @@
 package com.example.test
 
+import android.util.Log
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.rememberScaffoldState
@@ -58,6 +59,7 @@ fun Navigasjon(
                     }
                 )
             }
+            Log.v("Nav", "Called.")
             composable(route = Navigasjon.Airport.name) {
                 AirportScreen(ViewModel, selectedAirPort)
             }

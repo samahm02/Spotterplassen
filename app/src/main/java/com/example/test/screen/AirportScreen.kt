@@ -32,17 +32,7 @@ fun AirportScreen(ViewModel: ViewModel, icao: String) {
             modifier = Modifier.align(Alignment.CenterHorizontally),
             fontSize = 20.sp
         )
-
-        //TafmetarView(forecast = ..., viewModel = ViewModel)
-        //Temporary text until tafmetar is implemented
-        //Text("Tafmetar: (not implemented yet)")
-
-        //Warnings. Obs Airmet, Sigmet og windshear er på samme API. Her vises Windshear
-        WarningsView(warnings = warningUiState.warnings, viewModel = ViewModel, icao, tafmetarUiState.getForecastList())
-        //TafmetarView(tafmetarUiState.getForecastList(), ViewModel)
-    }
-
-
+        WarningsView(warnings = warningUiState.warnings, viewModel = ViewModel, icao, tafmetarUiState.getForecastList()) }
 }
 
 fun WeatherUiState.getForecastList(): List<WeatherForecast> {

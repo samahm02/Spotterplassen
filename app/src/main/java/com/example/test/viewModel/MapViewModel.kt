@@ -1,24 +1,11 @@
 package com.example.test.viewModel
 
-import android.util.Log
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.test.data.DataSourceFly
-import com.example.test.ui.FlyUiState
-import com.example.test.ui.WarningUiState
-import com.example.test.data.fetchXML
-import com.example.test.ui.WeatherUiState
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
-//Mitch:
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.ViewModel
 import com.example.test.MapState
 import com.example.test.model.ZoneClusterItem
 import com.example.test.model.ZoneClusterManager
@@ -33,56 +20,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ViewModel @Inject constructor() : ViewModel() {
-    //Ny nøkkel:
-    private val dataSource = DataSourceFly("https://Prebennc:Gruppe21@opensky-network.org/api/states/all?lamin=55.0&lomin=0.5&lamax=80.0&lomax=31.0")
-    //Gammel nøkkel:
-    //private val dataSource = DataSourceFly("https://opensky-network.org/api/states/all?lamin=55.0&lomin=0.5&lamax=80.0&lomax=31.0")
-    private val _flyUiState = MutableStateFlow(FlyUiState(fly = listOf()))
+class MapViewModel @Inject constructor(): ViewModel() {
 
-
-    private var endPointWarnings = DataSourceFly("https://api.met.no/weatherapi/sigmets/2.0/")
-    private val _warningUiState =  MutableStateFlow((WarningUiState(warnings = listOf())))
-    val warningUiState: StateFlow<WarningUiState> = _warningUiState.asStateFlow()
-
-    private val _weatherUiState = MutableStateFlow(
-        WeatherUiState.Success(
-            emptyList()
-        ))
-    val weatherUiState: StateFlow<WeatherUiState> =  _weatherUiState.asStateFlow()
-
-    val flyUiState: StateFlow<FlyUiState> = _flyUiState.asStateFlow()
-
-    init{
-        loadFly()
-        loadWarnings()
-    }
-
-    fun loadFly(){
-        viewModelScope.launch {
-            val fly = dataSource.fetchFly()
-            val test = listOf(fly)
-            _flyUiState.value = FlyUiState(fly = test)
-
-            val forecastList = fetchXML("ENGM")
-            _weatherUiState.value = WeatherUiState.Success(forecastList)
-
-            Log.v("----------------------",forecastList[0].issuedTime)
-
-        }
-    }
-
-    fun loadWarnings() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val warnings = endPointWarnings.fetchWarning()
-            _warningUiState.value = WarningUiState(warnings = warnings)
-        }
-    }
-
-
-    //Mitch sin WM:
     val state: MutableState<MapState> = mutableStateOf(
-
         MapState(
             lastKnownLocation = null,
             clusterItems = listOf(
@@ -91,10 +31,9 @@ class ViewModel @Inject constructor() : ViewModel() {
                     title = "Zone 1",
                     snippet = "This is Zone 1.",
                     polygonOptions = polygonOptions {
-                        add(LatLng(49.105, -122.524))
-                        add(LatLng(49.101, -122.529))
-                        add(LatLng(49.092, -122.501))
-                        add(LatLng(49.1, -122.506))
+                        add(LatLng(59.911, 10.757))
+                        add(LatLng(59.101, 9.9))
+                        add(LatLng(60.000, 9.9))
                         fillColor(POLYGON_FILL_COLOR)
                     }
                 ),

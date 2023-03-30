@@ -9,6 +9,7 @@ class Warningparser {
     //Work in progress. Må finne ut av hva som er kordinater for warnings slik at vi kan lage geometriske representasjoner av objektene på kartet.
     fun parse(input: String): List<Any> {
         //Test eksempel fra api. Tre objeketr:
+
         /*
         val input: String = "ZCZC\n" +
                 "WSN031 ENMI 301915\n" +

@@ -53,6 +53,7 @@ fun Navigasjon(
                         GlobalScope.launch(Dispatchers.Main) {
                             navController.navigate(Navigasjon.Airport.name)
                             selectedAirPort = it
+                            //ViewModel.changeairPortICAO(selectedAirPort)
                         }
                     }
                 )

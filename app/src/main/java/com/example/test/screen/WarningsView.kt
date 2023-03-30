@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.test.data.WeatherForecast
 import com.example.test.model.Warning
 import com.example.test.model.Windshear
 import com.example.test.viewModel.ViewModel
@@ -17,7 +18,8 @@ import com.example.test.viewModel.ViewModel
 fun WarningsView(
     warnings: List<Any>,
     viewModel: ViewModel,
-    airPortIcao: String
+    airPortIcao: String,
+    forecast: List<WeatherForecast>
 ) {
     viewModel.loadWarnings()
     val windshearForThisAirport: MutableList<Windshear> = mutableListOf<Windshear>()
@@ -38,6 +40,18 @@ fun WarningsView(
         item() {
             if(windshearForThisAirport.isEmpty()) {
                 Text("No warnings")
+            }
+        }
+
+        item(){
+            if (!forecast.isEmpty()){
+                for (each in forecast){
+                    //TafmetarCard(weatherForecastData = each)
+                    TafmetarText(each)
+                }
+            }
+            else {
+                Text(text = "No taf-data for this Airport")
             }
         }
         //Forrvirrende variabel navn her, skal endres

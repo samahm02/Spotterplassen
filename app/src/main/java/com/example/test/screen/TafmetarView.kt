@@ -12,10 +12,10 @@ import com.example.test.viewModel.ViewModel
 
 @Composable
 fun TafmetarView(
-    forecast: WeatherForecast,
+    forecast: List<WeatherForecast>,
     viewModel: ViewModel,
 ) {
-    viewModel.loadFly()
+    //viewModel.loadFly()
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -24,9 +24,25 @@ fun TafmetarView(
             .fillMaxWidth()
             .fillMaxHeight()
     ) {
-        TafmetarCard(weatherForecastData = forecast)
+        if (!forecast.isEmpty()){
+            for (each in forecast){
+                //TafmetarCard(weatherForecastData = each)
+                TafmetarText(each)
+            }
+        }
+        else {
+                    Text(text = "No taf-data for this Airport")
+        }
+        }
+
+
     }
+
+@Composable
+fun TafmetarText(weatherForecastData: WeatherForecast) {
+            Text(text = "Tafftext: " + weatherForecastData.tafText)
 }
+
 
 @Composable
 fun TafmetarCard(weatherForecastData: WeatherForecast) {
@@ -42,6 +58,7 @@ fun TafmetarCard(weatherForecastData: WeatherForecast) {
                 .height(20.dp)
                 .fillMaxWidth()
             )
+            Text("Tafdata:")
             Text(text = "Tafftext: " + weatherForecastData.tafText)
         }
     }

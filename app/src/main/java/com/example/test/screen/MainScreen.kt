@@ -117,6 +117,9 @@ fun MainScreen(
                     state.clusterItems.forEach { clusterItem ->
                         it.addPolygon(clusterItem.polygonOptions)
                     }
+
+                    //Flytter kameraet til klusterne
+                    /*
                     it.setOnMapLoadedCallback {
                         if (state.clusterItems.isNotEmpty()) {
                             scope.launch {
@@ -129,39 +132,10 @@ fun MainScreen(
                             }
                         }
                     }
+
+                     */
                 }
             }
         }
-        /*
-        Column {
-            Button(onClick = {
-                mapProperties = mapProperties.copy(
-                    isBuildingEnabled = !mapProperties.isBuildingEnabled
-                )
-            }) {
-                Text(text = "Toggle isBuildingEnabled")
-            }
-            Button(onClick = {
-                mapUiSettings = mapUiSettings.copy(
-                    mapToolbarEnabled = !mapUiSettings.mapToolbarEnabled
-                )
-            }) {
-                Text(text = "Toggle mapToolbarEnabled")
-            }
-        }
-
-         */
     }
-
-    /*
-    Virker ikke siden supportFragmentManager krever AppCompat tror jeg.
-    AppCompat er gammel aktivitet for støtte til gammle android versjoner.
-    // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-    val mapFragment = supportFragmentManager
-        .findFragmentById(R.id.map) as SupportMapFragment
-    mapFragment.getMapAsync(activity)
-
-    Spacer(Modifier.height(20.dp))
-    Text("test")
-     */
 }

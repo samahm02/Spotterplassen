@@ -45,6 +45,11 @@ fun loadAirports(): List<AirportData> {
 fun loadPlaneSpottingLocation(): List<planeSpottingLocation> {
     //PlaneSpottingLocationList.add()
     val PlaneSpottingLocationList = mutableListOf<planeSpottingLocation>()
-    //PlaneSpottingLocationList.add()
+    PlaneSpottingLocationList.add(planeSpottingLocation("Plattingen ved Dakota Norge", 59.186815, 10.254216, "Plattingen ved Dakota Norge: Sving til venstre inn på Hangarvegen like før\n" +
+            "flyplassområdet/parkeringsplassene. Følg Hangarvegen til kryss nr. 2, sving til høyre inn på\n" +
+            "Vatakervegen mot Lufthavnvakta. Her er det også skiltet mot Dakota Norge. Gå til høyre langs gjerdet\n" +
+            "ved Dakota Norge. Her finner du 3-\u00AD‐4 gamle fly og en platting. Fin utsikt over flyplassområdet, motlys om\n" +
+            "morgenen, flott om ettermiddagen. Fin ved landing fra nord, avgang mot sør, men også fine bilder hvis\n" +
+            "trafikken går andre veien. Du står litt nord for midten av banen. Gratis parkering.", "ENTO"))
     return PlaneSpottingLocationList
 }

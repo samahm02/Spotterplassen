@@ -83,6 +83,7 @@ class ViewModel @Inject constructor() : ViewModel() {
     //Mitch sin WM:
     val state: MutableState<MapState> = mutableStateOf(
 
+        //Midlertidig clusteritem test:
         MapState(
             lastKnownLocation = null,
             clusterItems = listOf(
@@ -91,22 +92,9 @@ class ViewModel @Inject constructor() : ViewModel() {
                     title = "Zone 1",
                     snippet = "This is Zone 1.",
                     polygonOptions = polygonOptions {
-                        add(LatLng(49.105, -122.524))
-                        add(LatLng(49.101, -122.529))
-                        add(LatLng(49.092, -122.501))
-                        add(LatLng(49.1, -122.506))
-                        fillColor(POLYGON_FILL_COLOR)
-                    }
-                ),
-                ZoneClusterItem(
-                    id = "zone-2",
-                    title = "Zone 2",
-                    snippet = "This is Zone 2.",
-                    polygonOptions = polygonOptions {
-                        add(LatLng(49.110, -122.554))
-                        add(LatLng(49.107, -122.559))
-                        add(LatLng(49.103, -122.551))
-                        add(LatLng(49.112, -122.549))
+                        add(LatLng(60.121,11.0502))
+                        add(LatLng(60.021,11.0502))
+                        add(LatLng(60.121,11.0002))
                         fillColor(POLYGON_FILL_COLOR)
                     }
                 )

@@ -118,7 +118,7 @@ fun MainScreen(onAirportButtonClicked: (icao: String) -> Unit = {}, ViewModel: V
 
          */
     }
-
+    //
     /*
     Virker ikke siden supportFragmentManager krever AppCompat tror jeg.
     AppCompat er gammel aktivitet for støtte til gammle android versjoner.

@@ -20,10 +20,7 @@ import android.graphics.Color
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import com.example.test.MapState
-import com.example.test.model.ZoneClusterItem
-import com.example.test.model.ZoneClusterManager
-import com.example.test.model.calculateCameraViewPoints
-import com.example.test.model.getCenterOfPolygon
+import com.example.test.model.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
@@ -72,33 +69,42 @@ class ViewModel @Inject constructor() : ViewModel() {
         }
     }
 
+
+    var warnings = listOf<Any>()
+    private var clusterItems = mutableListOf<ZoneClusterItem>()
     fun loadWarnings() {
         viewModelScope.launch(Dispatchers.IO) {
-            val warnings = endPointWarnings.fetchWarning()
+            warnings = endPointWarnings.fetchWarning()
             _warningUiState.value = WarningUiState(warnings = warnings)
+
+            for (warning in warnings) {
+                if (warning is Warning) {
+                    clusterItems.add(
+                        ZoneClusterItem(
+                            id = "testid",
+                            title = "testtitle",
+                            snippet = "testsnippet",
+                            polygonOptions = polygonOptions {
+                                for (kordinatStreng in warning.kordinater) {
+                                    val split = kordinatStreng.split(" ")
+
+                                    add(LatLng(split[0].toDouble(), split[1].toDouble()))
+                                }
+                                fillColor(POLYGON_FILL_COLOR)
+                            }
+                        )
+                    )
+                }
+            }
         }
     }
 
-
     //Mitch sin WM:
     val state: MutableState<MapState> = mutableStateOf(
-
         //Midlertidig clusteritem test:
         MapState(
             lastKnownLocation = null,
-            clusterItems = listOf(
-                ZoneClusterItem(
-                    id = "zone-1",
-                    title = "Zone 1",
-                    snippet = "This is Zone 1.",
-                    polygonOptions = polygonOptions {
-                        add(LatLng(60.121,11.0502))
-                        add(LatLng(60.021,11.0502))
-                        add(LatLng(60.121,11.0002))
-                        fillColor(POLYGON_FILL_COLOR)
-                    }
-                )
-            )
+            clusterItems = clusterItems
         )
     )
 

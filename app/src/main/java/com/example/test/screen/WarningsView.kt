@@ -62,6 +62,11 @@ fun WarningsView(
 }
 
 @Composable
+fun TafmetarText(weatherForecastData: WeatherForecast) {
+    Text(text = "Tafftext: " + weatherForecastData.tafText)
+}
+
+@Composable
 fun WindshearCard(windshearData: Windshear) {
     Card(
         modifier = Modifier

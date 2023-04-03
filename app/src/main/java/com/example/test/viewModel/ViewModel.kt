@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 
 class ViewModel : ViewModel() {
     //Ny nøkkel:
-    private val dataSource = DataSourceFly("https://Prebennc:Gruppe21@opensky-network.org/api/states/all?lamin=55.0&lomin=0.5&lamax=80.0&lomax=31.0")
+    private val dataSource = DataSourceFly("https://TobiasReidel:Gruppe21@opensky-network.org/api/states/all")
     //Gammel nøkkel:
     //private val dataSource = DataSourceFly("https://opensky-network.org/api/states/all?lamin=55.0&lomin=0.5&lamax=80.0&lomax=31.0")
     private val _flyUiState = MutableStateFlow(FlyUiState(fly = listOf()))

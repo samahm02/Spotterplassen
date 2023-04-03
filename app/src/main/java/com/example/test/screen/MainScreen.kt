@@ -30,14 +30,14 @@ fun MainScreen(onAirportButtonClicked: (icao: String) -> Unit = {}, ViewModel: V
         position = CameraPosition.fromLatLngZoom(osloLufthavn, 11f)
     }
     // Set properties using MapProperties which you can use to recompose the map
-    var mapProperties by remember {
+    val mapProperties by remember {
         mutableStateOf(
             MapProperties(maxZoomPreference = 70f, minZoomPreference = 1f)
         )
     }
 
     //UI-related configurations
-    var mapUiSettings by remember {
+    val mapUiSettings by remember {
         mutableStateOf(
             MapUiSettings(mapToolbarEnabled = false)
         )
@@ -61,7 +61,6 @@ fun MainScreen(onAirportButtonClicked: (icao: String) -> Unit = {}, ViewModel: V
                     //Vi kan gjøre det samme for fly.
                     onInfoWindowClick = {onAirportButtonClicked(airport.ICAO)}
                 )
-
             }
             //mMap.addMarker(MarkerOptions().position(LatLng(airport.Latitude, airport.Longitude)).title(airport.name))
             //MapEffect der selve GoogleMap o
@@ -78,7 +77,7 @@ fun MainScreen(onAirportButtonClicked: (icao: String) -> Unit = {}, ViewModel: V
                         val lat : Double = i[6].toString().toDouble()
 
                         val flyPos = LatLng(lat, long)
-                        if (i[10].toString().toFloat() != null && i[1].toString() != null){
+                        if (i[10] != null && i[1] != null){
 
                             it.addMarker(MarkerOptions()
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.kindpng_7070085))

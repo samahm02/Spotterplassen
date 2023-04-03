@@ -1,5 +1,6 @@
 package com.example.test.screen
 
+import android.content.Context
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
@@ -9,23 +10,32 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import androidx.compose.foundation.layout.*
+import androidx.compose.ui.platform.LocalContext
+import com.example.test.MapState
 import com.example.test.R
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.example.test.model.ZoneClusterManager
 import com.example.test.viewModel.ViewModel
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.*
 import kotlinx.coroutines.delay
 
 import com.google.maps.android.compose.*
+import kotlinx.coroutines.launch
 
 @OptIn(MapsComposeExperimentalApi::class)
 @Composable
-fun MainScreen(onAirportButtonClicked: (icao: String) -> Unit = {}, ViewModel: ViewModel) {
+fun MainScreen(
+    onAirportButtonClicked: (icao: String) -> Unit = {},
+    ViewModel: ViewModel,
+    state: MapState,
+    setupClusterManager: (Context, GoogleMap) -> ZoneClusterManager,
+    calculateZoneViewCenter: () -> LatLngBounds
+) {
     //Hovedskjerm, onAirportButtonClicked kalles når man trykker på marker sin infoboks og forteller
     // navigator om hvilken flyplass som er trykket på.
     //Camera ved start
-    val osloLufthavn = LatLng(60.121,11.0502)
+    val osloLufthavn = LatLng(60.121, 11.0502)
     val cameraPositionState: CameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(osloLufthavn, 11f)
     }
@@ -43,9 +53,11 @@ fun MainScreen(onAirportButtonClicked: (icao: String) -> Unit = {}, ViewModel: V
         )
     }
 
+    //Fra Mitch. Mapstate for å huske lokasjon og clusteritems (brukt til polygons: sigmet)
     Box(Modifier.fillMaxSize()) {
         //GoogleMap composable:
         GoogleMap(
+            modifier = Modifier.fillMaxSize(),
             properties = mapProperties,
             uiSettings = mapUiSettings,
             cameraPositionState = cameraPositionState
@@ -59,74 +71,77 @@ fun MainScreen(onAirportButtonClicked: (icao: String) -> Unit = {}, ViewModel: V
                     snippet = airport.ICAO,
                     //Navigerer til angitt skjerm når infoboksen trykkes på.
                     //Vi kan gjøre det samme for fly.
-                    onInfoWindowClick = {onAirportButtonClicked(airport.ICAO)}
+                    onInfoWindowClick = { onAirportButtonClicked(airport.ICAO) }
                 )
-                //mMap.addMarker(MarkerOptions().position(LatLng(airport.Latitude, airport.Longitude)).title(airport.name))
-                //MapEffect der selve GoogleMap o
-                MapEffect {
-                    while (ViewModel.flyUiState.value.fly.isEmpty()){
-                        delay(100)
-                    }
-                    val flyStates = ViewModel.flyUiState.value.fly[0].states
-                    for (i in flyStates){
+            }
+            //mMap.addMarker(MarkerOptions().position(LatLng(airport.Latitude, airport.Longitude)).title(airport.name))
+            //MapEffect der selve GoogleMap er it.
+            //Mitch (context og scope:)
+            val context = LocalContext.current
+            val scope = rememberCoroutineScope()
+            MapEffect { map ->
+                while (ViewModel.flyUiState.value.fly.isEmpty()) {
+                    delay(100)
+                }
+                val flyStates = ViewModel.flyUiState.value.fly[0].states
+                for (i in flyStates) {
 
+                    if (i[6] != null || i[5] != null) {
+                        val long: Double = i[5].toString().toDouble()
+                        val lat: Double = i[6].toString().toDouble()
 
-                        if (i[6] != null|| i[5] != null){
-                            val long : Double= i[5].toString().toDouble()
-                            val lat : Double = i[6].toString().toDouble()
+                        val flyPos = LatLng(lat, long)
+                        if (i[10].toString().toFloat() != null && i[1].toString() != null) {
 
-                            val flyPos = LatLng(lat, long)
-                            if (i[10].toString().toFloat() != null && i[1].toString() != null){
-
-                                it.addMarker(MarkerOptions()
+                            map.addMarker(
+                                MarkerOptions()
                                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.kindpng_7070085))
                                     .title(i[1].toString())
                                     .position(flyPos)
                                     .anchor(0.5f, 0.5f)
-                                    .rotation(i[10].toString().toFloat()))
-                            }
-                            else{
-                                it.addMarker(MarkerOptions()
+                                    .rotation(i[10].toString().toFloat())
+                            )
+                        } else {
+                            map.addMarker(
+                                MarkerOptions()
                                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.kindpng_7070085))
-                                    .position(flyPos))
-                            }
-
+                                    .position(flyPos)
+                            )
                         }
                     }
-
                 }
-            }
-        }
-        /*
-        Column {
-            Button(onClick = {
-                mapProperties = mapProperties.copy(
-                    isBuildingEnabled = !mapProperties.isBuildingEnabled
-                )
-            }) {
-                Text(text = "Toggle isBuildingEnabled")
-            }
-            Button(onClick = {
-                mapUiSettings = mapUiSettings.copy(
-                    mapToolbarEnabled = !mapUiSettings.mapToolbarEnabled
-                )
-            }) {
-                Text(text = "Toggle mapToolbarEnabled")
-            }
-        }
+                /*
+                //Polygon for sigmet/airmet:
+                //Funker, men breaks airport skjerm.
 
-         */
+                if (state.clusterItems.isNotEmpty()) {
+                    val clusterManager = setupClusterManager(context, map)
+                    map.setOnCameraIdleListener(clusterManager)
+                    map.setOnMarkerClickListener(clusterManager)
+                    state.clusterItems.forEach { clusterItem ->
+                        map.addPolygon(clusterItem.polygonOptions)
+                    }
+
+                    //Flytter kameraet til klusterne
+                    /*
+                    it.setOnMapLoadedCallback {
+                        if (state.clusterItems.isNotEmpty()) {
+                            scope.launch {
+                                cameraPositionState.animate(
+                                    update = CameraUpdateFactory.newLatLngBounds(
+                                        calculateZoneViewCenter(),
+                                        0
+                                    ),
+                                )
+                            }
+                        }
+                    }
+                     */
+
+                 */
+
+
+            }
+        }
     }
-
-    /*
-    Virker ikke siden supportFragmentManager krever AppCompat tror jeg.
-    AppCompat er gammel aktivitet for støtte til gammle android versjoner.
-    // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-    val mapFragment = supportFragmentManager
-        .findFragmentById(R.id.map) as SupportMapFragment
-    mapFragment.getMapAsync(activity)
-
-    Spacer(Modifier.height(20.dp))
-    Text("test")
-     */
 }

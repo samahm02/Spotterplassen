@@ -39,7 +39,7 @@ fun WarningsView(
 
         item() {
             if(windshearForThisAirport.isEmpty()) {
-                Text("No warnings")
+                Text("No windshear warnings.")
             }
         }
 

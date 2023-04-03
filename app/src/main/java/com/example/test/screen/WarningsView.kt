@@ -19,7 +19,7 @@ fun WarningsView(
     viewModel: ViewModel,
     airPortIcao: String
 ) {
-    viewModel.loadWarnings()
+    //viewModel.loadWarnings()
     val windshearForThisAirport: MutableList<Windshear> = mutableListOf<Windshear>()
 
     LazyColumn(

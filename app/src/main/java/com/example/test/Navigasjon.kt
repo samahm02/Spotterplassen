@@ -45,6 +45,7 @@ fun Navigasjon(
             modifier = modifier.padding(innerPadding)
         ) {
             composable(route = Navigasjon.Map.name) {
+                ViewModel.loadWarnings()
                 MainScreen(
                     state = ViewModel.state.value,
                     ViewModel = ViewModel,

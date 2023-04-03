@@ -27,6 +27,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun MainScreen(
     onAirportButtonClicked: (icao: String) -> Unit = {},
+    onPlaneButtonClicked: (planeTitle: String) -> Unit = {},
     ViewModel: ViewModel,
     state: MapState,
     setupClusterManager: (Context, GoogleMap) -> ZoneClusterManager,
@@ -74,11 +75,51 @@ fun MainScreen(
                     onInfoWindowClick = { onAirportButtonClicked(airport.ICAO) }
                 )
             }
-            //mMap.addMarker(MarkerOptions().position(LatLng(airport.Latitude, airport.Longitude)).title(airport.name))
-            //MapEffect der selve GoogleMap er it.
-            //Mitch (context og scope:)
-            val context = LocalContext.current
-            val scope = rememberCoroutineScope()
+
+            val state = ViewModel.flyUiState.collectAsState()
+            while (state.value.fly.isEmpty()) {
+                //Hva er delay for egt?
+                delay(100)
+            }
+
+            val flyStates = ViewModel.flyUiState.collectAsState().value.fly[0].states
+            for (i in flyStates) {
+                if (i[6] != null || i[5] != null) {
+                    val long: Double = i[5].toString().toDouble()
+                    val lat: Double = i[6].toString().toDouble()
+
+                    val flyPos = LatLng(lat, long)
+                    if (i[10].toString().toFloat() != null && i[1].toString() != null) {
+                        /*
+                        map.addMarker(
+                            MarkerOptions()
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.kindpng_7070085))
+                                .title(i[1].toString())
+                                .position(flyPos)
+                                .anchor(0.5f, 0.5f)
+                                .rotation(i[10].toString().toFloat())
+                        )
+
+                         */
+                        Marker(
+                            state = MarkerState(position = LatLng(lat, long)),
+                            title = i[1].toString(),
+                            //Navigerer til angitt skjerm når infoboksen trykkes på.
+                            //Vi kan gjøre det samme for fly.
+                            onInfoWindowClick = { onPlaneButtonClicked(i[1].toString()) },
+                            rotation = i[10].toString().toFloat(),
+                            icon = BitmapDescriptorFactory.fromResource(R.drawable.kindpng_7070085)
+
+                        )
+                    }
+
+                }
+                //mMap.addMarker(MarkerOptions().position(LatLng(airport.Latitude, airport.Longitude)).title(airport.name))
+                //MapEffect der selve GoogleMap er it.
+                //Mitch (context og scope:)
+                val context = LocalContext.current
+                val scope = rememberCoroutineScope()
+                /*
             MapEffect { map ->
                 while (ViewModel.flyUiState.value.fly.isEmpty()) {
                     delay(100)
@@ -139,6 +180,8 @@ fun MainScreen(
                      */
 
                  */
+
+             */
 
 
             }

@@ -34,13 +34,9 @@ class ViewModel : ViewModel() {
 
     val flyUiState: StateFlow<FlyUiState> = _flyUiState.asStateFlow()
 
-    private var airPortICAO: String = "ENGM"
-
     init{
-        airPortICAO = "ENGM"
         loadFly()
         loadWarnings()
-        laodTafData()
     }
 
     fun loadFly(){
@@ -48,13 +44,11 @@ class ViewModel : ViewModel() {
             val fly = dataSource.fetchFly()
             val test = listOf(fly)
             _flyUiState.value = FlyUiState(fly = test)
-/*
+
             val forecastList = fetchXML("ENGM")
             _weatherUiState.value = WeatherUiState.Success(forecastList)
 
             Log.v("----------------------",forecastList[0].issuedTime)
-
- */
 
         }
     }
@@ -64,19 +58,6 @@ class ViewModel : ViewModel() {
             val warnings = endPointWarnings.fetchWarning()
             _warningUiState.value = WarningUiState(warnings = warnings)
         }
-    }
-
-    private fun laodTafData(){
-        viewModelScope.launch {
-            val forecastList = fetchXML(airPortICAO)
-            _weatherUiState.value = WeatherUiState.Success(forecastList)
-            //Log.v("----------------------",forecastList[0].issuedTime)
-        }
-    }
-
-    fun changeairPortICAO(ICAO: String){
-        airPortICAO = ICAO
-        laodTafData()
     }
 
 }

@@ -47,7 +47,10 @@ fun Navigasjon(
         ) {
             composable(route = Navigasjon.Map.name) {
                 MainScreen(
+                    state = ViewModel.state.value,
                     ViewModel = ViewModel,
+                    setupClusterManager = ViewModel::setupClusterManager,
+                    calculateZoneViewCenter = ViewModel::calculateZoneLatLngBounds,
                     onAirportButtonClicked = {
                         //Hentet fra stackoverflow:
                         //https://stackoverflow.com/questions/70279262/navigating-with-compose-not-working-with-google-maps-on-android

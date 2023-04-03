@@ -29,7 +29,7 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 
-//Gammel Activity, brukes ikke. Kan fjernes.
+//Gammel Activity, brukes ikke. Brukes i en xml fil (.main.layout.activity_maps.xml) Kan det fjernes?
 //class MapsActivity : AppCompatActivity(), OnMapReadyCallback
 class MapsActivity : ComponentActivity(), OnMapReadyCallback {
 

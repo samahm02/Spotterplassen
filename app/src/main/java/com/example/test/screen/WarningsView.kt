@@ -1,14 +1,20 @@
 package com.example.test.screen
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.test.data.WeatherForecast
 import com.example.test.model.Warning
 import com.example.test.model.Windshear
@@ -46,8 +52,7 @@ fun WarningsView(
         item(){
             if (!forecast.isEmpty()){
                 for (each in forecast){
-                    //TafmetarCard(weatherForecastData = each)
-                    TafmetarText(each)
+                    TafmetarCard(weatherForecastData = each)
                 }
             }
             else {
@@ -61,9 +66,36 @@ fun WarningsView(
     }
 }
 
+
 @Composable
-fun TafmetarText(weatherForecastData: WeatherForecast) {
-    Text(text = "Tafftext: " + weatherForecastData.tafText)
+fun TafmetarCard(weatherForecastData: WeatherForecast) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(7.dp),
+        shape = RoundedCornerShape(size = 26.dp),
+        border = BorderStroke(width = 1.dp, color = Color.Green),
+        elevation = 4.dp,
+        //backgroundColor = Color.Green.copy(alpha = 0.2f)
+
+    ) {
+        Column(modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally) {
+            //Spacer(modifier = Modifier.height(20.dp).fillMaxWidth())
+            Text(
+                modifier = Modifier.padding(horizontal = 1.dp, vertical = 5.dp),
+                text = "Valid period: " + weatherForecastData.validPeriodStart + " - " + weatherForecastData.validPeriodEnd)
+            Text(
+                modifier = Modifier.padding(horizontal = 1.dp, vertical = 1.dp),
+                text ="Issued time: " + weatherForecastData.issuedTime)
+            Text(
+                modifier = Modifier.padding(horizontal = 1.dp, vertical = 1.dp),
+                text = "Nais header: " + weatherForecastData.naisHeader)
+            Text(
+                modifier = Modifier.padding(horizontal = 1.dp, vertical = 1.dp),
+                text = "Tafftext: " + weatherForecastData.tafText)
+        }
+    }
 }
 
 @Composable

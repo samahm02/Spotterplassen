@@ -11,7 +11,7 @@ import io.ktor.serialization.gson.*
 
 class DataSourceFly(var path: String) {
 
-    private val client = HttpClient(){
+    private val client = HttpClient {
         install(ContentNegotiation) {
             gson()
         }

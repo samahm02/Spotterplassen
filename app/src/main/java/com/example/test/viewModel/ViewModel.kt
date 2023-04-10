@@ -92,6 +92,29 @@ class ViewModel : ViewModel() {
             warnings = endPointWarnings.fetchWarning()
             _warningUiState.value = WarningUiState(warnings = warnings)
 
+            //Dummydata:
+            /*
+            val api = "ZCZC\n" +
+                    "WSN031 ENMI 301915\n" +
+                    "ENOR SIGMET M01 VALID 302000/310000 ENMI-\n" +
+                    "ENOR POLARIS FIR SEV MTW FCST WI N5910 E00730 – N5919 E00550\n" +
+                    "- N6200 E00545 – N6200 E00730 – N5910 E00730 SFC/FL80 STRN NC=\n" +
+                    "\n" +
+                    "ZCZC\n" +
+                    "WANO31 ENMI 160517\n" +
+                    "ENOR AIRMET I01 VALID 160600/161000 ENMI-\n" +
+                    "ENOR POLARIS FIR MOD ICE FCST WI N5820\n" +
+                    "E00845 - N5800 E00755 - N5800 E00645\n" +
+                    "N5850 E00500 - N5900 E00730 - N5820 E00845\n" +
+                    "1000FT/FL150 MOV ENE 2OKT INTSF=\n" +
+                    "\n" +
+                    "ZCZC\n" +
+                    "WWNO48 ENMI 160712\n" +
+                    "ENBR WS WRNG 01 160712 VALID 160730/161130\n" +
+                    "WS FCST INTSF="
+
+             */
+
             for (warning in warnings) {
                 if (warning is Warning) {
                     clusterItems.add(

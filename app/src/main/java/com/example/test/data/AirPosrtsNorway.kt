@@ -51,6 +51,19 @@ fun loadPlaneSpottingLocation(): List<planeSpottingLocation> {
             "morgenen, flott om ettermiddagen. Fin ved landing fra nord, avgang mot sør, men også fine bilder hvis\n" +
             "trafikken går andre veien. Du står litt nord for midten av banen. Gratis parkering.", "ENTO"))
 
+    // Gardermoen
+    PlaneSpottingLocationList.add(planeSpottingLocation("Plass #1 - Blikkvegen", 60.1853554, 11.0193125,
+        "Fra dette stedet kan du fange alle 01R/19L-avganger og 19L-ankomster. 01R-ankomster har en tendens til å gå ut tidlig. Gå til plass #2 for bedre skudd.", "ENGM"))
+
+    PlaneSpottingLocationList.add(planeSpottingLocation("Plass #2 - Departures/Arrivals 01R/19L", 60.1892334, 11.1204279,
+        "Dette stedet er bra for alle 01R/19L avganger og ankomster.", "ENGM"))
+
+    PlaneSpottingLocationList.add(planeSpottingLocation("Plass #3 - Ravinevegen - Ankomst 01L", 60.187751655564774, 11.06862864974181,
+        "Fra dette stedet kan du fange alle 01L ankomster. Du kan gå langs 'Ravinevegen' for noen forskjellige vinkler.", "ENGM"))
+
+    PlaneSpottingLocationList.add(planeSpottingLocation("Plass #4 - Gardermoen Luftfartsmuseum - Lineup/Ankomster 01L", 60.1900014,11.0719979,
+        "Dette stedet er bra for alle 01L avganger og ankomster. Fra har du også fin utsikt til tunge 19 avganger.", "ENGM"))
+
 
     // bergen flesland
     PlaneSpottingLocationList.add(planeSpottingLocation("Farmer's hill", 60.2862144277326, 5.215467344213442,

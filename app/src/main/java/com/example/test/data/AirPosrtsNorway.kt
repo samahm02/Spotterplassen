@@ -150,5 +150,27 @@ fun loadPlaneSpottingLocation(): List<planeSpottingLocation> {
     PlaneSpottingLocationList.add(planeSpottingLocation("Plass #5 – Eastern End rwy27 ankomster", 63.4575532,10.9501868, "Bare rullebane 27-ankomster kan sees herfra, mens flyene er i luften. Når du står lavere enn rullebanen her, vil du ikke se flyet på bakken.", "ENVA"))
     PlaneSpottingLocationList.add(planeSpottingLocation("Plass #6 – JOSSIASVEGEN rwy27 ankomster", 63.4553843,10.9572993, "Bare 27 ankomster kan sees herfra. Utsikten til flyplassen er hindret av en skog, så ingen fly på bakken kan sees.", "ENVA"))
     PlaneSpottingLocationList.add(planeSpottingLocation("Plass #7 – VÆRNES KIRKE rwy09 avganger", 63.4525093,10.9568143, "Avganger fra 09 kan sees herfra. Du kan ikke se flyplassen, så en radioskanner eller tilgang til fr24 vil være nyttig for å vite når flyet har avgang.", "ENVA"))
-    return PlaneSpottingLocationList
+
+    //Tromsø Lufthavn (ENTC)
+    PlaneSpottingLocationList.add(planeSpottingLocation("Horsefarm", 69.69807481436989, 18.92993186845246, "Dette første punktet er lokalisert i parkeringsområdet til Tromsø Rideskole, som kan nås via en grusvei på venstre side av Ringvegen, hvis du kjører i nordlig retning. Fra punkt #2, følg Ringvegen i nordlig retning i omtrent 2,5 km. Kort tid før veien svinger sakte til høyre og leder deg opp en høyde gjennom en skog, kjør til venstre til gården, som kan gjenkjennes lett på grunn av et tre-skilt over stien.", "ENTC"));
+
+    PlaneSpottingLocationList.add(planeSpottingLocation("Coop hall", 69.68245561677699, 18.922068806099308, "Det andre punktet kan bli funnet inne i parkeringsplassen foran en Coop-lagerhall, som ligger øst for rullebanen. Det kan enkelt nås fra sør, der hovedvei 862 ender opp i Ringvegen. Etter dette 'møtet', følg Ringvegen i omtrent 450m i nordlig retning, før du svinger til høyre til Coop-bygningene. Den mindre veien vil lede deg opp en liten høyde først, og deretter til venstre på en stor asfaltområde. Gå til forsiden av dette området og finn din favorittplass langs gresskanten.", "ENTC"));
+
+    PlaneSpottingLocationList.add(planeSpottingLocation("Kvaloyvegen", 69.6718487635224, 18.915571189857896, "Hvis du kommer fra sentrum av byen og like etter å ha forlatt tunnelsystemet (mot Tromsø lufthavn eller hovedvei 862), ta av ved første rundkjøring (utenfor tunnelen!) på tredje avkjøring til Kvaløyvegen. Etter omtrent 200m vil du nå neste rundkjøring, som du må forlate på første avkjøring - denne avkjøringen er død og ubrukt.", "ENTC"));
+
+    PlaneSpottingLocationList.add(planeSpottingLocation("862 Roadside", 69.67683084053526, 18.904508526025452, "Dette punktet er ikke en nøyaktig posisjon, snarere området langs hovedvei 862. Din eksakte posisjon avhenger av øyeblikket / vinkelen du vil ta bilde av. Du kan parkere bilen din i en grusvei hvis du kommer fra terminalen og er på vei mot 'Tromsø Sentrum'. Umiddelbart før du passerer tunnelen (og med dette rullebanen også samtidig), er det nevnte stien på høyre side, som fører ned til havet. Bare la bilen din der og gå tilbake til ditt favorittsted.", "ENTC"));
+
+    PlaneSpottingLocationList.add(planeSpottingLocation("Parking P12", 69.68842951415513, 18.908710253031504, "Denne spotterplassen er ikke en eksakt posisjon, men heller et område rundt her. Din nøyaktige posisjon avhenger av øyeblikket/vinkelen du vil ta bilder fra og objektivets bredde.\n" +
+            "Spotterplassen ligger langs gjerdet ved parkeringsplassen P12 eller langs veien 'Skognesvegen' på betongblokkene/pollers. Den enkleste måten å nå denne plassen på er ved å ta av fra motorvei '862' på den første rundkjøringen etter at du har kommet ned fra broen ved tredje avkjøring til 'Flypassvegen'. Etter ca. 100 meter sving til venstre inn på 'Skognesvegen' og kort tid etter vil du se nevnte gjerde og blokker på høyre side. Du kan parkere langs veien eller i blindveien til venstre. Uansett, hold deg nær bilen din, fordi politiet kan sende deg bort!", "ENTC"))
+
+    PlaneSpottingLocationList.add(planeSpottingLocation("Skognesvegen", 69.69027427305689, 18.91202867992826, "Denne spotterplassen er ikke en eksakt posisjon, men heller et område langs gjerdet. Din nøyaktige posisjon avhenger av øyeblikket/vinkelen du vil ta bilder fra.\n" +
+            "Spotterplassen ligger langs gjerdet som ble bygget langs 'Skognesvegen'. Den enkleste måten å nå denne plassen på er ved å ta av fra motorvei '862' på den første rundkjøringen etter at du har kommet ned fra broen ved tredje avkjøring til 'Flypassvegen'. Etter ca. 100 meter sving til venstre inn på 'Skognesvegen' og følg veien til du har nådd din favorittposisjon.\n" +
+            "Du kan stoppe langs veien for parkering, men for å være sikker, hold deg nær bilen din.", "ENTC"))
+
+    PlaneSpottingLocationList.add(planeSpottingLocation("Bridge", 69.69366267078352, 18.9076993458068, "Denne spotterplassen er ikke en eksakt posisjon, men heller et område/på vei opp broen på gangveien. Din nøyaktige posisjon avhenger av øyeblikket/vinkelen du vil ta bilder fra.\n" +
+            "Den enkleste måten å nå dette området på er ved å følge gangveien på den nordlige/østlige siden av broen.\n" +
+            "Hvis du reiser med bil, vil du ha litt problemer, fordi parkering er vanskelig på TSO. Du kan stoppe langs veien i blindveien som ligger ved siden av spot #5 på den andre siden av 'Skognesvegen'. Det tar ca. 10 minutter å gå til nevnte utsiktspunkt derfra.", "ENTC"))
+
+
+        return PlaneSpottingLocationList
 }

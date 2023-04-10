@@ -18,7 +18,7 @@ import com.example.test.viewModel.ViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 
-enum class Navigasjon() {
+enum class Navigasjon {
     //Klasse for navigasjonsdestinasjoner/skjermer
     Map,
     Airport

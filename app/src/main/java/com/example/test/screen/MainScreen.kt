@@ -99,37 +99,46 @@ fun MainScreen(
             val context = LocalContext.current
             val scope = rememberCoroutineScope()
             MapEffect { map ->
-                while (ViewModel.flyUiState.value.fly.isEmpty()) {
-                    delay(100)
-                }
-                val flyStates = ViewModel.flyUiState.value.fly[0].states
-                for (i in flyStates) {
+                val markers = mutableListOf<Marker?>()
+                while (true) {
+                    val test = ViewModel.flyUiState.value.fly
+                    while (ViewModel.flyUiState.value.fly.isEmpty() || ViewModel.flyUiState.value.fly == test) {
+                        delay(100)
+                    }
+                    markers.forEach { it?.remove() }
+                    markers.clear()
+                    val flyStates = ViewModel.flyUiState.value.fly[0].states
+                    for (i in flyStates) {
 
-                    if (i[6] != null || i[5] != null) {
-                        val long: Double = i[5].toString().toDouble()
-                        val lat: Double = i[6].toString().toDouble()
+                        if (i[6] != null || i[5] != null) {
+                            val long: Double = i[5].toString().toDouble()
+                            val lat: Double = i[6].toString().toDouble()
 
-                        val flyPos = LatLng(lat, long)
-                        if (i[10].toString().toFloat() != null && i[1].toString() != null) {
+                            val flyPos = LatLng(lat, long)
+                            if (i[10] != null && i[1] != null) {
 
-                            map.addMarker(
-                                MarkerOptions()
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.kindpng_7070085))
-                                    .title(i[1].toString())
-                                    .position(flyPos)
-                                    .anchor(0.5f, 0.5f)
-                                    .rotation(i[10].toString().toFloat())
-                            )
-                        } else {
-                            map.addMarker(
-                                MarkerOptions()
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.kindpng_7070085))
-                                    .position(flyPos)
-                            )
+                                markers.add(
+                                    map.addMarker(
+                                        MarkerOptions()
+                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.kindpng_7070085))
+                                            .title(i[1].toString())
+                                            .position(flyPos)
+                                            .anchor(0.5f, 0.5f)
+                                            .rotation(i[10].toString().toFloat())
+                                    )
+                                )
+                            } else {
+                                markers.add(
+                                    map.addMarker(
+                                        MarkerOptions()
+                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.kindpng_7070085))
+                                            .position(flyPos)
+                                    )
+                                )
+                            }
                         }
                     }
-                }
-                /*
+                    /*
                 //Polygon for sigmet/airmet:
                 //Funker, men breaks airport skjerm.
 
@@ -158,8 +167,10 @@ fun MainScreen(
                      */
 
                  */
+                    delay(10000)
+                    ViewModel.lastInnNyeFly()
 
-
+                }
             }
         }
     }

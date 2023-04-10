@@ -51,6 +51,7 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.navigation:navigation-runtime-ktx:2.5.3'
     constraints {
         //dupe class fix fra David Fraser
         //https://stackoverflow.com/questions/75263047/duplicate-class-in-kotlin-android

@@ -30,6 +30,13 @@ fun WarningsView(
     //viewModel.loadWarnings()
     val windshearForThisAirport: MutableList<Windshear> = mutableListOf<Windshear>()
 
+    for (warning in warnings) {
+        //warning.icao funker ikke?
+        if (warning is Windshear && warning.content.contains(airPortIcao)) {
+            windshearForThisAirport.add(warning)
+        }
+    }
+
     LazyColumn(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -37,16 +44,16 @@ fun WarningsView(
             .fillMaxWidth()
             .fillMaxHeight()
     ) {
-        for (warning in warnings) {
-            if (warning is Windshear && warning.icao == airPortIcao ) {
-                windshearForThisAirport.add(warning)
-            }
-        }
 
         item() {
             if(windshearForThisAirport.isEmpty()) {
                 Text("No windshear warnings.")
             }
+        }
+
+        //Forrvirrende variabel navn her, skal endres
+        items(windshearForThisAirport) { windshareData ->
+            WindshearCard(windshearData = windshareData)
         }
 
         item(){
@@ -58,10 +65,6 @@ fun WarningsView(
             else {
                 Text(text = "No taf-data for this Airport")
             }
-        }
-        //Forrvirrende variabel navn her, skal endres
-        items(windshearForThisAirport) { windshareData ->
-            WindshearCard(windshearData = windshareData)
         }
     }
 }

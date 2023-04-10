@@ -140,5 +140,15 @@ fun loadPlaneSpottingLocation(): List<planeSpottingLocation> {
     PlaneSpottingLocationList.add(planeSpottingLocation("Observation Deck South", 59.18014557681209, 10.254919575685703,
         "Ligger bak P1 parkeringsgarasje på ansattes parkering. Parkér bilen på korttidsparkeringen og gå gjennom langtidsparkeringen forbi parkeringsgarasjen. Med offentlig transport, gå av bussen på terminalen og gå som beskrevet tidligere.", "ENTO"))
 
+
+    //Trondheim Lufthavn (TRD/ENVA)
+    //PlaneSpottingLocationList.add(planeSpottingLocation("", , "", "ENVA"))
+    PlaneSpottingLocationList.add(planeSpottingLocation("Plass #1 – Spotter Plattformen – 09 ankomster/startrulle, 27 avganger", 63.4587574,10.9112548, "Fra dette stedet kan du se ankomster kl. 09, startruller kl. 09, fly som takser på Y1, fly på standplass, avisingsputen og til slutt 27 avganger.", "ENVA"))
+    PlaneSpottingLocationList.add(planeSpottingLocation("Plass #2 – Gangsti – 09 Ankomster og 27 avganger", 63.4527124,10.910177, "Herfra kan du kun få 09 ankomster og 27 avganger", "ENVA"))
+    PlaneSpottingLocationList.add(planeSpottingLocation("Plass #3 – Hell Beach – 09 Ankomster", 63.4486254,10.8892498, "Herfra er kun 09 ankomster synlige.", "ENVA"))
+    PlaneSpottingLocationList.add(planeSpottingLocation("Plass #4 – Taxiway H – Widerøe Domestic Stands", 63.451902,10.9126962, "Kun taksebane H og standplass 22 – 29 er synlige.", "ENVA"))
+    PlaneSpottingLocationList.add(planeSpottingLocation("Plass #5 – Eastern End rwy27 ankomster", 63.4575532,10.9501868, "Bare rullebane 27-ankomster kan sees herfra, mens flyene er i luften. Når du står lavere enn rullebanen her, vil du ikke se flyet på bakken.", "ENVA"))
+    PlaneSpottingLocationList.add(planeSpottingLocation("Plass #6 – JOSSIASVEGEN rwy27 ankomster", 63.4553843,10.9572993, "Bare 27 ankomster kan sees herfra. Utsikten til flyplassen er hindret av en skog, så ingen fly på bakken kan sees.", "ENVA"))
+    PlaneSpottingLocationList.add(planeSpottingLocation("Plass #7 – VÆRNES KIRKE rwy09 avganger", 63.4525093,10.9568143, "Avganger fra 09 kan sees herfra. Du kan ikke se flyplassen, så en radioskanner eller tilgang til fr24 vil være nyttig for å vite når flyet har avgang.", "ENVA"))
     return PlaneSpottingLocationList
 }

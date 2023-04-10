@@ -1,5 +1,6 @@
 package com.example.test.screen
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -21,6 +22,14 @@ fun WarningsView(
 ) {
     //viewModel.loadWarnings()
     val windshearForThisAirport: MutableList<Windshear> = mutableListOf<Windshear>()
+    Log.d("Debug", "TestWview: $warnings")
+
+    for (warning in warnings) {
+        Log.d("Debug", "warning.icao: ${warning} Airport: $airPortIcao")
+        if (warning is Windshear && warning.content.contains(airPortIcao)) {
+            windshearForThisAirport.add(warning)
+        }
+    }
 
     LazyColumn(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -29,12 +38,6 @@ fun WarningsView(
             .fillMaxWidth()
             .fillMaxHeight()
     ) {
-        for (warning in warnings) {
-            if (warning is Windshear && warning.icao == airPortIcao ) {
-                windshearForThisAirport.add(warning)
-            }
-        }
-
         item() {
             if(windshearForThisAirport.isEmpty()) {
                 Text("No warnings")

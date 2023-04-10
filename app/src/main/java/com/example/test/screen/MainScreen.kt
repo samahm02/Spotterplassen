@@ -1,3 +1,4 @@
+
 package com.example.test.screen
 
 import android.content.Context
@@ -13,6 +14,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.ui.platform.LocalContext
 import com.example.test.MapState
 import com.example.test.R
+import com.example.test.data.loadPlaneSpottingLocation
+import com.example.test.data.planeSpottingLocation
 import com.example.test.model.ZoneClusterManager
 import com.example.test.viewModel.ViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -62,18 +65,34 @@ fun MainScreen(
             uiSettings = mapUiSettings,
             cameraPositionState = cameraPositionState
         ) {
+            var spotterBoolean by remember {
+                mutableStateOf(false)
+            }
             //Preben sin flyplass metode, mMap er erstattet med maps-compose componenter:
             val airports = loadAirports()
             for (airport in airports) {
+                val planeSpottingLocations = loadPlaneSpottingLocation().filter { it.FlypalssICAO == airport.ICAO }
                 Marker(
                     state = MarkerState(position = LatLng(airport.Latitude, airport.Longitude)),
                     title = airport.name,
-                    snippet = airport.ICAO,
-                    //Navigerer til angitt skjerm når infoboksen trykkes på.
-                    //Vi kan gjøre det samme for fly.
-                    onInfoWindowClick = { onAirportButtonClicked(airport.ICAO) }
+                    snippet = airport.ICAO ,
+                    onInfoWindowClick = { onAirportButtonClicked(airport.ICAO ) },
+                    onClick = { marker ->
+                        spotterBoolean = !spotterBoolean
+
+                        false
+                    }
                 )
+                if(spotterBoolean) {
+                    SpotterPins(planeSpottingLocations)
+                }
             }
+
+
+
+
+
+
             //mMap.addMarker(MarkerOptions().position(LatLng(airport.Latitude, airport.Longitude)).title(airport.name))
             //MapEffect der selve GoogleMap er it.
             //Mitch (context og scope:)
@@ -145,3 +164,15 @@ fun MainScreen(
         }
     }
 }
+
+@Composable
+fun SpotterPins(spotterLocations: List<planeSpottingLocation>) {
+    for (spottingLocation in spotterLocations) {
+        Marker(
+            state = MarkerState(position = LatLng(spottingLocation.Latitude, spottingLocation.Longitude)),
+            icon= BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN),
+            title = spottingLocation.Name
+        )
+    }
+}
+

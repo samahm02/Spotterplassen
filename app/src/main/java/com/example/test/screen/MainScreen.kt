@@ -70,6 +70,7 @@ fun MainScreen(
             }
             //Preben sin flyplass metode, mMap er erstattet med maps-compose componenter:
             val airports = loadAirports()
+            var selectedAirportICAO by remember { mutableStateOf("") }
             for (airport in airports) {
                 val planeSpottingLocations = loadPlaneSpottingLocation().filter { it.FlypalssICAO == airport.ICAO }
                 Marker(
@@ -78,15 +79,20 @@ fun MainScreen(
                     snippet = airport.ICAO ,
                     onInfoWindowClick = { onAirportButtonClicked(airport.ICAO ) },
                     onClick = { marker ->
-                        spotterBoolean = !spotterBoolean
-
+                        if (airport.ICAO == selectedAirportICAO) {
+                            // do nothing if the same airport is selected
+                        } else {
+                            selectedAirportICAO = airport.ICAO
+                            spotterBoolean = true
+                        }
                         false
                     }
                 )
-                if(spotterBoolean) {
+                if(spotterBoolean && airport.ICAO == selectedAirportICAO) {
                     SpotterPins(planeSpottingLocations)
                 }
             }
+
 
 
 

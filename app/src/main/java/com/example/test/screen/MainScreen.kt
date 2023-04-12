@@ -80,7 +80,9 @@ fun MainScreen(
                     onInfoWindowClick = { onAirportButtonClicked(airport.ICAO ) },
                     onClick = { marker ->
                         if (airport.ICAO == selectedAirportICAO) {
-                            // do nothing if the same airport is selected
+                            //if the same airport is selected set to false
+                            selectedAirportICAO = ""
+                            spotterBoolean = false
                         } else {
                             selectedAirportICAO = airport.ICAO
                             spotterBoolean = true

@@ -93,7 +93,6 @@ class ViewModel : ViewModel() {
             _warningUiState.value = WarningUiState(warnings = warnings)
 
             //Dummydata:
-            /*
             val api = "ZCZC\n" +
                     "WSN031 ENMI 301915\n" +
                     "ENOR SIGMET M01 VALID 302000/310000 ENMI-\n" +
@@ -113,7 +112,6 @@ class ViewModel : ViewModel() {
                     "ENBR WS WRNG 01 160712 VALID 160730/161130\n" +
                     "WS FCST INTSF="
 
-             */
 
             for (warning in warnings) {
                 if (warning is Warning) {

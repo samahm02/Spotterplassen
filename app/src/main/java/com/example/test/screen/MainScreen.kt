@@ -144,38 +144,23 @@ fun MainScreen(
                             }
                         }
                     }
-                    /*
-                //Polygon for sigmet/airmet:
-                //Funker, men breaks airport skjerm.
 
-                if (state.clusterItems.isNotEmpty()) {
-                    val clusterManager = setupClusterManager(context, map)
-                    map.setOnCameraIdleListener(clusterManager)
-                    map.setOnMarkerClickListener(clusterManager)
-                    state.clusterItems.forEach { clusterItem ->
-                        map.addPolygon(clusterItem.polygonOptions)
-                    }
+                    //Polygon for sigmet/airmet:
+                    //Funker, men breaks airport skjerm.
 
-                    //Flytter kameraet til klusterne
-                    /*
-                    it.setOnMapLoadedCallback {
-                        if (state.clusterItems.isNotEmpty()) {
-                            scope.launch {
-                                cameraPositionState.animate(
-                                    update = CameraUpdateFactory.newLatLngBounds(
-                                        calculateZoneViewCenter(),
-                                        0
-                                    ),
-                                )
-                            }
+                    if (state.clusterItems.isNotEmpty()) {
+                        /*
+                        val clusterManager = setupClusterManager(context, map)
+                        map.setOnCameraIdleListener(clusterManager)
+                        map.setOnMarkerClickListener(clusterManager)
+
+                         */
+                        state.clusterItems.forEach { clusterItem ->
+                            map.addPolygon(clusterItem.polygonOptions)
                         }
                     }
-                     */
-
-                 */
                     delay(10000)
                     ViewModel.lastInnNyeFly()
-
                 }
             }
         }

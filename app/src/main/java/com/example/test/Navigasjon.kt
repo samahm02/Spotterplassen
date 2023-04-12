@@ -31,7 +31,6 @@ fun Navigasjon(
 ) {
     //Scaffold for navigasjon. Lager viewModel her, kansjke gjøre det et annet sted?
     val scaffoldState: ScaffoldState = rememberScaffoldState()
-    val scope = rememberCoroutineScope()
     val ViewModel = ViewModel()
     var selectedAirPort: String = ""
 
@@ -46,11 +45,10 @@ fun Navigasjon(
             modifier = modifier.padding(innerPadding)
         ) {
             composable(route = Navigasjon.Map.name) {
+                //TODO bug: når vi returnere til denne skjermen laster ikke dataen inn riktig som ved appstart.
                 MainScreen(
                     state = ViewModel.state.value,
                     ViewModel = ViewModel,
-                    setupClusterManager = ViewModel::setupClusterManager,
-                    calculateZoneViewCenter = ViewModel::calculateZoneLatLngBounds,
                     onAirportButtonClicked = {
                         //Hentet fra stackoverflow:
                         //https://stackoverflow.com/questions/70279262/navigating-with-compose-not-working-with-google-maps-on-android

@@ -74,6 +74,7 @@ fun MainScreen(
                             selectedAirportICAO = ""
                             spotterBoolean = false
                         } else {
+                            //if new airport is selected set to true
                             selectedAirportICAO = airport.ICAO
                             spotterBoolean = true
                         }

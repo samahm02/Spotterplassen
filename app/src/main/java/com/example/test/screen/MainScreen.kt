@@ -1,7 +1,6 @@
 
 package com.example.test.screen
 
-import android.content.Context
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
@@ -11,29 +10,21 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import androidx.compose.foundation.layout.*
-import androidx.compose.ui.platform.LocalContext
 import com.example.test.MapState
 import com.example.test.R
 import com.example.test.data.loadPlaneSpottingLocation
 import com.example.test.data.planeSpottingLocation
-import com.example.test.model.ZoneClusterManager
 import com.example.test.viewModel.ViewModel
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
 import kotlinx.coroutines.delay
-
 import com.google.maps.android.compose.*
-import kotlinx.coroutines.launch
 
 @OptIn(MapsComposeExperimentalApi::class)
 @Composable
 fun MainScreen(
     onAirportButtonClicked: (icao: String) -> Unit = {},
     ViewModel: ViewModel,
-    state: MapState,
-    setupClusterManager: (Context, GoogleMap) -> ZoneClusterManager,
-    calculateZoneViewCenter: () -> LatLngBounds
+    state: MapState
 ) {
     //Hovedskjerm, onAirportButtonClicked kalles når man trykker på marker sin infoboks og forteller
     // navigator om hvilken flyplass som er trykket på.
@@ -56,7 +47,6 @@ fun MainScreen(
         )
     }
 
-    //Fra Mitch. Mapstate for å huske lokasjon og clusteritems (brukt til polygons: sigmet)
     Box(Modifier.fillMaxSize()) {
         //GoogleMap composable:
         GoogleMap(
@@ -95,17 +85,7 @@ fun MainScreen(
                 }
             }
 
-
-
-
-
-
-
-            //mMap.addMarker(MarkerOptions().position(LatLng(airport.Latitude, airport.Longitude)).title(airport.name))
-            //MapEffect der selve GoogleMap er it.
-            //Mitch (context og scope:)
-            val context = LocalContext.current
-            val scope = rememberCoroutineScope()
+            //MapEffect der selve GoogleMap er it(map).
             MapEffect { map ->
                 val markers = mutableListOf<Marker?>()
                 while (true) {
@@ -122,6 +102,7 @@ fun MainScreen(
                             val long: Double = i[5].toString().toDouble()
                             val lat: Double = i[6].toString().toDouble()
 
+                            //If plane has orientation and name:
                             val flyPos = LatLng(lat, long)
                             if (i[10] != null && i[1] != null) {
 
@@ -146,38 +127,23 @@ fun MainScreen(
                             }
                         }
                     }
-                    /*
-                //Polygon for sigmet/airmet:
-                //Funker, men breaks airport skjerm.
 
-                if (state.clusterItems.isNotEmpty()) {
-                    val clusterManager = setupClusterManager(context, map)
-                    map.setOnCameraIdleListener(clusterManager)
-                    map.setOnMarkerClickListener(clusterManager)
-                    state.clusterItems.forEach { clusterItem ->
-                        map.addPolygon(clusterItem.polygonOptions)
-                    }
+                    //Polygon for sigmet/airmet:
+                    if (state.clusterItems.isNotEmpty()) {
+                        /*
+                        Mitch sine markers. Må tilpasse med compose markers tror jeg. (ikke bruke .map)
+                        val clusterManager = setupClusterManager(context, map)
+                        map.setOnCameraIdleListener(clusterManager)
+                        map.setOnMarkerClickListener(clusterManager)
 
-                    //Flytter kameraet til klusterne
-                    /*
-                    it.setOnMapLoadedCallback {
-                        if (state.clusterItems.isNotEmpty()) {
-                            scope.launch {
-                                cameraPositionState.animate(
-                                    update = CameraUpdateFactory.newLatLngBounds(
-                                        calculateZoneViewCenter(),
-                                        0
-                                    ),
-                                )
-                            }
+                         */
+                        state.clusterItems.forEach { clusterItem ->
+                            map.addPolygon(clusterItem.polygonOptions)
                         }
                     }
-                     */
 
-                 */
                     delay(10000)
                     ViewModel.lastInnNyeFly()
-
                 }
             }
         }

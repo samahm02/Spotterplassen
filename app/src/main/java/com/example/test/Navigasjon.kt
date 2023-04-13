@@ -45,7 +45,7 @@ fun Navigasjon(
             modifier = modifier.padding(innerPadding)
         ) {
             composable(route = Navigasjon.Map.name) {
-                //TODO bug: når vi returnere til denne skjermen laster ikke dataen inn riktig som ved appstart.
+
                 MainScreen(
                     state = ViewModel.state.value,
                     ViewModel = ViewModel,
@@ -59,7 +59,10 @@ fun Navigasjon(
                             ViewModel.loadWarnings()
                         }
                     }
+
                 )
+                ViewModel.lastInnNyeFly()
+//
             }
             composable(route = Navigasjon.Airport.name) {
                 AirportScreen(ViewModel, selectedAirPort)

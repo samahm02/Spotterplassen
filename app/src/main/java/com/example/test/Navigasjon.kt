@@ -29,13 +29,13 @@ enum class Navigasjon() {
 @Composable
 fun Navigasjon(
     context: MainActivity,
+    ViewModel: ViewModel,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
     //Scaffold for navigasjon. Lager viewModel her, kansjke gjøre det et annet sted?
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
-    val ViewModel = ViewModel()
     var selectedAirPort: String = ""
 
     //Scaffold med ønsket paramet.

@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
         setContentView(
             ComposeView(this).apply {
                 setContent {
-                    Navigasjon(this@MainActivity)
+                    Navigasjon(this@MainActivity, viewModel)
                 }
             }
         )

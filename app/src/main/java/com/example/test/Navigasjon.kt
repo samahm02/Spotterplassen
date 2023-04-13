@@ -7,6 +7,8 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
+import androidx.core.app.ComponentActivity
 import kotlinx.coroutines.launch
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -26,6 +28,7 @@ enum class Navigasjon() {
 
 @Composable
 fun Navigasjon(
+    context: MainActivity,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
@@ -47,6 +50,7 @@ fun Navigasjon(
         ) {
             composable(route = Navigasjon.Map.name) {
                 MainScreen(
+                    context = context,
                     ViewModel = ViewModel,
                     onAirportButtonClicked = {
                         //Hentet fra stackoverflow:

@@ -1,13 +1,20 @@
 package com.example.test.viewModel
 
+import android.annotation.SuppressLint
 import android.util.Log
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.test.data.DataSourceFly
 import com.example.test.ui.FlyUiState
 import com.example.test.ui.WarningUiState
 import com.example.test.data.fetchXML
+import com.example.test.ui.MapState
 import com.example.test.ui.WeatherUiState
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.ktx.model.polygonOptions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -41,6 +48,35 @@ class ViewModel : ViewModel() {
         loadFly()
         loadWarnings()
         laodTafData()
+    }
+
+    //Mapstate
+    val state: MutableState<MapState> = mutableStateOf(
+        MapState(
+            lastKnownLocation = null
+        )
+    )
+    //Get location
+    @SuppressLint("MissingPermission")
+    fun getDeviceLocation(
+        fusedLocationProviderClient: FusedLocationProviderClient
+    ) {
+        /*
+         * Get the best and most recent location of the device, which may be null in rare
+         * cases when a location is not available.
+         */
+        try {
+            val locationResult = fusedLocationProviderClient.lastLocation
+            locationResult.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    state.value = state.value.copy(
+                        lastKnownLocation = task.result,
+                    )
+                }
+            }
+        } catch (e: SecurityException) {
+            // Show error or something
+        }
     }
 
     fun loadFly(){

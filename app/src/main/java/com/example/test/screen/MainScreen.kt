@@ -9,8 +9,6 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import androidx.compose.foundation.layout.*
-import androidx.compose.ui.graphics.Color
-import androidx.core.content.ContextCompat
 import com.example.test.R
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -18,52 +16,8 @@ import com.example.test.viewModel.ViewModel
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import kotlinx.coroutines.delay
-import android.Manifest
-import android.annotation.SuppressLint
-import android.content.DialogInterface
-import android.content.pm.PackageManager
-import android.location.Location
-import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.widget.FrameLayout
-import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.Button
-import androidx.compose.material.Text
-import androidx.compose.ui.platform.ComposeView
-import androidx.core.app.ActivityCompat
-import androidx.core.app.ComponentActivity
 import com.example.test.MainActivity
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.Marker
-import com.google.android.libraries.places.api.Places
-import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
-import com.google.android.libraries.places.api.net.PlacesClient
-import android.Manifest.permission.ACCESS_FINE_LOCATION
-import androidx.activity.compose.setContent
-import androidx.activity.viewModels
-import androidx.compose.ui.platform.LocalContext
-import dagger.hilt.android.AndroidEntryPoint
-
 import com.google.maps.android.compose.*
-import kotlinx.coroutines.launch
-
 
 @OptIn(MapsComposeExperimentalApi::class)
 @Composable
@@ -116,8 +70,6 @@ fun MainScreen(context: MainActivity, onAirportButtonClicked: (icao: String) -> 
             }
             //mMap.addMarker(MarkerOptions().position(LatLng(airport.Latitude, airport.Longitude)).title(airport.name))
             //MapEffect der selve GoogleMap o
-            val context = LocalContext.current
-            val scope = rememberCoroutineScope()
             MapEffect {
 
 

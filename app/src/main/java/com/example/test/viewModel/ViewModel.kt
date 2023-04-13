@@ -13,8 +13,10 @@ import com.example.test.data.DataSourceFly
 import com.example.test.ui.FlyUiState
 import com.example.test.ui.WarningUiState
 import com.example.test.data.fetchXML
+import com.example.test.data.fetchXMLTafmetar
 import com.example.test.model.*
 import com.example.test.ui.WeatherUiState
+import com.example.test.ui.WeatherUiStateReport
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
@@ -42,6 +44,15 @@ class ViewModel : ViewModel() {
         WeatherUiState.Success(
             emptyList()
         ))
+
+    private val _weatherUiStateReport = MutableStateFlow(
+        WeatherUiStateReport.Success(
+            emptyList()
+        ))
+
+    val weatherUiStateReport: StateFlow<WeatherUiStateReport> =  _weatherUiStateReport.asStateFlow()
+
+
     val weatherUiState: StateFlow<WeatherUiState> =  _weatherUiState.asStateFlow()
 
     val flyUiState: StateFlow<FlyUiState> = _flyUiState.asStateFlow()
@@ -75,8 +86,10 @@ class ViewModel : ViewModel() {
     private fun laodTafData(){
         viewModelScope.launch {
             val forecastList = fetchXML(airPortICAO)
+            val reportList = fetchXMLTafmetar(airPortICAO)
+
             _weatherUiState.value = WeatherUiState.Success(forecastList)
-            //Log.v("----------------------",forecastList[0].issuedTime)
+            _weatherUiStateReport.value = WeatherUiStateReport.Success(reportList)
         }
     }
 

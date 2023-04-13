@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.test.data.MeteorologicalAerodromeReport
 import com.example.test.data.WeatherForecast
 import com.example.test.model.Warning
 import com.example.test.model.Windshear
@@ -25,7 +26,9 @@ fun WarningsView(
     warnings: List<Any>,
     viewModel: ViewModel,
     airPortIcao: String,
-    forecast: List<WeatherForecast>
+    forecast: List<WeatherForecast>,
+    report: List<MeteorologicalAerodromeReport>
+
 ) {
     //viewModel.loadWarnings()
     val windshearForThisAirport: MutableList<Windshear> = mutableListOf<Windshear>()
@@ -64,6 +67,18 @@ fun WarningsView(
             }
             else {
                 Text(text = "No taf-data for this Airport")
+            }
+        }
+
+        item() {
+            if(!report.isEmpty()){
+                for (each in report){
+                    MetarCard(meteorologicalAerodromeReport = each)
+                }
+
+            }
+            else {
+                Text(text = "No metar data")
             }
         }
     }
@@ -119,3 +134,30 @@ fun WindshearCard(windshearData: Windshear) {
         }
     }
 }
+
+@Composable
+fun MetarCard(meteorologicalAerodromeReport: MeteorologicalAerodromeReport) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(7.dp),
+        shape = RoundedCornerShape(size = 26.dp),
+        border = BorderStroke(width = 1.dp, color = Color.Green),
+        elevation = 4.dp,
+        //backgroundColor = Color.Green.copy(alpha = 0.2f)
+
+    ) {
+        Column(modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally) {
+            //Spacer(modifier = Modifier.height(20.dp).fillMaxWidth())
+            Text(
+                modifier = Modifier.padding(horizontal = 1.dp, vertical = 5.dp),
+                text = "Time position: " + meteorologicalAerodromeReport.timePosition)
+            Text(
+                modifier = Modifier.padding(horizontal = 1.dp, vertical = 1.dp),
+                text ="Metar text: " + meteorologicalAerodromeReport.metarText)
+
+        }
+    }
+}
+

@@ -8,10 +8,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 import androidx.compose.material.Text
+import com.example.test.data.MeteorologicalAerodromeReport
 import com.example.test.data.WeatherForecast
 import com.example.test.viewModel.ViewModel
 import com.example.test.screen.WarningsView
 import com.example.test.ui.WeatherUiState
+import com.example.test.ui.WeatherUiStateReport
 
 
 @Composable
@@ -19,6 +21,8 @@ fun AirportScreen(ViewModel: ViewModel, icao: String) {
     val warningUiState by ViewModel.warningUiState.collectAsState()
     //ViewModel.changeairPortICAO(icao)
     val tafmetarUiState by ViewModel.weatherUiState.collectAsState()
+    val metarUiState by ViewModel.weatherUiStateReport.collectAsState()
+
 
     Column(
         modifier = Modifier
@@ -32,7 +36,8 @@ fun AirportScreen(ViewModel: ViewModel, icao: String) {
             modifier = Modifier.align(Alignment.CenterHorizontally),
             fontSize = 20.sp
         )
-        WarningsView(warnings = warningUiState.warnings, viewModel = ViewModel, icao, tafmetarUiState.getForecastList()) }
+        WarningsView(warnings = warningUiState.warnings, viewModel = ViewModel, icao, tafmetarUiState.getForecastList(),
+            metarUiState.getForecastList()) }
 }
 
 fun WeatherUiState.getForecastList(): List<WeatherForecast> {
@@ -40,4 +45,13 @@ fun WeatherUiState.getForecastList(): List<WeatherForecast> {
         is WeatherUiState.Success -> weatherForecast
     }
 }
+
+
+fun WeatherUiStateReport.getForecastList(): List<MeteorologicalAerodromeReport> {
+    return when (this) {
+        is WeatherUiStateReport.Success -> WeatherReport
+    }
+}
+
+
 

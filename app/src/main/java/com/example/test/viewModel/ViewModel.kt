@@ -164,6 +164,6 @@ class ViewModel : ViewModel() {
 
 
     companion object {
-        private val POLYGON_FILL_COLOR = Color.parseColor("#ABF44336")
+        private val POLYGON_FILL_COLOR = Color.parseColor("#4DF44336")
     }
 }

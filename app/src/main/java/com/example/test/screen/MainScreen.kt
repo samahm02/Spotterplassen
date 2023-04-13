@@ -89,11 +89,14 @@ fun MainScreen(
             //MapEffect der selve GoogleMap er it(map).
             MapEffect { map ->
                 val markers = mutableListOf<Marker?>()
+                val poly = mutableListOf<Polygon>()
                 while (true) {
                     val test = ViewModel.flyUiState.value.fly
                     while (ViewModel.flyUiState.value.fly.isEmpty() || ViewModel.flyUiState.value.fly == test) {
                         delay(100)
                     }
+                    poly.forEach { it?.remove() }
+                    poly.clear()
                     markers.forEach { it?.remove() }
                     markers.clear()
                     val flyStates = ViewModel.flyUiState.value.fly[0].states
@@ -139,7 +142,9 @@ fun MainScreen(
 
                          */
                         state.clusterItems.forEach { clusterItem ->
-                            map.addPolygon(clusterItem.polygonOptions)
+                            poly.add(
+                                map.addPolygon(clusterItem.polygonOptions)
+                            )
                         }
                     }
 

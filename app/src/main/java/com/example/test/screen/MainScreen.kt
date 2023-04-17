@@ -73,8 +73,10 @@ fun MainScreen(
             modifier = Modifier.fillMaxSize(),
             properties = mapProperties,
             uiSettings = mapUiSettings,
-            cameraPositionState = cameraPositionState
+            cameraPositionState = cameraPositionState,
+
         ) {
+
             var spotterBoolean by remember {
                 mutableStateOf(false)
             }
@@ -108,6 +110,9 @@ fun MainScreen(
 
             //MapEffect der selve GoogleMap er it(map).
             MapEffect { map ->
+                map.uiSettings.isRotateGesturesEnabled = false
+                map.uiSettings.isMapToolbarEnabled = true
+
                 val markers = mutableListOf<Marker?>()
                 val poly = mutableListOf<Polygon>()
                 while (true) {

@@ -1,6 +1,7 @@
 
 package com.example.test.screen
 
+import android.location.Location
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
@@ -29,16 +30,35 @@ fun MainScreen(
     //Hovedskjerm, onAirportButtonClicked kalles når man trykker på marker sin infoboks og forteller
     // navigator om hvilken flyplass som er trykket på.
     //Camera ved start
-    val osloLufthavn = LatLng(60.121, 11.0502)
+    val osloLufthavn = LatLng(60.121,11.0502)
+    val userLocation: Location? = ViewModel.state.value.lastKnownLocation
+    val userPosition: LatLng
+
+    if (userLocation != null) {
+        val userLatitude = userLocation.latitude
+        val userLongitude = userLocation.longitude
+        userPosition = LatLng(userLatitude, userLongitude)
+        // You can use userPosition here
+    } else {
+        // Handle the case when user position is not available
+        userPosition = osloLufthavn
+    }
+
     val cameraPositionState: CameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(osloLufthavn, 11f)
+
+        println("POSISSSSJOOOON" + userPosition)
+
+        position = CameraPosition.fromLatLngZoom(userPosition, 11f)
     }
+
+
     // Set properties using MapProperties which you can use to recompose the map
-    var mapProperties by remember {
-        mutableStateOf(
-            MapProperties(maxZoomPreference = 70f, minZoomPreference = 1f)
+    val mapProperties =
+        MapProperties(
+            maxZoomPreference = 70f,
+            minZoomPreference = 1f,
+            isMyLocationEnabled = ViewModel.state.value.lastKnownLocation != null
         )
-    }
 
     //UI-related configurations
     var mapUiSettings by remember {

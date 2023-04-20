@@ -60,10 +60,10 @@ class ViewModel : ViewModel() {
     private var airPortICAO: String = "ENGM"
 
     init{
-        airPortICAO = "ENGM"
+        //airPortICAO = "ENGM"
         loadFly()
         loadWarnings()
-        laodTafData()
+        //laodTafData()
     }
 
     private fun loadFly(){

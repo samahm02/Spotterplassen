@@ -3,6 +3,7 @@ package com.example.test.screen
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -13,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.test.data.MeteorologicalAerodromeReport
@@ -40,13 +42,48 @@ fun WarningsView(
         }
     }
 
+
+
+
     LazyColumn(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .fillMaxSize()
+            //.fillMaxSize()
             .fillMaxWidth()
-            .fillMaxHeight()
+            //.fillMaxHeight()
     ) {
+
+        item {
+            Text(text = "Metar-data: (Swipe left to load more...)", fontWeight = FontWeight.Bold, fontSize = 15.sp)
+        }
+        item() {
+            LazyRow(
+                modifier = Modifier
+                    //.fillMaxSize()
+                    .fillMaxWidth()
+
+                //.fillMaxHeight()
+            ) {
+                item() {
+                    if(!report.isEmpty()){
+                        for (each in report){
+                            MetarCard(meteorologicalAerodromeReport = each)
+                        }
+
+                    }
+                    else {
+                        Text(text = "No Metar-data for this Airport")
+                    }
+
+                }
+
+
+            }
+        }
+        item(){
+            Text(text = "Windshear-data:", fontWeight = FontWeight.Bold, fontSize = 15.sp)
+
+        }
 
         item() {
             if(windshearForThisAirport.isEmpty()) {
@@ -57,6 +94,10 @@ fun WarningsView(
         //Forrvirrende variabel navn her, skal endres
         items(windshearForThisAirport) { windshareData ->
             WindshearCard(windshearData = windshareData)
+        }
+        item(){
+            Text(text = "Taf-data: (Swipe down to load more...)", fontWeight = FontWeight.Bold, fontSize = 15.sp)
+
         }
 
         item(){
@@ -70,18 +111,8 @@ fun WarningsView(
             }
         }
 
-        item() {
-            if(!report.isEmpty()){
-                for (each in report){
-                    MetarCard(meteorologicalAerodromeReport = each)
-                }
-
-            }
-            else {
-                Text(text = "No metar data")
-            }
-        }
     }
+
 }
 
 
@@ -147,7 +178,7 @@ fun MetarCard(meteorologicalAerodromeReport: MeteorologicalAerodromeReport) {
         //backgroundColor = Color.Green.copy(alpha = 0.2f)
 
     ) {
-        Column(modifier = Modifier.fillMaxSize(),
+        Column(modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally) {
             //Spacer(modifier = Modifier.height(20.dp).fillMaxWidth())
             Text(

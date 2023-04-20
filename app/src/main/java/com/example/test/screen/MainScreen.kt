@@ -86,6 +86,7 @@ fun MainScreen(
             for (airport in airports) {
                 val planeSpottingLocations = loadPlaneSpottingLocation().filter { it.FlypalssICAO == airport.ICAO }
                 Marker(
+                    icon= BitmapDescriptorFactory.fromResource(R.drawable.free_airport_location_icon_2959_thumb),
                     state = MarkerState(position = LatLng(airport.Latitude, airport.Longitude)),
                     title = airport.name,
                     snippet = airport.ICAO ,
@@ -112,6 +113,8 @@ fun MainScreen(
             MapEffect { map ->
                 map.uiSettings.isRotateGesturesEnabled = false
                 map.uiSettings.isMapToolbarEnabled = true
+//                map.uiSettings.isTiltGesturesEnabled = false
+//                map.uiSettings.isIndoorLevelPickerEnabled = true
 
                 val markers = mutableListOf<Marker?>()
                 val poly = mutableListOf<Polygon>()
@@ -119,6 +122,7 @@ fun MainScreen(
                     val test = ViewModel.flyUiState.value.fly
                     while (ViewModel.flyUiState.value.fly.isEmpty() || ViewModel.flyUiState.value.fly == test) {
                         delay(100)
+                        println(1)
                     }
                     poly.forEach { it?.remove() }
                     poly.clear()
@@ -139,10 +143,12 @@ fun MainScreen(
                                     map.addMarker(
                                         MarkerOptions()
                                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.kindpng_7070085))
-                                            .title(i[1].toString())
+                                            .title("Icao24: " + i[0].toString() + ", Call sign: " + i[1].toString())
                                             .position(flyPos)
                                             .anchor(0.5f, 0.5f)
                                             .rotation(i[10].toString().toFloat())
+                                            .snippet("Geo_altitude: " + i[13].toString() + "moh, Velocity: " + i[9].toString() +"m/s" )
+
                                     )
                                 )
                             } else {
@@ -186,7 +192,7 @@ fun SpotterPins(spotterLocations: List<planeSpottingLocation>) {
     for (spottingLocation in spotterLocations) {
         Marker(
             state = MarkerState(position = LatLng(spottingLocation.Latitude, spottingLocation.Longitude)),
-            icon= BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN),
+            icon= BitmapDescriptorFactory.fromResource(R.drawable.binoculars_2),
             title = spottingLocation.Name
         )
     }

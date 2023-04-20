@@ -50,7 +50,7 @@ fun WarningsView(
         modifier = Modifier
             //.fillMaxSize()
             .fillMaxWidth()
-        //.fillMaxHeight()
+            //.fillMaxHeight()
     ) {
 
         item {
@@ -191,3 +191,4 @@ fun MetarCard(meteorologicalAerodromeReport: MeteorologicalAerodromeReport) {
         }
     }
 }
+

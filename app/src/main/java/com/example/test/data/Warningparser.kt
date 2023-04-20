@@ -26,7 +26,7 @@ class Warningparser {
                     if (s.hasNextLine()) {
                         val line2: String = s.nextLine()
                         if (line2.isNotEmpty()) {
-                            newObjectData += line2
+                            newObjectData += " $line2"
                         } else {
                             zczc = false
                         }
@@ -40,9 +40,6 @@ class Warningparser {
 
         val objektListe: MutableList<Any> = mutableListOf()
         for (warningData in list) {
-            println("TEST WW:")
-            println(warningData)
-
             if (warningData[1] == 'W') {
                 //Windshear:
                 val new: Windshear = Windshear(warningData, this.parseICAO(warningData))
@@ -54,19 +51,12 @@ class Warningparser {
                 objektListe.add(new)
             }
         }
-        println("TEST RESULTAT før:") //Forventet res: [Warning(content=ZCZCWSN031 ENMI 301915ENOR SIGMET M01 VALID 302000/310000 ENMI-ENOR POLARIS FIR SEV MTW FCST WI N5910 E00730 – N5919 E00550- N6200 E00545 – N6200 E00730 – N5910 E00730 SFC/FL80 STRN NC=, kordinater=[N5910 E00730, N5919 E00550, N6200 E00545, N6200 E00730, N5910 E00730]), Warning(content=ZCZCWANO31 ENMI 160517ENOR AIRMET I01 VALID 160600/161000 ENMI-ENOR POLARIS FIR MOD ICE FCST WI N5820E00845 - N5800 E00755 - N5800 E00645N5850 E00500 - N5900 E00730 - N5820 E008451000FT/FL150 MOV ENE 2OKT INTSF=, kordinater=[N5800 E00755, N5800 E00645, N5850 E00500, N5900 E00730, N5820 E008451000])]
-        //Windshear funker
-        println(objektListe)
-
 
         for (warning in objektListe) {
             if (warning is Warning) {
                 warning.kordinater = this.convertDDMtoLatLongList(warning.kordinater)
             }
         }
-
-        println("TEST RESULTAT ETTER DD KONVERTERING:")
-        println(objektListe)
         return objektListe
     }
 
@@ -84,8 +74,6 @@ class Warningparser {
         val inputList = TextUtils.split(input, " ")
         val lat: String = inputList[0]
         val long: String = inputList[1]
-        Log.d("User", "Latstring: $lat")
-        Log.d("User", "Longstring: $long")
         val inputDegreesLat = lat[1].toString() + lat[2].toString()
         val inputMinutesLat = lat[3].toString() + lat[4].toString()
         //Antar at første tall i Exxxxx alltid er 0!
@@ -110,7 +98,7 @@ class Warningparser {
 
     //Finner ICAO for windshear
     private fun parseICAO(input: String): String {
-        val stringlist = input.split("")
-        return stringlist[3]
+        val stringlist = input.split(" ")
+        return stringlist[4]
     }
 }

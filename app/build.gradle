@@ -48,10 +48,19 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+
 }
 
 dependencies {
     implementation 'androidx.navigation:navigation-runtime-ktx:2.5.3'
+    testImplementation 'org.testng:testng:6.9.6'
+    androidTestImplementation 'junit:junit:4.12'
     constraints {
         //dupe class fix fra David Fraser
         //https://stackoverflow.com/questions/75263047/duplicate-class-in-kotlin-android
@@ -109,6 +118,12 @@ dependencies {
 
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1"
+
+    testImplementation 'junit:junit:4.13.2'
+
+    //robolectric for testing
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.robolectric:robolectric:4.9'
 
 
 }

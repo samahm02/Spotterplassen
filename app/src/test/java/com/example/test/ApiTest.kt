@@ -6,7 +6,6 @@ import com.example.test.data.fetchXML
 import com.example.test.data.fetchXMLTafmetar
 import com.example.test.model.Warning
 import com.example.test.model.Windshear
-import com.google.android.gms.common.api.Response
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Test
@@ -77,7 +76,7 @@ class ApiTest {
 
 
    @Test
-    fun parseTest() {
+    fun parseWarningTest() {
         val warningparser = Warningparser()
         val input = "ZCZC\n" +
                 "WSN031 ENMI 301915\n" +
@@ -91,12 +90,7 @@ class ApiTest {
                 "ENOR POLARIS FIR MOD ICE FCST WI N5820\n" +
                 "E00845 - N5800 E00755 - N5800 E00645\n" +
                 "N5850 E00500 - N5900 E00730 - N5820 E00845\n" +
-                "1000FT/FL150 MOV ENE 2OKT INTSF=\n" +
-                "\n" +
-                "ZCZC\n" +
-                "WWNO48 ENMI 160712\n" +
-                "ENBR WS WRNG 01 160712 VALID 160730/161130\n" +
-                "WS FCST INTSF="
+                "1000FT/FL150 MOV ENE 2OKT INTSF="
         val expected = listOf(
             Warning(
                 " WSN031 ENMI 301915 ENOR SIGMET M01 VALID 302000/310000 ENMI- ENOR POLARIS FIR SEV MTW FCST WI N5910 E00730 – N5919 E00550 - N6200 E00545 – N6200 E00730 – N5910 E00730 SFC/FL80 STRN NC=",
@@ -104,8 +98,22 @@ class ApiTest {
             ),
             Warning(
                 " WANO31 ENMI 160517 ENOR AIRMET I01 VALID 160600/161000 ENMI- ENOR POLARIS FIR MOD ICE FCST WI N5820 E00845 - N5800 E00755 - N5800 E00645 N5850 E00500 - N5900 E00730 - N5820 E00845 1000FT/FL150 MOV ENE 2OKT INTSF=",
-                listOf("58.333333333333336 8.7", "58.0 6.75", "58.833333333333336 5.0", "59.0 7.5", "58.333333333333336 8.75")
-            ),
+                listOf("58.333333333333336 8.75","58.0 7.916666666666667", "58.0 6.75", "58.833333333333336 5.0", "59.0 7.5", "58.333333333333336 8.75")
+            )
+        )
+
+        val result = warningparser.parse(input)
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun parseWindshearTest() {
+        val warningparser = Warningparser()
+        val input = "ZCZC\n" +
+                "WWNO48 ENMI 160712\n" +
+                "ENBR WS WRNG 01 160712 VALID 160730/161130\n" +
+                "WS FCST INTSF="
+        val expected = listOf(
             Windshear(
                 " WWNO48 ENMI 160712 ENBR WS WRNG 01 160712 VALID 160730/161130 WS FCST INTSF=",
                 "ENBR"

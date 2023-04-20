@@ -40,7 +40,7 @@ class Warningparser {
 
         val objektListe: MutableList<Any> = mutableListOf()
         for (warningData in list) {
-            if (warningData[1] == 'W') {
+            if (warningData[2] == 'W') {
                 //Windshear:
                 val new: Windshear = Windshear(warningData, this.parseICAO(warningData))
                 objektListe.add(new)

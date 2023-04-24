@@ -97,7 +97,7 @@ class Warningparser {
     }
 
     //Finner ICAO for windshear
-    private fun parseICAO(input: String): String {
+    fun parseICAO(input: String): String {
         val stringlist = input.split(" ")
         return stringlist[4]
     }

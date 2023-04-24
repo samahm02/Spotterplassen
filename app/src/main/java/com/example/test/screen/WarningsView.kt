@@ -1,5 +1,6 @@
 package com.example.test.screen
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -172,6 +173,14 @@ fun WindshearCard(windshearData: Windshear) {
 @Composable
 fun MetarCard(meteorologicalAerodromeReport: MeteorologicalAerodromeReport) {
     val configuration = LocalConfiguration.current
+    var screenWidth = 450.dp
+
+    if (configuration.screenWidthDp.dp < 450.dp) {
+        screenWidth = configuration.screenWidthDp.dp
+    }
+
+
+    //Log.v("width", configuration.screenWidthDp.dp.toString())
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -182,20 +191,26 @@ fun MetarCard(meteorologicalAerodromeReport: MeteorologicalAerodromeReport) {
         //backgroundColor = Color.Green.copy(alpha = 0.2f)
 
     ) {
-        Column(modifier = Modifier.width(configuration.screenWidthDp.dp),
-            horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            modifier = Modifier.width(screenWidth),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             //Spacer(modifier = Modifier.height(20.dp).fillMaxWidth())
             Text(
                 modifier = Modifier.padding(horizontal = 1.dp, vertical = 5.dp),
-                text = "Time position: " + meteorologicalAerodromeReport.timePosition)
+                text = "Time position: " + meteorologicalAerodromeReport.timePosition
+            )
             Text(
                 modifier = Modifier,
-                text = "Metar text:")
+                text = "Metar text:"
+            )
             Text(
                 modifier = Modifier.padding(horizontal = 1.dp, vertical = 0.dp),
-                text = meteorologicalAerodromeReport.metarText)
+                text = meteorologicalAerodromeReport.metarText
+            )
 
         }
     }
 }
+
 

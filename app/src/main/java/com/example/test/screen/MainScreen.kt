@@ -142,7 +142,7 @@ fun MainScreen(
                                 markers.add(
                                     map.addMarker(
                                         MarkerOptions()
-                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.kindpng_7070085))
+                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.fly))
                                             .title("Icao24: " + i[0].toString() + ", Call sign: " + i[1].toString())
                                             .position(flyPos)
                                             .anchor(0.5f, 0.5f)
@@ -155,7 +155,7 @@ fun MainScreen(
                                 markers.add(
                                     map.addMarker(
                                         MarkerOptions()
-                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.kindpng_7070085))
+                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.fly))
                                             .position(flyPos)
                                     )
                                 )

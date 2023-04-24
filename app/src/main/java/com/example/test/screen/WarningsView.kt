@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -123,9 +124,8 @@ fun TafmetarCard(weatherForecastData: WeatherForecast) {
             .fillMaxWidth()
             .padding(7.dp),
         shape = RoundedCornerShape(size = 26.dp),
-        border = BorderStroke(width = 1.dp, color = Color.Green),
+        border = BorderStroke(width = 1.dp, color = Color.Black),
         elevation = 4.dp,
-        //backgroundColor = Color.Green.copy(alpha = 0.2f)
 
     ) {
         Column(modifier = Modifier.fillMaxSize(),
@@ -141,8 +141,11 @@ fun TafmetarCard(weatherForecastData: WeatherForecast) {
                 modifier = Modifier.padding(horizontal = 1.dp, vertical = 1.dp),
                 text = "Nais header: " + weatherForecastData.naisHeader)
             Text(
-                modifier = Modifier.padding(horizontal = 1.dp, vertical = 1.dp),
-                text = "Tafftext: " + weatherForecastData.tafText)
+                modifier = Modifier,
+                text = "Tafftext:")
+            Text(
+                modifier = Modifier.padding(horizontal = 1.dp, vertical = 0.dp),
+                text = weatherForecastData.tafText)
         }
     }
 }
@@ -168,25 +171,29 @@ fun WindshearCard(windshearData: Windshear) {
 
 @Composable
 fun MetarCard(meteorologicalAerodromeReport: MeteorologicalAerodromeReport) {
+    val configuration = LocalConfiguration.current
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(7.dp),
         shape = RoundedCornerShape(size = 26.dp),
-        border = BorderStroke(width = 1.dp, color = Color.Green),
+        border = BorderStroke(width = 1.dp, color = Color.Black),
         elevation = 4.dp,
         //backgroundColor = Color.Green.copy(alpha = 0.2f)
 
     ) {
-        Column(modifier = Modifier.fillMaxWidth(),
+        Column(modifier = Modifier.width(configuration.screenWidthDp.dp),
             horizontalAlignment = Alignment.CenterHorizontally) {
             //Spacer(modifier = Modifier.height(20.dp).fillMaxWidth())
             Text(
                 modifier = Modifier.padding(horizontal = 1.dp, vertical = 5.dp),
                 text = "Time position: " + meteorologicalAerodromeReport.timePosition)
             Text(
-                modifier = Modifier.padding(horizontal = 1.dp, vertical = 1.dp),
-                text ="Metar text: " + meteorologicalAerodromeReport.metarText)
+                modifier = Modifier,
+                text = "Metar text:")
+            Text(
+                modifier = Modifier.padding(horizontal = 1.dp, vertical = 0.dp),
+                text = meteorologicalAerodromeReport.metarText)
 
         }
     }

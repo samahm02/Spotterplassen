@@ -45,9 +45,7 @@ fun MainScreen(
     }
 
     val cameraPositionState: CameraPositionState = rememberCameraPositionState {
-
-        println("POSISSSSJOOOON" + userPosition)
-
+        //println("POSISSSSJOOOON" + userPosition)
         position = CameraPosition.fromLatLngZoom(userPosition, 11f)
     }
 
@@ -90,7 +88,7 @@ fun MainScreen(
                     state = MarkerState(position = LatLng(airport.Latitude, airport.Longitude)),
                     title = airport.name,
                     snippet = airport.ICAO ,
-                    onInfoWindowClick = { onAirportButtonClicked(airport.ICAO ) },
+                    onInfoWindowClick = { onAirportButtonClicked(airport.ICAO) },
                     onClick = { marker ->
                         if (airport.ICAO == selectedAirportICAO) {
                             //if the same airport is selected set to false
@@ -166,7 +164,7 @@ fun MainScreen(
                     //Polygon for sigmet/airmet:
                     if (state.clusterItems.isNotEmpty()) {
                         /*
-                        Mitch sine markers. Må tilpasse med compose markers tror jeg. (ikke bruke .map)
+                        Mitch sine markers. onClick funker ikke med .map
                         val clusterManager = setupClusterManager(context, map)
                         map.setOnCameraIdleListener(clusterManager)
                         map.setOnMarkerClickListener(clusterManager)

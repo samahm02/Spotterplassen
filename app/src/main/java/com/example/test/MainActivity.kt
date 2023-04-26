@@ -6,7 +6,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.ui.platform.ComposeView
 import android.Manifest
 import android.content.pm.PackageManager
-import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import com.example.test.viewModel.ViewModel
@@ -48,7 +47,7 @@ class MainActivity : ComponentActivity() {
         setContentView(
             ComposeView(this).apply {
                 setContent {
-                    Navigasjon(this@MainActivity, viewModel)
+                    Navigasjon(viewModel)
                 }
             }
         )

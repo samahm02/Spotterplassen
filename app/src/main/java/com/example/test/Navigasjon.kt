@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.test.data.AirportData
+import com.example.test.data.loadAirports
 import com.example.test.screen.AirportScreen
 import com.example.test.screen.MainScreen
 import com.example.test.viewModel.ViewModel
@@ -34,6 +35,7 @@ fun Navigasjon(
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     var selectedAirPort: String = ""
     var selectedAirPortData: AirportData = AirportData(644,"Oslo Lufthavn","Oslo","Norway","OSL","ENGM",60.197166,11.099431,681,1,"E","Europe/Oslo","airport","OurAirports")
+    val allAirportData: List<AirportData> = loadAirports()
 
     //Scaffold med ønsket parameter
     androidx.compose.material.Scaffold(
@@ -55,13 +57,15 @@ fun Navigasjon(
                         GlobalScope.launch(Dispatchers.Main) {
                             navController.navigate(Navigasjon.Airport.name)
                             selectedAirPort = it
-                            Log.d("User", "it: $it")
-                            //Hvordan endre airportData? Hente fra load airports?
                             ViewModel.changeairPortICAO(selectedAirPort)
                             ViewModel.loadWarnings()
+                            for (airportData in allAirportData) {
+                                if (airportData.ICAO == it) {
+                                    selectedAirPortData = airportData
+                                }
+                            }
                         }
                     }
-
                 )
                 ViewModel.lastInnNyeFly()
             }

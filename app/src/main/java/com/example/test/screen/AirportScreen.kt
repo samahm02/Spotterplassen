@@ -10,8 +10,12 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.material.Text
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeJoin
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.ExperimentalTextApi
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.test.R
@@ -23,6 +27,7 @@ import com.example.test.ui.WeatherUiState
 import com.example.test.ui.WeatherUiStateReport
 
 
+@OptIn(ExperimentalTextApi::class)
 @Composable
 fun AirportScreen(ViewModel: ViewModel, airportIcao: String, airportData: AirportData?) {
     val warningUiState by ViewModel.warningUiState.collectAsState()
@@ -47,18 +52,39 @@ fun AirportScreen(ViewModel: ViewModel, airportIcao: String, airportData: Airpor
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(8.dp))
             )
+            //Title
             if (airportData != null) {
                 Text(
                     text = airportData.name,
-                    fontSize = 30.sp,
-                    color = Color.White,
+                    fontSize = 40.sp,
+                    color = Color.Black,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.align(Alignment.BottomCenter)
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                )
+                //Title (outlined tekst workaround)
+                Text(
+                    text = airportData.name,
+                    fontSize = 40.sp,
+                    color = Color.White,
+                    //fontWeight = FontWeight.Bold,
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                    style = TextStyle.Default.copy(
+                        fontSize = 64.sp,
+                        drawStyle = Stroke(
+                            miter = 10f,
+                            width = 5f,
+                            join = StrokeJoin.Round
+                        )
+                    )
+
                 )
             }
         }
 
-        WarningsView(warnings = warningUiState.warnings, viewModel = ViewModel, airportIcao, tafmetarUiState.getForecastList(),
+        WarningsView(
+            warnings = warningUiState.warnings,
+            airportIcao,
+            tafmetarUiState.getForecastList(),
             metarUiState.getForecastList()
         )
     }

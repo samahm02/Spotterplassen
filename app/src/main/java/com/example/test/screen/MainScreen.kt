@@ -14,7 +14,7 @@ import androidx.compose.foundation.layout.*
 import com.example.test.MapState
 import com.example.test.R
 import com.example.test.data.loadPlaneSpottingLocation
-import com.example.test.data.planeSpottingLocation
+import com.example.test.data.PlaneSpottingLocation
 import com.example.test.viewModel.ViewModel
 import com.google.android.gms.maps.model.*
 import kotlinx.coroutines.delay
@@ -24,6 +24,7 @@ import com.google.maps.android.compose.*
 @Composable
 fun MainScreen(
     onAirportButtonClicked: (icao: String) -> Unit = {},
+    onSpottingButtonClicked: (spottingLocation: String) -> Unit = {},
     ViewModel: ViewModel,
     state: MapState
 ) {
@@ -32,16 +33,15 @@ fun MainScreen(
     //Camera ved start
     val osloLufthavn = LatLng(60.121,11.0502)
     val userLocation: Location? = ViewModel.state.value.lastKnownLocation
-    val userPosition: LatLng
 
-    if (userLocation != null) {
+    val userPosition: LatLng = if (userLocation != null) {
         val userLatitude = userLocation.latitude
         val userLongitude = userLocation.longitude
-        userPosition = LatLng(userLatitude, userLongitude)
+        LatLng(userLatitude, userLongitude)
         // You can use userPosition here
     } else {
         // Handle the case when user position is not available
-        userPosition = osloLufthavn
+        osloLufthavn
     }
 
     val cameraPositionState: CameraPositionState = rememberCameraPositionState {
@@ -59,7 +59,7 @@ fun MainScreen(
         )
 
     //UI-related configurations
-    var mapUiSettings by remember {
+    val mapUiSettings by remember {
         mutableStateOf(
             MapUiSettings(mapToolbarEnabled = false)
         )
@@ -89,7 +89,7 @@ fun MainScreen(
                     title = airport.name,
                     snippet = airport.ICAO ,
                     onInfoWindowClick = { onAirportButtonClicked(airport.ICAO) },
-                    onClick = { marker ->
+                    onClick = {
                         if (airport.ICAO == selectedAirportICAO) {
                             //if the same airport is selected set to false
                             selectedAirportICAO = ""
@@ -103,7 +103,10 @@ fun MainScreen(
                     }
                 )
                 if(spotterBoolean && airport.ICAO == selectedAirportICAO) {
-                    SpotterPins(planeSpottingLocations)
+                    SpotterPins(
+                        planeSpottingLocations,
+                        onSpottingButtonClicked = { onSpottingButtonClicked(it) }
+                    )
                 }
             }
 
@@ -122,7 +125,7 @@ fun MainScreen(
                         delay(100)
                         println(1)
                     }
-                    poly.forEach { it?.remove() }
+                    poly.forEach { it.remove() }
                     poly.clear()
                     markers.forEach { it?.remove() }
                     markers.clear()
@@ -186,12 +189,16 @@ fun MainScreen(
 }
 
 @Composable
-fun SpotterPins(spotterLocations: List<planeSpottingLocation>) {
+fun SpotterPins(
+    spotterLocations: List<PlaneSpottingLocation>,
+    onSpottingButtonClicked: (spottingLocation: String) -> Unit = {}
+) {
     for (spottingLocation in spotterLocations) {
         Marker(
             state = MarkerState(position = LatLng(spottingLocation.Latitude, spottingLocation.Longitude)),
             icon= BitmapDescriptorFactory.fromResource(R.drawable.binoculars_2),
-            title = spottingLocation.Name
+            title = spottingLocation.Name,
+            onInfoWindowClick = { onSpottingButtonClicked(spottingLocation.Name) }
         )
     }
 }

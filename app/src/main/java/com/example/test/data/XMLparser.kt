@@ -176,10 +176,10 @@ class XmlParser {
     @Throws(XmlPullParserException::class, IOException::class)
     private fun readEntry(parser: XmlPullParser): WeatherForecast {
         parser.require(XmlPullParser.START_TAG, ns, "metno:terminalAerodromeForecast")
-        var issuedTime : String = ""
+        var issuedTime = ""
         //var validPeriod : Array<Int> = emptyArray()
         var validPeriod = arrayOf(" "," ")
-        var tafText : String = ""
+        var tafText = ""
         var naisHeader =""
 
         while (parser.next() != XmlPullParser.END_TAG) {
@@ -320,7 +320,7 @@ class XmlParser {
 
 data class WeatherForecast(val issuedTime : String, val validPeriodStart : String, val validPeriodEnd : String,
                            val tafText : String, val naisHeader: String) {
-    constructor() : this("", "", "", "", " ")
+    //constructor() : this("", "", "", "", " ")
 }
 
 data class MeteorologicalAerodromeReport(val timePosition: String, val metarText: String)

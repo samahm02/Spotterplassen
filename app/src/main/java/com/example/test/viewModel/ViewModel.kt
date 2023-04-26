@@ -1,26 +1,22 @@
 package com.example.test.viewModel
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.graphics.Color
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.test.MapState
 import com.example.test.data.DataSourceFly
-import com.example.test.ui.FlyUiState
-import com.example.test.ui.WarningUiState
 import com.example.test.data.fetchXML
 import com.example.test.data.fetchXMLTafmetar
 import com.example.test.model.*
+import com.example.test.ui.FlyUiState
+import com.example.test.ui.WarningUiState
 import com.example.test.ui.WeatherUiState
 import com.example.test.ui.WeatherUiStateReport
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
 import com.google.maps.android.ktx.model.polygonOptions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -98,7 +94,7 @@ class ViewModel : ViewModel() {
         laodTafData()
     }
 
-    var warnings = listOf<Any>()
+    private var warnings = listOf<Any>()
     private var clusterItems = mutableListOf<ZoneClusterItem>()
     fun loadWarnings() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -158,6 +154,7 @@ class ViewModel : ViewModel() {
         }
     }
 
+    /*
     fun setupClusterManager(
         context: Context,
         map: GoogleMap,
@@ -167,12 +164,15 @@ class ViewModel : ViewModel() {
         return clusterManager
     }
 
+
+
     fun calculateZoneLatLngBounds(): LatLngBounds {
         // Get all the points from all the polygons and calculate the camera view that will show them all.
         val latLngs = state.value.clusterItems.map { it.polygonOptions }
             .map { it.points.map { LatLng(it.latitude, it.longitude) } }.flatten()
         return latLngs.calculateCameraViewPoints().getCenterOfPolygon()
     }
+     */
 
 
 

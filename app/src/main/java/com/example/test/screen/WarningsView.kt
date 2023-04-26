@@ -1,6 +1,5 @@
 package com.example.test.screen
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -8,8 +7,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,21 +18,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.test.data.MeteorologicalAerodromeReport
 import com.example.test.data.WeatherForecast
-import com.example.test.model.Warning
 import com.example.test.model.Windshear
-import com.example.test.viewModel.ViewModel
 
 @Composable
 fun WarningsView(
     warnings: List<Any>,
-    viewModel: ViewModel,
     airPortIcao: String,
     forecast: List<WeatherForecast>,
     report: List<MeteorologicalAerodromeReport>
 
 ) {
     //viewModel.loadWarnings()
-    val windshearForThisAirport: MutableList<Windshear> = mutableListOf<Windshear>()
+    val windshearForThisAirport: MutableList<Windshear> = mutableListOf()
 
     for (warning in warnings) {
         //warning.icao funker ikke?
@@ -67,7 +61,7 @@ fun WarningsView(
                 //.fillMaxHeight()
             ) {
                 item() {
-                    if(!report.isEmpty()){
+                    if(report.isNotEmpty()){
                         for (each in report){
                             MetarCard(meteorologicalAerodromeReport = each)
                         }
@@ -103,7 +97,7 @@ fun WarningsView(
         }
 
         item(){
-            if (!forecast.isEmpty()){
+            if (forecast.isNotEmpty()){
                 for (each in forecast){
                     TafmetarCard(weatherForecastData = each)
                 }

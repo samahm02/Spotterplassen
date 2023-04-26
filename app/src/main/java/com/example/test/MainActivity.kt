@@ -24,11 +24,11 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-    private fun askPermissions() = when {
+    private fun askPermissions() = when (PackageManager.PERMISSION_GRANTED) {
         ContextCompat.checkSelfPermission(
             this,
             Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED -> {
+        ) -> {
             viewModel.getDeviceLocation(fusedLocationProviderClient)
         }
         else -> {

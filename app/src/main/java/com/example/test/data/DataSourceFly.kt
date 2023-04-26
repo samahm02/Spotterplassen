@@ -1,7 +1,6 @@
 package com.example.test.data
 
 import com.example.test.model.FlyData
-import com.example.test.model.Warning
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.*

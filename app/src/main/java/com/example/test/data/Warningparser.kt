@@ -5,20 +5,18 @@ import android.util.Log
 import com.example.test.model.Warning
 import com.example.test.model.Windshear
 import java.util.*
-import java.util.regex.Pattern
 
 class Warningparser {
     //Work in progress. Må finne ut av hva som er kordinater for warnings slik at vi kan lage geometriske representasjoner av objektene på kartet.
     fun parse(input: String): List<Any> {
         //Lagrer først alle tokens i en liste med scanner-objekt:
         val list: MutableList<String> = mutableListOf()
-        val s: Scanner = Scanner(input)
-        var newObjectText: String = ""
+        val s = Scanner(input)
         while (s.hasNext()) {
             //Ser om linje er en "ZCZC"
             val line = s.nextLine()
             if (line == "ZCZC") {
-                var newObjectData: String = ""
+                var newObjectData = ""
                 var zczc = true
                 //Legger til ny streng i lista for hver "zczc" token:
                 while (zczc) {
@@ -42,12 +40,12 @@ class Warningparser {
         for (warningData in list) {
             if (warningData[2] == 'W') {
                 //Windshear:
-                val new: Windshear = Windshear(warningData, this.parseICAO(warningData))
+                val new = Windshear(warningData, this.parseICAO(warningData))
                 objektListe.add(new)
 
             } else {
                 //Airmet/Sigmet
-                val new: Warning = Warning(warningData, this.parseDSM(warningData))
+                val new = Warning(warningData, this.parseDSM(warningData))
                 objektListe.add(new)
             }
         }

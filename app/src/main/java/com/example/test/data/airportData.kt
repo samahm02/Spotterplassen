@@ -5,6 +5,6 @@ data class AirportData(
     val ICAO: String, val Latitude: Double, val Longitude: Double, val Altitude: Int, val Timezone: Int,
     val DST: String, val timeZone: String, val Type: String, val Source: String)
 
-data class planeSpottingLocation(
+data class PlaneSpottingLocation(
     val Name: String, val Latitude: Double, val Longitude: Double, val Description: String, val FlypalssICAO: String
 )

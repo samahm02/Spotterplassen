@@ -26,10 +26,8 @@ import com.example.test.ui.WeatherUiStateReport
 @Composable
 fun AirportScreen(ViewModel: ViewModel, airportIcao: String, airportData: AirportData?) {
     val warningUiState by ViewModel.warningUiState.collectAsState()
-    //ViewModel.changeairPortICAO(icao)
     val tafmetarUiState by ViewModel.weatherUiState.collectAsState()
     val metarUiState by ViewModel.weatherUiStateReport.collectAsState()
-
 
     Column(
         modifier = Modifier
@@ -40,7 +38,7 @@ fun AirportScreen(ViewModel: ViewModel, airportIcao: String, airportData: Airpor
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(100.dp)
+                .height(150.dp)
         ) {
             Image(painter = painterResource(id = R.drawable.minimalairport),
                 contentDescription = null,
@@ -54,7 +52,8 @@ fun AirportScreen(ViewModel: ViewModel, airportIcao: String, airportData: Airpor
                     text = airportData.name,
                     fontSize = 30.sp,
                     color = Color.White,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.align(Alignment.BottomCenter)
                 )
             }
         }

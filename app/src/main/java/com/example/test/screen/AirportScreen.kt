@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeJoin
@@ -17,6 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.test.R
 import com.example.test.data.AirportData
@@ -40,6 +42,19 @@ fun AirportScreen(ViewModel: ViewModel, airportIcao: String, airportData: Airpor
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+
+        TopAppBar(
+            title = {
+                Text(
+                    text = "Flyplass",
+                    textAlign = TextAlign.Center,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        )
+
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -102,3 +117,4 @@ fun WeatherUiStateReport.getForecastList(): List<MeteorologicalAerodromeReport> 
         is WeatherUiStateReport.Success -> WeatherReport
     }
 }
+

@@ -11,6 +11,12 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.LocalContentColor
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 import com.example.test.MapState
 import com.example.test.R
 import com.example.test.data.loadPlaneSpottingLocation
@@ -189,6 +195,7 @@ fun MainScreen(
             }
         }
     }
+    TopBar(title = "Kart")
 }
 
 @Composable
@@ -205,4 +212,21 @@ fun SpotterPins(
         )
     }
 }
+
+
+@Composable
+fun TopBar(title: String) {
+    TopAppBar(
+        title = {
+            Text(
+                text = title,
+                textAlign = TextAlign.Center,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
+    )
+}
+
+
 

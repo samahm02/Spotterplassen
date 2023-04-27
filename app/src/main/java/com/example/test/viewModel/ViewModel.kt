@@ -106,7 +106,7 @@ class ViewModel : ViewModel() {
                     clusterItems.add(
                         ZoneClusterItem(
                             id = "testid",
-                            title = "testtitle",
+                            title = warning.content,
                             snippet = "testsnippet",
                             polygonOptions = polygonOptions {
                                 for (kordinatStreng in warning.kordinater) {
@@ -123,9 +123,12 @@ class ViewModel : ViewModel() {
         }
     }
 
+    companion object {
+        private val POLYGON_FILL_COLOR = Color.parseColor("#4DF44336")
+    }
+
     //Mitch sin WM:
     val state: MutableState<MapState> = mutableStateOf(
-        //Midlertidig clusteritem test:
         MapState(
             lastKnownLocation = null,
             clusterItems = clusterItems
@@ -173,10 +176,4 @@ class ViewModel : ViewModel() {
         return latLngs.calculateCameraViewPoints().getCenterOfPolygon()
     }
      */
-
-
-
-    companion object {
-        private val POLYGON_FILL_COLOR = Color.parseColor("#4DF44336")
-    }
 }

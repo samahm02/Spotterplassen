@@ -93,6 +93,7 @@ fun Navigasjon(
                     }
                 )
                 ViewModel.lastInnNyeFly()
+                ViewModel.loadWarnings()
             }
 
             composable(route = Navigasjon.Airport.name) {

@@ -132,7 +132,7 @@ fun MainScreen(
                     val test = ViewModel.flyUiState.value.fly
                     while (ViewModel.flyUiState.value.fly.isEmpty() || ViewModel.flyUiState.value.fly == test) {
                         delay(100)
-                        println(1)
+                        //println(1)
                     }
                     poly.forEach { it.remove() }
                     poly.clear()
@@ -193,6 +193,13 @@ fun MainScreen(
                     ViewModel.lastInnNyeFly()
                 }
             }
+
+            //Adds marker in the center of each polygon:
+            if (state.clusterItems.isNotEmpty()) {
+                state.clusterItems.forEach { clusterItem ->
+                    PolygonMarker(polygonCenter = clusterItem.position, title = clusterItem.title)
+                }
+            }
         }
     }
     TopBar(title = "Kart")
@@ -211,6 +218,14 @@ fun SpotterPins(
             onInfoWindowClick = { onSpottingButtonClicked(spottingLocation.Name) }
         )
     }
+}
+
+@Composable
+fun PolygonMarker(polygonCenter: LatLng, title: String) {
+    Marker(
+        state = MarkerState(position = polygonCenter),
+        title = title
+    )
 }
 
 

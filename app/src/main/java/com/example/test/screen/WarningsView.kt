@@ -62,7 +62,7 @@ fun WarningsView(
             ) {
                 item() {
                     if(report.isNotEmpty()){
-                        for (each in report){
+                        for (each in report.reversed()){
                             MetarCard(meteorologicalAerodromeReport = each)
                         }
 

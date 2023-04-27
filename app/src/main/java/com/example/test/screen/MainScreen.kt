@@ -37,6 +37,7 @@ fun MainScreen(
 
     //DO NOT LIFT OUT ASSIGNMET (break location)
     if (userLocation != null) {
+
         val userLatitude = userLocation.latitude
         val userLongitude = userLocation.longitude
         userPosition = LatLng(userLatitude, userLongitude)

@@ -33,15 +33,17 @@ fun MainScreen(
     //Camera ved start
     val osloLufthavn = LatLng(60.121,11.0502)
     val userLocation: Location? = ViewModel.state.value.lastKnownLocation
+    val userPosition: LatLng
 
-    val userPosition: LatLng = if (userLocation != null) {
+    //DO NOT LIFT OUT ASSIGNMET (break location)
+    if (userLocation != null) {
         val userLatitude = userLocation.latitude
         val userLongitude = userLocation.longitude
-        LatLng(userLatitude, userLongitude)
+        userPosition = LatLng(userLatitude, userLongitude)
         // You can use userPosition here
     } else {
         // Handle the case when user position is not available
-        osloLufthavn
+        userPosition = osloLufthavn
     }
 
     val cameraPositionState: CameraPositionState = rememberCameraPositionState {

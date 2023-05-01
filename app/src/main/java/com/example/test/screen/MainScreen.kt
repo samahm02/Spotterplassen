@@ -224,6 +224,7 @@ fun SpotterPins(
 fun PolygonMarker(polygonCenter: LatLng, title: String) {
     Marker(
         state = MarkerState(position = polygonCenter),
+        icon= BitmapDescriptorFactory.fromResource(R.drawable._a81af7d9123fa7bcc9b0793),
         title = title
     )
 }

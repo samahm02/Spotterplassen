@@ -41,15 +41,18 @@ class MainActivity : ComponentActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         askPermissions()
         setContentView(
             ComposeView(this).apply {
                 setContent {
+
                     Navigasjon(viewModel)
                 }
             }
         )
+
     }
 }

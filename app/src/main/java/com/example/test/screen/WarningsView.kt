@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.test.data.MeteorologicalAerodromeReport
@@ -128,7 +129,9 @@ fun TafmetarCard(weatherForecastData: WeatherForecast) {
             //Spacer(modifier = Modifier.height(20.dp).fillMaxWidth())
             Text(
                 modifier = Modifier.padding(horizontal = 1.dp, vertical = 5.dp),
-                text = "Valid period: " + weatherForecastData.validPeriodStart + " - " + weatherForecastData.validPeriodEnd)
+                text = "Valid period: " + weatherForecastData.validPeriodStart + " - " + weatherForecastData.validPeriodEnd,
+                textAlign = TextAlign.Justify,
+                softWrap = true)
             Text(
                 modifier = Modifier.padding(horizontal = 1.dp, vertical = 1.dp),
                 text ="Issued time: " + weatherForecastData.issuedTime)
@@ -140,7 +143,9 @@ fun TafmetarCard(weatherForecastData: WeatherForecast) {
                 text = "Tafftext:")
             Text(
                 modifier = Modifier.padding(horizontal = 1.dp, vertical = 0.dp),
-                text = weatherForecastData.tafText)
+                text = weatherForecastData.tafText,
+                textAlign = TextAlign.Center,
+                )
         }
     }
 }
@@ -167,10 +172,10 @@ fun WindshearCard(windshearData: Windshear) {
 @Composable
 fun MetarCard(meteorologicalAerodromeReport: MeteorologicalAerodromeReport) {
     val configuration = LocalConfiguration.current
-    var screenWidth = 450.dp
+    var screenWidth = 450
 
-    if (configuration.screenWidthDp.dp < 450.dp) {
-        screenWidth = configuration.screenWidthDp.dp
+    if (configuration.screenWidthDp < 450) {
+        screenWidth = (configuration.screenWidthDp * 0.7).toInt()
     }
 
 
@@ -186,7 +191,7 @@ fun MetarCard(meteorologicalAerodromeReport: MeteorologicalAerodromeReport) {
 
     ) {
         Column(
-            modifier = Modifier.width(screenWidth),
+            modifier = Modifier.width(screenWidth.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             //Spacer(modifier = Modifier.height(20.dp).fillMaxWidth())
@@ -200,7 +205,8 @@ fun MetarCard(meteorologicalAerodromeReport: MeteorologicalAerodromeReport) {
             )
             Text(
                 modifier = Modifier.padding(horizontal = 1.dp, vertical = 0.dp),
-                text = meteorologicalAerodromeReport.metarText
+                text = meteorologicalAerodromeReport.metarText,
+                textAlign = TextAlign.Center,
             )
 
         }

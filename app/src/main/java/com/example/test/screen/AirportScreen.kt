@@ -65,21 +65,21 @@ fun AirportScreen(ViewModel: ViewModel, airportIcao: String, airportData: Airpor
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(8.dp))
+                    //.clip(RoundedCornerShape(8.dp))
             )
             //Title
             if (airportData != null) {
                 Text(
                     text = airportData.name,
-                    fontSize = 40.sp,
+                    fontSize = 35.sp,
                     color = Color.Black,
-                    fontWeight = FontWeight.Bold,
+                    //fontWeight = FontWeight.Bold,
                     modifier = Modifier.align(Alignment.BottomCenter),
                 )
                 //Title (outlined tekst workaround)
                 Text(
                     text = airportData.name,
-                    fontSize = 40.sp,
+                    fontSize = 35.sp,
                     color = Color.White,
                     //fontWeight = FontWeight.Bold,
                     modifier = Modifier.align(Alignment.BottomCenter),

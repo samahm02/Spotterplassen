@@ -1,6 +1,7 @@
 package com.example.test.screen
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -47,11 +48,10 @@ fun WarningsView(
         modifier = Modifier
             //.fillMaxSize()
             .fillMaxWidth()
-            //.fillMaxHeight()
     ) {
 
         item {
-            Text(text = "Metar-data: (Swipe left to load more...)", fontWeight = FontWeight.Bold, fontSize = 15.sp)
+            Text(text = "Metar-data:", fontWeight = FontWeight.Bold, fontSize = 15.sp)
         }
         item() {
             LazyRow(
@@ -77,7 +77,15 @@ fun WarningsView(
 
             }
         }
+
         item(){
+            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier
+                .height(5.dp)
+                .fillMaxWidth()
+                .background(Color(android.graphics.Color.parseColor("#fff3f3f3")))
+            )
+                    //Color(android.graphics.Color.parseColor("#edb879")))
             Text(text = "Windshear-data:", fontWeight = FontWeight.Bold, fontSize = 15.sp)
 
         }
@@ -93,7 +101,13 @@ fun WarningsView(
             WindshearCard(windshearData = windshareData)
         }
         item(){
-            Text(text = "Taf-data: (Swipe down to load more...)", fontWeight = FontWeight.Bold, fontSize = 15.sp)
+            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier
+                .height(5.dp)
+                .fillMaxWidth()
+                .background(Color(android.graphics.Color.parseColor("#fff3f3f3")))
+            )
+            Text(text = "Taf-data:", fontWeight = FontWeight.Bold, fontSize = 15.sp)
 
         }
 
@@ -124,7 +138,7 @@ fun TafmetarCard(weatherForecastData: WeatherForecast) {
         elevation = 4.dp,
 
     ) {
-        Column(modifier = Modifier.fillMaxSize(),
+        Column(modifier = Modifier.fillMaxSize().background(Color(android.graphics.Color.parseColor("#fff3f3f3"))),
             horizontalAlignment = Alignment.CenterHorizontally) {
             //Spacer(modifier = Modifier.height(20.dp).fillMaxWidth())
             Text(
@@ -191,7 +205,7 @@ fun MetarCard(meteorologicalAerodromeReport: MeteorologicalAerodromeReport) {
 
     ) {
         Column(
-            modifier = Modifier.width(screenWidth.dp),
+            modifier = Modifier.width(screenWidth.dp).background(Color(android.graphics.Color.parseColor("#fff3f3f3"))),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             //Spacer(modifier = Modifier.height(20.dp).fillMaxWidth())

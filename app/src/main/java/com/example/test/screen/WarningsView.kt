@@ -51,7 +51,7 @@ fun WarningsView(
     ) {
 
         item {
-            Text(text = "Metar-data:", fontWeight = FontWeight.Bold, fontSize = 15.sp)
+            Text(text = "Metar-data", fontWeight = FontWeight.Bold, fontSize = 20.sp)
         }
         item() {
             LazyRow(
@@ -90,7 +90,7 @@ fun WarningsView(
 
              */
                     //Color(android.graphics.Color.parseColor("#edb879")))
-            Text(text = "Windshear-data:", fontWeight = FontWeight.Bold, fontSize = 15.sp)
+            Text(text = "Windshear-data", fontWeight = FontWeight.Bold, fontSize = 20.sp)
 
         }
 
@@ -115,7 +115,7 @@ fun WarningsView(
             )
 
              */
-            Text(text = "Taf-data:", fontWeight = FontWeight.Bold, fontSize = 15.sp)
+            Text(text = "Taf-data", fontWeight = FontWeight.Bold, fontSize = 20.sp)
 
         }
 
@@ -146,12 +146,15 @@ fun TafmetarCard(weatherForecastData: WeatherForecast) {
         elevation = 4.dp,
 
     ) {
-        Column(modifier = Modifier.fillMaxSize().background(Color(android.graphics.Color.parseColor("#fff3f3f3"))),
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .background(Color(android.graphics.Color.parseColor("#fff3f3f3")))
+            .padding((7.dp)),
             horizontalAlignment = Alignment.CenterHorizontally) {
             //Spacer(modifier = Modifier.height(20.dp).fillMaxWidth())
             Text(
                 modifier = Modifier.padding(horizontal = 1.dp, vertical = 5.dp),
-                text = "Valid period: " + weatherForecastData.validPeriodStart + " - " + weatherForecastData.validPeriodEnd,
+                text = "Valid : " + weatherForecastData.validPeriodStart + " - " + weatherForecastData.validPeriodEnd,
                 textAlign = TextAlign.Justify,
                 softWrap = true)
             Text(
@@ -162,7 +165,7 @@ fun TafmetarCard(weatherForecastData: WeatherForecast) {
                 text = "Nais header: " + weatherForecastData.naisHeader)
             Text(
                 modifier = Modifier,
-                text = "Tafftext:")
+                text = "\nTafftext:")
             Text(
                 modifier = Modifier.padding(horizontal = 1.dp, vertical = 0.dp),
                 text = weatherForecastData.tafText,
@@ -180,7 +183,7 @@ fun WindshearCard(windshearData: Windshear) {
             .padding(15.dp)
 
     ) {
-        Column(modifier = Modifier.fillMaxSize(),
+        Column(modifier = Modifier.fillMaxSize().background(Color(android.graphics.Color.parseColor("#fff3f3f3"))),
             horizontalAlignment = Alignment.CenterHorizontally) {
             Spacer(modifier = Modifier
                 .height(20.dp)

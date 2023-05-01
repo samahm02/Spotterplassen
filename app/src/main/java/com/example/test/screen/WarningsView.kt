@@ -80,11 +80,15 @@ fun WarningsView(
 
         item(){
             Spacer(modifier = Modifier.height(20.dp))
+            /*
+            //Colorspacer:
             Spacer(modifier = Modifier
                 .height(5.dp)
                 .fillMaxWidth()
                 .background(Color(android.graphics.Color.parseColor("#fff3f3f3")))
             )
+
+             */
                     //Color(android.graphics.Color.parseColor("#edb879")))
             Text(text = "Windshear-data:", fontWeight = FontWeight.Bold, fontSize = 15.sp)
 
@@ -102,11 +106,15 @@ fun WarningsView(
         }
         item(){
             Spacer(modifier = Modifier.height(30.dp))
+            /*
+            //Colorspacer:
             Spacer(modifier = Modifier
                 .height(5.dp)
                 .fillMaxWidth()
                 .background(Color(android.graphics.Color.parseColor("#fff3f3f3")))
             )
+
+             */
             Text(text = "Taf-data:", fontWeight = FontWeight.Bold, fontSize = 15.sp)
 
         }

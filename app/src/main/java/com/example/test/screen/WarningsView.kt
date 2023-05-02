@@ -68,13 +68,16 @@ fun WarningsView(
                         }
 
                     }
-                    else {
-                        Text(text = "No Metar-data for this Airport")
-                    }
 
                 }
 
 
+            }
+        }
+
+        item() {
+            if(report.isEmpty()) {
+                Text("No Metar-data for this Airport")
             }
         }
 
@@ -225,7 +228,7 @@ fun MetarCard(meteorologicalAerodromeReport: MeteorologicalAerodromeReport) {
                 text = "Time position: " + meteorologicalAerodromeReport.timePosition
             )
             Text(
-                modifier = Modifier,
+                modifier = Modifier.padding(top = 1.dp, bottom = 0.dp),
                 text = "Metar text:"
             )
             Text(

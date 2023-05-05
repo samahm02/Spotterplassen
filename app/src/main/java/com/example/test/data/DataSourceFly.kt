@@ -39,7 +39,10 @@ class DataSourceFly(var path: String) {
     }
 
     suspend fun fetchWarning(): List<Any> {
-        return Warningparser().parse(client.get(path).body())
+        val builder = HttpRequestBuilder()
+        builder.url(path)
+        builder.header("X-Gravitee-API-Key", "a7cc3ee4-1921-48b1-b301-40bd185e6b0b")
+        return Warningparser().parse(client.get(builder).body())
     }
 }
 

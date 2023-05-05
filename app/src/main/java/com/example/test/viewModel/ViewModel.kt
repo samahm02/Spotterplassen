@@ -15,6 +15,8 @@ import com.example.test.ui.FlyUiState
 import com.example.test.ui.WarningUiState
 import com.example.test.ui.WeatherUiState
 import com.example.test.ui.WeatherUiStateReport
+import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.coroutines.awaitString
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.ktx.model.polygonOptions
@@ -31,8 +33,7 @@ class ViewModel : ViewModel() {
     private val dataSource = DataSourceFly("https://Prebennc:Gruppe21@opensky-network.org/api/states/all?lamin=55.0&lomin=0.5&lamax=80.0&lomax=31.0")
     private val _flyUiState = MutableStateFlow(FlyUiState(fly = listOf()))
 
-
-    private var endPointWarnings = DataSourceFly("https://api.met.no/weatherapi/sigmets/2.0/")
+    private var endPointWarnings = DataSourceFly("https://gw-uio.intark.uh-it.no/in2000/weatherapi/sigmets/2.0/")
     private val _warningUiState =  MutableStateFlow((WarningUiState(warnings = listOf())))
     val warningUiState: StateFlow<WarningUiState> = _warningUiState.asStateFlow()
 

@@ -6,6 +6,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.modifier.modifierLocalMapOf
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -34,14 +35,29 @@ fun SpottingScreen(spottingLocation: PlaneSpottingLocation) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(150.dp)
         ) {
-            Text(
-                text = spottingLocation.Name,
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.align(Alignment.BottomCenter)
-            )
+            Column(
+                modifier = Modifier
+                    .padding(top = 80.dp,start = 30.dp, end = 30.dp),
+
+                verticalArrangement = Arrangement.Bottom,
+                horizontalAlignment = Alignment.CenterHorizontally,
+
+                ) {
+                Text(
+                    modifier = Modifier
+                        .padding(bottom = 10.dp),
+                    text = spottingLocation.Name,
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold,
+                    )
+                Text(
+                    text = spottingLocation.Description,
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold,
+                    )
+            }
+
         }
     }
 }

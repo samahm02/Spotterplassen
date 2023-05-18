@@ -82,6 +82,7 @@ fun Navigasjon(
                         GlobalScope.launch(Dispatchers.Main) {
                             navController.navigate(Navigasjon.SpottingLocation.name)
                             selectedSpottingLocation = it
+                            ViewModel.loadWarnings()
                             //ViewModel.changeSelectedSpottingLocation(selectedSpottingLocation)
                             for (spottingLocation in allPlaneSpottingLocation) {
                                 if (spottingLocation.Name == it) {
@@ -92,8 +93,11 @@ fun Navigasjon(
 
                     }
                 )
+
                 ViewModel.lastInnNyeFly()
                 ViewModel.loadWarnings()
+
+
             }
 
             composable(route = Navigasjon.Airport.name) {

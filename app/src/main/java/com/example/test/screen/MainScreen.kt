@@ -37,7 +37,7 @@ fun MainScreen(
     //Hovedskjerm, onAirportButtonClicked kalles når man trykker på marker sin infoboks og forteller
     // navigator om hvilken flyplass som er trykket på.
     //Camera ved start
-    val osloLufthavn = LatLng(60.121,11.0502)
+    val osloLufthavn = LatLng(60.197166,11.099431)
     val userLocation: Location? = ViewModel.state.value.lastKnownLocation
     val userPosition: LatLng
 

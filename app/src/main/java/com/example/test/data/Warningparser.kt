@@ -58,26 +58,26 @@ class Warningparser {
             }
         }
 
-        val objektListe: MutableList<Any> = mutableListOf()
+        val objectList: MutableList<Any> = mutableListOf()
         for (warningData in list) {
             if (warningData[2] == 'W') {
                 //Windshear:
                 val new = Windshear(warningData, this.parseICAO(warningData))
-                objektListe.add(new)
+                objectList.add(new)
 
             } else {
                 //Airmet/Sigmet
                 val new = Warning(warningData, this.parseDSM(warningData))
-                objektListe.add(new)
+                objectList.add(new)
             }
         }
 
-        for (warning in objektListe) {
+        for (warning in objectList) {
             if (warning is Warning) {
                 warning.kordinater = this.convertDDMtoLatLongList(warning.kordinater)
             }
         }
-        return objektListe
+        return objectList
     }
 
     fun convertDDMtoLatLongList(input: List<String>): MutableList<String> {

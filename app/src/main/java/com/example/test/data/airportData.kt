@@ -1,10 +1,25 @@
 package com.example.test.data
-
 data class AirportData(
-    val ID: Int, val name: String, val city: String, val country: String, val IATA: String,
-    val ICAO: String, val Latitude: Double, val Longitude: Double, val Altitude: Int, val Timezone: Int,
-    val DST: String, val timeZone: String, val Type: String, val Source: String)
+    val id: Int,
+    val name: String,
+    val city: String,
+    val country: String,
+    val iata: String,
+    val icao: String,
+    val latitude: Double,
+    val longitude: Double,
+    val altitude: Int,
+    val timezone: Int,
+    val dst: String,
+    val timeZone: String,
+    val type: String,
+    val source: String
+)
 
 data class PlaneSpottingLocation(
-    val Name: String, val Latitude: Double, val Longitude: Double, val Description: String, val FlypalssICAO: String
+    val name: String,
+    val latitude: Double,
+    val longitude: Double,
+    val description: String,
+    val flyplassIcao: String
 )

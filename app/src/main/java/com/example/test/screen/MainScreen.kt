@@ -92,27 +92,27 @@ fun MainScreen(
             val airports = loadAirports()
             var selectedAirportICAO by remember { mutableStateOf("") }
             for (airport in airports) {
-                val planeSpottingLocations = loadPlaneSpottingLocation().filter { it.FlypalssICAO == airport.ICAO }
+                val planeSpottingLocations = loadPlaneSpottingLocation().filter { it.flyplassIcao == airport.icao }
                 Marker(
                     icon= BitmapDescriptorFactory.fromResource(R.drawable.free_airport_location_icon_2959_thumb),
-                    state = MarkerState(position = LatLng(airport.Latitude, airport.Longitude)),
+                    state = MarkerState(position = LatLng(airport.latitude, airport.longitude)),
                     title = airport.name,
-                    snippet = airport.ICAO ,
-                    onInfoWindowClick = { onAirportButtonClicked(airport.ICAO) },
+                    snippet = airport.icao ,
+                    onInfoWindowClick = { onAirportButtonClicked(airport.icao) },
                     onClick = {
-                        if (airport.ICAO == selectedAirportICAO) {
+                        if (airport.icao == selectedAirportICAO) {
                             //if the same airport is selected set to false
                             selectedAirportICAO = ""
                             spotterBoolean = false
                         } else {
                             //if new airport is selected set to true
-                            selectedAirportICAO = airport.ICAO
+                            selectedAirportICAO = airport.icao
                             spotterBoolean = true
                         }
                         false
                     }
                 )
-                if(spotterBoolean && airport.ICAO == selectedAirportICAO) {
+                if(spotterBoolean && airport.icao == selectedAirportICAO) {
                     SpotterPins(
                         planeSpottingLocations,
                         onSpottingButtonClicked = { onSpottingButtonClicked(it) }
@@ -213,10 +213,10 @@ fun SpotterPins(
 ) {
     for (spottingLocation in spotterLocations) {
         Marker(
-            state = MarkerState(position = LatLng(spottingLocation.Latitude, spottingLocation.Longitude)),
+            state = MarkerState(position = LatLng(spottingLocation.latitude, spottingLocation.longitude)),
             icon= BitmapDescriptorFactory.fromResource(R.drawable.binoculars_2),
-            title = spottingLocation.Name,
-            onInfoWindowClick = { onSpottingButtonClicked(spottingLocation.Name) }
+            title = spottingLocation.name,
+            onInfoWindowClick = { onSpottingButtonClicked(spottingLocation.name) }
         )
     }
 }

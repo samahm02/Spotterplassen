@@ -47,12 +47,12 @@ fun SpottingScreen(spottingLocation: PlaneSpottingLocation) {
                 Text(
                     modifier = Modifier
                         .padding(bottom = 10.dp),
-                    text = spottingLocation.Name,
+                    text = spottingLocation.name,
                     fontSize = 30.sp,
                     fontWeight = FontWeight.Bold,
                     )
                 Text(
-                    text = spottingLocation.Description,
+                    text = spottingLocation.description,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold,
                     )

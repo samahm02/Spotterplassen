@@ -72,7 +72,7 @@ fun Navigasjon(
                             ViewModel.changeairPortICAO(selectedAirPort)
                             ViewModel.loadWarnings()
                             for (airportData in allAirportData) {
-                                if (airportData.ICAO == it) {
+                                if (airportData.icao == it) {
                                     selectedAirPortData = airportData
                                 }
                             }
@@ -85,7 +85,7 @@ fun Navigasjon(
                             ViewModel.loadWarnings()
                             //ViewModel.changeSelectedSpottingLocation(selectedSpottingLocation)
                             for (spottingLocation in allPlaneSpottingLocation) {
-                                if (spottingLocation.Name == it) {
+                                if (spottingLocation.name == it) {
                                     selectedPlaneSpottingLocation = spottingLocation
                                 }
                             }

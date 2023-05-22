@@ -122,7 +122,7 @@ class MapsActivity : ComponentActivity(), OnMapReadyCallback {
         val ViewModel = ViewModel()
         val airports = loadAirports()
         for (airport in airports) {
-            mMap.addMarker(MarkerOptions().position(LatLng(airport.Latitude, airport.Longitude)).title(airport.name))
+            mMap.addMarker(MarkerOptions().position(LatLng(airport.latitude, airport.longitude)).title(airport.name))
         }
 
         lifecycleScope.launch {

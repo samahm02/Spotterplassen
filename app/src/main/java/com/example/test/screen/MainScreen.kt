@@ -11,7 +11,6 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.LocalContentColor
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.ui.text.font.FontWeight
@@ -39,18 +38,17 @@ fun MainScreen(
     //Default positions
     val osloLufthavn = LatLng(60.197166,11.099431)
     val userLocation: Location? = ViewModel.state.value.lastKnownLocation
-    val userPosition: LatLng
 
     //DO NOT LIFT OUT ASSIGNMENT (break location)
-    if (userLocation != null) {
+    val userPosition: LatLng = if (userLocation != null) {
 
         val userLatitude = userLocation.latitude
         val userLongitude = userLocation.longitude
-        userPosition = LatLng(userLatitude, userLongitude)
+        LatLng(userLatitude, userLongitude)
         // You can use userPosition here
     } else {
         // Handle the case when user position is not available
-        userPosition = osloLufthavn
+        osloLufthavn
     }
 
     val cameraPositionState: CameraPositionState = rememberCameraPositionState {
@@ -75,8 +73,9 @@ fun MainScreen(
         )
     }
 
+    //Creates a box layout and fills the full mainScreen
     Box(Modifier.fillMaxSize()) {
-        //GoogleMap composable:
+        //GoogleMap composable with location variables as parameters:
         GoogleMap(
             modifier = Modifier.fillMaxSize(),
             properties = mapProperties,
@@ -85,12 +84,17 @@ fun MainScreen(
 
         ) {
 
+            // Boolean to show markers for spotting locations
             var spotterBoolean by remember {
                 mutableStateOf(false)
             }
-            //Preben sin flyplass metode, mMap er erstattet med maps-compose componenter:
+            //Loads a list of airport data from airportData.kt
             val airports = loadAirports()
+
+            // By remember keeping track of airport marker clicks
             var selectedAirportICAO by remember { mutableStateOf("") }
+
+            // Loops through all airport, adds markers, if spotterBoolean add sportting markers
             for (airport in airports) {
                 val planeSpottingLocations = loadPlaneSpottingLocation().filter { it.flyplassIcao == airport.icao }
                 Marker(
@@ -120,26 +124,38 @@ fun MainScreen(
                 }
             }
 
-            //MapEffect der selve GoogleMap er it(map).
+            // MapEffect where the GoogleMap itself is referred to as 'map'
             MapEffect { map ->
+                // Disables map rotation by gesture
                 map.uiSettings.isRotateGesturesEnabled = false
+                // Adds maps toolbar
                 map.uiSettings.isMapToolbarEnabled = true
 //                map.uiSettings.isTiltGesturesEnabled = false
 //                map.uiSettings.isIndoorLevelPickerEnabled = true
 
+                // List for markers
                 val markers = mutableListOf<Marker?>()
+                // List from polygons
                 val poly = mutableListOf<Polygon>()
+                // Function waits at this point until fly in flyUiState isn't empty or fly is changed
                 while (true) {
                     val test = ViewModel.flyUiState.value.fly
                     while (ViewModel.flyUiState.value.fly.isEmpty() || ViewModel.flyUiState.value.fly == test) {
                         delay(100)
-                        //println(1)
                     }
+
+                    // Removes polygons from map
                     poly.forEach { it.remove() }
+                    // Removes all elements in poly list
                     poly.clear()
+                    // removes markers from map
                     markers.forEach { it?.remove() }
+                    // Empties / clear markers list
                     markers.clear()
+
+                    // Retrieves states of planes
                     val flyStates = ViewModel.flyUiState.value.fly[0].states
+                    // Loops plane state data and creates plane emoticons
                     for (i in flyStates) {
 
                         if (i[6] != null || i[5] != null) {
@@ -174,15 +190,16 @@ fun MainScreen(
                         }
                     }
 
-                    //Polygon for sigmet/airmet:
+                    // Checks for sigmet/airmet:
                     if (state.clusterItems.isNotEmpty()) {
                         /*
-                        Mitch sine markers. onClick funker ikke med .map
+                        Mitch's markers. onClick doesn't work with .map
                         val clusterManager = setupClusterManager(context, map)
                         map.setOnCameraIdleListener(clusterManager)
                         map.setOnMarkerClickListener(clusterManager)
 
                          */
+                        // Adds polygons to map
                         state.clusterItems.forEach { clusterItem ->
                             poly.add(
                                 map.addPolygon(clusterItem.polygonOptions)
@@ -203,9 +220,11 @@ fun MainScreen(
             }
         }
     }
+    // Uses TopBar function to display title of screen
     TopBar(title = "Kart")
 }
 
+// Puts all spotterPins in the spotterLocations list on the map
 @Composable
 fun SpotterPins(
     spotterLocations: List<PlaneSpottingLocation>,
@@ -221,6 +240,7 @@ fun SpotterPins(
     }
 }
 
+// Function for marker at the center of polygon
 @Composable
 fun PolygonMarker(polygonCenter: LatLng, title: String) {
     Marker(
@@ -230,7 +250,7 @@ fun PolygonMarker(polygonCenter: LatLng, title: String) {
     )
 }
 
-
+// Displays text input as TopAppBar
 @Composable
 fun TopBar(title: String) {
     TopAppBar(

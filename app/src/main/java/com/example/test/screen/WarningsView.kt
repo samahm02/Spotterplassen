@@ -103,7 +103,7 @@ fun WarningsView(
             }
         }
 
-        //Forrvirrende variabel navn her, skal endres
+        //Forrvirrende variabel navn her, skal endres /////////////////////////////////////////////
         items(windshearForThisAirport) { windshareData ->
             WindshearCard(windshearData = windshareData)
         }

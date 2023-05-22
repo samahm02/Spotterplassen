@@ -34,14 +34,14 @@ fun MainScreen(
     ViewModel: ViewModel,
     state: MapState
 ) {
-    //Hovedskjerm, onAirportButtonClicked kalles når man trykker på marker sin infoboks og forteller
-    // navigator om hvilken flyplass som er trykket på.
-    //Camera ved start
+    // Main screen, onAirportButtonClicked is called when clicking the marker infobox, and
+    // navigator which airport is clicked
+    //Default positions
     val osloLufthavn = LatLng(60.197166,11.099431)
     val userLocation: Location? = ViewModel.state.value.lastKnownLocation
     val userPosition: LatLng
 
-    //DO NOT LIFT OUT ASSIGNMET (break location)
+    //DO NOT LIFT OUT ASSIGNMENT (break location)
     if (userLocation != null) {
 
         val userLatitude = userLocation.latitude
@@ -54,7 +54,7 @@ fun MainScreen(
     }
 
     val cameraPositionState: CameraPositionState = rememberCameraPositionState {
-        //println("POSISSSSJOOOON" + userPosition)
+        // Default camera position
         position = CameraPosition.fromLatLngZoom(userPosition, 11f)
     }
 
@@ -64,9 +64,10 @@ fun MainScreen(
         MapProperties(
             maxZoomPreference = 70f,
             minZoomPreference = 1f,
-            isMyLocationEnabled = ViewModel.state.value.lastKnownLocation != null
+            // Shows user position on map
+            isMyLocationEnabled = state.lastKnownLocation != null,
         )
-
+    //println("LASTKNOWNLOCATION: ${state.lastKnownLocation}")
     //UI-related configurations
     val mapUiSettings by remember {
         mutableStateOf(

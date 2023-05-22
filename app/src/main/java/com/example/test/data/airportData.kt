@@ -1,4 +1,8 @@
 package com.example.test.data
+
+/**
+ * data class AirportData is for the Airports (Hardcoded in)
+ */
 data class AirportData(
     val id: Int,
     val name: String,
@@ -16,6 +20,9 @@ data class AirportData(
     val source: String
 )
 
+/**
+ * data class PlaneSpottingLocation is for the PlaneSpottingLocation (Hardcoded in)
+ */
 data class PlaneSpottingLocation(
     val name: String,
     val latitude: Double,

@@ -339,13 +339,13 @@ class XmlParser {
 }
 
 /**
- * data class WeatherForecast is for the Taf ( weather forcast for the last 24 hours every 3 hours)
+ * data class WeatherForecast is for Taf ( weather forcast for the last 24 hours every 3 hours)
  */
 data class WeatherForecast(val issuedTime : String, val validPeriodStart : String, val validPeriodEnd : String,
                            val tafText : String, val naisHeader: String) {
 }
 
 /**
- * data class MeteorologicalAerodromeReport is for the Metar (weather reports for the last 24 hours every 30 mins)
+ * data class MeteorologicalAerodromeReport is for Metar (weather reports for the last 24 hours every 30 mins)
  */
 data class MeteorologicalAerodromeReport(val timePosition: String, val metarText: String)

@@ -1,17 +1,18 @@
 package com.example.test.data
 
+/**
+ * Added all the airports in Norway as AirportData objekts and in a List
+ */
 fun loadAirports(): List<AirportData> {
     val airportList = mutableListOf<AirportData>()
     airportList.add(AirportData(630,"Ålesund Airport","Alesund","Norway","AES","ENAL",62.5625,6.119699954986572,69,1,"E","Europe/Oslo","airport","OurAirports"))
     airportList.add(AirportData(631,"Andøya Airport","Andoya","Norway","ANX","ENAN",69.292503356934,16.144199371338,43,1,"E","Europe/Oslo","airport","OurAirports"))
     airportList.add(AirportData(632,"Alta Airport","Alta","Norway","ALF","ENAT",69.976097106934,23.371700286865,9,1,"E","Europe/Oslo","airport","OurAirports"))
-    //airportList.add(AirportData(633,"Bømoen Airport","Voss","Norway",\N,"ENBM",60.63890075683594,6.501500129699707,300,1,"E","Europe/Oslo","airport","OurAirports"))
     airportList.add(AirportData(634,"Brønnøysund Airport","Bronnoysund","Norway","BNN","ENBN",65.461097717285,12.217499732971,25,1,"E","Europe/Oslo","airport","OurAirports"))
     airportList.add(AirportData(635,"Bodø Airport","Bodo","Norway","BOO","ENBO",67.26920318603516,14.365300178527832,42,1,"E","Europe/Oslo","airport","OurAirports"))
     airportList.add(AirportData(636,"Bergen Airport Flesland","Bergen","Norway","BGO","ENBR",60.29339981,5.218140125,170,1,"E","Europe/Oslo","airport","OurAirports"))
     airportList.add(AirportData(637,"Båtsfjord Airport","Batsfjord","Norway","BJF","ENBS",70.60050201416,29.691400527954,490,1,"E","Europe/Oslo","airport","OurAirports"))
     airportList.add(AirportData(638,"Kristiansand Airport","Kristiansand","Norway","KRS","ENCN",58.204201,8.08537,57,1,"E","Europe/Oslo","airport","OurAirports"))
-//    airportList.add(AirportData(639,"Geilo Airport Dagali","Geilo","Norway","DLD","ENDI",60.417301177978516,8.518349647521973,2618,1,"E","Europe/Oslo","airport","OurAirports"))
     airportList.add(AirportData(640,"Bardufoss Airport","Bardufoss","Norway","BDU","ENDU",69.055801391602,18.540399551392,252,1,"E","Europe/Oslo","airport","OurAirports"))
     airportList.add(AirportData(641,"Harstad/Narvik Airport, Evenes","Harstad/Narvik","Norway","EVE","ENEV",68.491302490234,16.678100585938,84,1,"E","Europe/Oslo","airport","OurAirports"))
     airportList.add(AirportData(642,"Leirin Airport","Fagernes","Norway","VDB","ENFG",61.015598297119,9.2880601882935,2697,1,"E","Europe/Oslo","airport","OurAirports"))
@@ -20,7 +21,6 @@ fun loadAirports(): List<AirportData> {
     airportList.add(AirportData(645,"Haugesund Airport","Haugesund","Norway","HAU","ENHD",59.34529876709,5.2083601951599,86,1,"E","Europe/Oslo","airport","OurAirports"))
     airportList.add(AirportData(646,"Hasvik Airport","Hasvik","Norway","HAA","ENHK",70.486701965332,22.139699935913,21,1,"E","Europe/Oslo","airport","OurAirports"))
     airportList.add(AirportData(647,"Kristiansund Airport (Kvernberget)","Kristiansund","Norway","KSU","ENKB",63.111801147461,7.824520111084,204,1,"E","Europe/Oslo","airport","OurAirports"))
-    //airportList.add(AirportData(648,"Kjeller Airport","Kjeller","Norway",\N,"ENKJ",59.9692993164,11.036100387600001,354,1,"E","Europe/Oslo","airport","OurAirports")
     airportList.add(AirportData(649,"Kirkenes Airport (Høybuktmoen)","Kirkenes","Norway","KKN","ENKR",69.725799560547,29.891300201416,283,1,"E","Europe/Oslo","airport","OurAirports"))
     airportList.add(AirportData(650,"Lista Airport","Farsund","Norway","FAN","ENLI",58.0994987487793,6.626049995422363,29,1,"E","Europe/Oslo","airport","OurAirports"))
     airportList.add(AirportData(651,"Molde Airport","Molde","Norway","MOL","ENML",62.744701385498,7.2624998092651,10,1,"E","Europe/Oslo","airport","OurAirports"))
@@ -31,7 +31,6 @@ fun loadAirports(): List<AirportData> {
     airportList.add(AirportData(656,"Røros Airport","Roros","Norway","RRS","ENRO",62.578399658203,11.342300415039,2054,1,"E","Europe/Oslo","airport","OurAirports"))
     airportList.add(AirportData(657,"Moss Airport, Rygge","Rygge","Norway","RYG","ENRY",59.378817,10.785439,174,1,"E","Europe/Oslo","airport","OurAirports"))
     airportList.add(AirportData(658,"Svalbard Airport, Longyear","Svalbard","Norway","LYR","ENSB",78.246101379395,15.465600013733,88,1,"E","Arctic/Longyearbyen","airport","OurAirports"))
-//    airportList.add(AirportData(659,"Skien Airport","Skien","Norway","SKE","ENSN",59.185001373291016,9.566940307617188,463,1,"E","Europe/Oslo","airport","OurAirports"))
     airportList.add(AirportData(660,"Stord Airport","Stord","Norway","SRP","ENSO",59.791900634765625,5.340849876403809,160,1,"E","Europe/Oslo","airport","OurAirports"))
     airportList.add(AirportData(662,"Sandnessjøen Airport (Stokka)","Sandnessjoen","Norway","SSJ","ENST",65.956802368164,12.468899726868,56,1,"E","Europe/Oslo","airport","OurAirports"))
     airportList.add(AirportData(663,"Tromsø Airport,","Tromso","Norway","TOS","ENTC",69.68329620361328,18.918899536132812,31,1,"E","Europe/Oslo","airport","OurAirports"))
@@ -41,6 +40,10 @@ fun loadAirports(): List<AirportData> {
     return airportList
 }
 
+/**
+ * Added all the spottingLocation for the biggest Airports as PlaneSpottingLocation objekts and in a List
+ * Locations found from: https://www.spotterguide.net
+ */
 fun loadPlaneSpottingLocation(): List<PlaneSpottingLocation> {
     //PlaneSpottingLocationList.add()
     val planeSpottingLocationList = mutableListOf<PlaneSpottingLocation>()
@@ -52,16 +55,16 @@ fun loadPlaneSpottingLocation(): List<PlaneSpottingLocation> {
             "trafikken går andre veien. Du står litt nord for midten av banen. Gratis parkering.", "ENTO"))
 
     // Gardermoen
-    planeSpottingLocationList.add(PlaneSpottingLocation("Plass #1 - Blikkvegen", 60.1853554, 11.0193125,
+    planeSpottingLocationList.add(PlaneSpottingLocation("Blikkvegen", 60.1853554, 11.0193125,
         "Fra dette stedet kan du fange alle 01R/19L-avganger og 19L-ankomster. 01R-ankomster har en tendens til å gå ut tidlig. Gå til plass #2 for bedre skudd.", "ENGM"))
 
-    planeSpottingLocationList.add(PlaneSpottingLocation("Plass #2 - Departures/Arrivals 01R/19L", 60.1892334, 11.1204279,
+    planeSpottingLocationList.add(PlaneSpottingLocation("Departures/Arrivals 01R/19L", 60.1892334, 11.1204279,
         "Dette stedet er bra for alle 01R/19L avganger og ankomster.", "ENGM"))
 
-    planeSpottingLocationList.add(PlaneSpottingLocation("Plass #3 - Ravinevegen - Ankomst 01L", 60.187751655564774, 11.06862864974181,
+    planeSpottingLocationList.add(PlaneSpottingLocation("Ravinevegen - Ankomst 01L", 60.187751655564774, 11.06862864974181,
         "Fra dette stedet kan du fange alle 01L ankomster. Du kan gå langs 'Ravinevegen' for noen forskjellige vinkler.", "ENGM"))
 
-    planeSpottingLocationList.add(PlaneSpottingLocation("Plass #4 - Gardermoen Luftfartsmuseum - Lineup/Ankomster 01L", 60.1900014,11.0719979,
+    planeSpottingLocationList.add(PlaneSpottingLocation("Gardermoen Luftfartsmuseum - Lineup/Ankomster 01L", 60.1900014,11.0719979,
         "Dette stedet er bra for alle 01L avganger og ankomster. Fra har du også fin utsikt til tunge 19 avganger.", "ENGM"))
 
     planeSpottingLocationList.add(PlaneSpottingLocation("SAS MUSEUM - WEST AIR EUROPE APRON, ARRIVALS 01L/19R", 60.20414610300621, 11.075875997704355,
@@ -170,7 +173,6 @@ fun loadPlaneSpottingLocation(): List<PlaneSpottingLocation> {
 
 
     //Trondheim Lufthavn (TRD/ENVA)
-    //PlaneSpottingLocationList.add(planeSpottingLocation("", , "", "ENVA"))
     planeSpottingLocationList.add(PlaneSpottingLocation("Plass #1 – Spotter Plattformen – 09 ankomster/startrulle, 27 avganger", 63.4587574,10.9112548, "Fra dette stedet kan du se ankomster kl. 09, startruller kl. 09, fly som takser på Y1, fly på standplass, avisingsputen og til slutt 27 avganger.", "ENVA"))
     planeSpottingLocationList.add(PlaneSpottingLocation("Plass #2 – Gangsti – 09 Ankomster og 27 avganger", 63.4527124,10.910177, "Herfra kan du kun få 09 ankomster og 27 avganger", "ENVA"))
     planeSpottingLocationList.add(PlaneSpottingLocation("Plass #3 – Hell Beach – 09 Ankomster", 63.4486254,10.8892498, "Herfra er kun 09 ankomster synlige.", "ENVA"))

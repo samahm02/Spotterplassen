@@ -15,14 +15,14 @@ class ApiTest {
     @Test
     fun testFetchXML() {
         val icao = "ENGM"
-        val weatherForecasts = runBlocking { fetchXML(icao) }
+        val weatherForecasts = runBlocking { fetchXml(icao) }
         assertNotNull(weatherForecasts)
     }
 
     @Test
     fun testFetchXMLTafmetar() {
         val icao = "ENGM"
-        val metarReports = runBlocking { fetchXMLTafmetar(icao) }
+        val metarReports = runBlocking { fetchXmlTafmetar(icao) }
         assertNotNull(metarReports)
     }
 

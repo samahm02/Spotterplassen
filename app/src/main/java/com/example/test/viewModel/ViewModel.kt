@@ -8,15 +8,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.test.MapState
 import com.example.test.data.DataSourceFly
-import com.example.test.data.fetchXML
-import com.example.test.data.fetchXMLTafmetar
+import com.example.test.data.fetchXml
+import com.example.test.data.fetchXmlTafmetar
 import com.example.test.model.*
 import com.example.test.ui.FlyUiState
 import com.example.test.ui.WarningUiState
 import com.example.test.ui.WeatherUiState
 import com.example.test.ui.WeatherUiStateReport
-import com.github.kittinunf.fuel.Fuel
-import com.github.kittinunf.fuel.coroutines.awaitString
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.ktx.model.polygonOptions
@@ -82,8 +80,8 @@ class ViewModel : ViewModel() {
 
     private fun laodTafData(){
         viewModelScope.launch {
-            val forecastList = fetchXML(airPortICAO)
-            val reportList = fetchXMLTafmetar(airPortICAO)
+            val forecastList = fetchXml(airPortICAO)
+            val reportList = fetchXmlTafmetar(airPortICAO)
 
             _weatherUiState.value = WeatherUiState.Success(forecastList)
             _weatherUiStateReport.value = WeatherUiStateReport.Success(reportList)

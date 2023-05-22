@@ -22,6 +22,10 @@ import com.example.test.data.MeteorologicalAerodromeReport
 import com.example.test.data.WeatherForecast
 import com.example.test.model.Windshear
 
+/*
+* WarningsView checks for warnings, taf- and metardata, if data is present it loop trough
+* and uses helper functions to load cards.
+* If there is no data to be displayed a simple Text is displayed noticing the user that there is no data*/
 @Composable
 fun WarningsView(
     warnings: List<Any>,
@@ -30,11 +34,11 @@ fun WarningsView(
     report: List<MeteorologicalAerodromeReport>
 
 ) {
-    //viewModel.loadWarnings()
+    // Makes mutable list of for Windshear
     val windshearForThisAirport: MutableList<Windshear> = mutableListOf()
 
+    // Gets Windshear warning form list of all warnings
     for (warning in warnings) {
-        //warning.icao funker ikke?
         if (warning is Windshear && warning.content.contains(airPortIcao)) {
             windshearForThisAirport.add(warning)
         }
@@ -42,7 +46,7 @@ fun WarningsView(
 
 
 
-
+    // Uses a lazyColumn to display cards and text items
     LazyColumn(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -50,18 +54,17 @@ fun WarningsView(
             .fillMaxWidth()
     ) {
 
+        //Title for metar data
         item {
             Text(text = "Metar-data", fontWeight = FontWeight.Bold, fontSize = 20.sp)
         }
-        item() {
+        // Adds all metar reports in the form of a card. Typically loads 48, therefore LazyRow is used.
+        item {
             LazyRow(
                 modifier = Modifier
-                    //.fillMaxSize()
                     .fillMaxWidth()
-
-                //.fillMaxHeight()
             ) {
-                item() {
+                item {
                     if(report.isNotEmpty()){
                         for (each in report.reversed()){
                             MetarCard(meteorologicalAerodromeReport = each)
@@ -75,54 +78,40 @@ fun WarningsView(
             }
         }
 
-        item() {
+        // In case of no Metar data
+        item {
             if(report.isEmpty()) {
                 Text("No Metar-data for this Airport")
             }
         }
 
-        item(){
+        // Title for Windshear section
+        item{
             Spacer(modifier = Modifier.height(20.dp))
-            /*
-            //Colorspacer:
-            Spacer(modifier = Modifier
-                .height(5.dp)
-                .fillMaxWidth()
-                .background(Color(android.graphics.Color.parseColor("#fff3f3f3")))
-            )
 
-             */
-                    //Color(android.graphics.Color.parseColor("#edb879")))
             Text(text = "Windshear-data", fontWeight = FontWeight.Bold, fontSize = 20.sp)
 
         }
-
-        item() {
+        // In case of No windshear warnings
+        item {
             if(windshearForThisAirport.isEmpty()) {
                 Text("No windshear warnings.")
             }
         }
 
-        //Forrvirrende variabel navn her, skal endres /////////////////////////////////////////////
+        // Loads all windshear warning data into a WindshearCard
         items(windshearForThisAirport) { windshareData ->
             WindshearCard(windshearData = windshareData)
         }
-        item(){
+        // Adds spaces to seperate windshear section from taf section
+        item{
             Spacer(modifier = Modifier.height(30.dp))
-            /*
-            //Colorspacer:
-            Spacer(modifier = Modifier
-                .height(5.dp)
-                .fillMaxWidth()
-                .background(Color(android.graphics.Color.parseColor("#fff3f3f3")))
-            )
-
-             */
             Text(text = "Taf-data", fontWeight = FontWeight.Bold, fontSize = 20.sp)
 
         }
 
-        item(){
+        // Loads taf data into TafmetarCard
+        item{
             if (forecast.isNotEmpty()){
                 for (each in forecast){
                     TafmetarCard(weatherForecastData = each)
@@ -137,7 +126,9 @@ fun WarningsView(
 
 }
 
-
+/*
+* Helper function to load cards of taf. All data is stacked vertically.
+*/
 @Composable
 fun TafmetarCard(weatherForecastData: WeatherForecast) {
     Card(
@@ -154,7 +145,7 @@ fun TafmetarCard(weatherForecastData: WeatherForecast) {
             .background(Color(android.graphics.Color.parseColor("#fff3f3f3")))
             .padding((7.dp)),
             horizontalAlignment = Alignment.CenterHorizontally) {
-            //Spacer(modifier = Modifier.height(20.dp).fillMaxWidth())
+            // Title and value of data is concatenated into one sting
             Text(
                 modifier = Modifier.padding(horizontal = 1.dp, vertical = 5.dp),
                 text = "Valid : " + weatherForecastData.validPeriodStart + " - " + weatherForecastData.validPeriodEnd,
@@ -178,6 +169,7 @@ fun TafmetarCard(weatherForecastData: WeatherForecast) {
     }
 }
 
+// Helper function to display WindshearCard containing windshearData as one Text element
 @Composable
 fun WindshearCard(windshearData: Windshear) {
     Card(
@@ -197,12 +189,19 @@ fun WindshearCard(windshearData: Windshear) {
     }
 }
 
+/*
+* Helper function to load cards of taf. All data is stacked vertically.
+* MetarCards are adaptable to users screen size.
+* If screen width is smaller that 550 dp MetarCard is adjusted to 70% of screen width.
+* If screen size is larger than 550 the width is set to 450 dp. This is done to -
+* gesture the user that the there is a scrollable row out of view.
+* */
 @Composable
 fun MetarCard(meteorologicalAerodromeReport: MeteorologicalAerodromeReport) {
     val configuration = LocalConfiguration.current
     var screenWidth = 450
 
-    if (configuration.screenWidthDp < 450) {
+    if (configuration.screenWidthDp < 550) {
         screenWidth = (configuration.screenWidthDp * 0.7).toInt()
     }
 

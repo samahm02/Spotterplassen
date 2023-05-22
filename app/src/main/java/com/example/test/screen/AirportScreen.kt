@@ -2,14 +2,12 @@ package com.example.test.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -28,10 +26,16 @@ import com.example.test.viewModel.ViewModel
 import com.example.test.ui.WeatherUiState
 import com.example.test.ui.WeatherUiStateReport
 
-
+/*
+* AirportScreen composes a TopAppBar, a header Image and the name of the airport.
+* AirportScreen collects warning, taf- and metardata from the ViewModel,
+* then invokes WarningsView with these data once they are loaded.
+* */
 @OptIn(ExperimentalTextApi::class)
 @Composable
 fun AirportScreen(ViewModel: ViewModel, airportIcao: String, airportData: AirportData?) {
+
+    // uses stateFlow to make API calls
     val warningUiState by ViewModel.warningUiState.collectAsState()
     val tafmetarUiState by ViewModel.weatherUiState.collectAsState()
     val metarUiState by ViewModel.weatherUiStateReport.collectAsState()
@@ -96,6 +100,7 @@ fun AirportScreen(ViewModel: ViewModel, airportIcao: String, airportData: Airpor
             }
         }
 
+        // Uses WarningsView as a helper function for displaying data from APIs
         WarningsView(
             warnings = warningUiState.warnings,
             airportIcao,
@@ -105,13 +110,14 @@ fun AirportScreen(ViewModel: ViewModel, airportIcao: String, airportData: Airpor
     }
 }
 
+// Function that waits for the WeatherUiState to load taf data
 fun WeatherUiState.getForecastList(): List<WeatherForecast> {
     return when (this) {
         is WeatherUiState.Success -> weatherForecast
     }
 }
 
-
+// Function that waits for the WeatherUiState to load metar data
 fun WeatherUiStateReport.getForecastList(): List<MeteorologicalAerodromeReport> {
     return when (this) {
         is WeatherUiStateReport.Success -> WeatherReport

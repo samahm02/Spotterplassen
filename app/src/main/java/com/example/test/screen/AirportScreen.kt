@@ -37,7 +37,7 @@ fun AirportScreen(ViewModel: ViewModel, airportIcao: String, airportData: Airpor
 
     // uses stateFlow to make API calls
     val warningUiState by ViewModel.warningUiState.collectAsState()
-    val tafmetarUiState by ViewModel.weatherUiState.collectAsState()
+    val tafUiState by ViewModel.weatherUiState.collectAsState()
     val metarUiState by ViewModel.weatherUiStateReport.collectAsState()
 
     Column(
@@ -104,7 +104,7 @@ fun AirportScreen(ViewModel: ViewModel, airportIcao: String, airportData: Airpor
         WarningsView(
             warnings = warningUiState.warnings,
             airportIcao,
-            tafmetarUiState.getForecastList(),
+            tafUiState.getForecastList(),
             metarUiState.getForecastList()
         )
     }

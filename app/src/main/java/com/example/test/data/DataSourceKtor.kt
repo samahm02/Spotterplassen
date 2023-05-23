@@ -9,7 +9,7 @@ import io.ktor.client.request.*
 import io.ktor.serialization.gson.*
 
 
-class DataSourceFly(var path: String) {
+class DataSourceKtor(var path: String) {
 
     private val client = HttpClient {
         install(ContentNegotiation) {

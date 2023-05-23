@@ -7,7 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.test.MapState
-import com.example.test.data.DataSourceFly
+import com.example.test.data.DataSourceKtor
 import com.example.test.data.fetchXml
 import com.example.test.data.fetchXmlTafmetar
 import com.example.test.model.*
@@ -28,10 +28,10 @@ class ViewModel : ViewModel() {
     //Ny nøkkel:
 //    private val dataSource = DataSourceFly("https://opensky-network.org/api/states/all")
     //Gammel nøkkel:
-    private val dataSource = DataSourceFly("https://Prebennc:Gruppe21@opensky-network.org/api/states/all?lamin=55.0&lomin=0.5&lamax=80.0&lomax=31.0")
+    private val dataSource = DataSourceKtor("https://Prebennc:Gruppe21@opensky-network.org/api/states/all?lamin=55.0&lomin=0.5&lamax=80.0&lomax=31.0")
     private val _flyUiState = MutableStateFlow(FlyUiState(fly = listOf()))
 
-    private var endPointWarnings = DataSourceFly("https://gw-uio.intark.uh-it.no/in2000/weatherapi/sigmets/2.0/")
+    private var endPointWarnings = DataSourceKtor("https://gw-uio.intark.uh-it.no/in2000/weatherapi/sigmets/2.0/")
     private val _warningUiState =  MutableStateFlow((WarningUiState(warnings = listOf())))
     val warningUiState: StateFlow<WarningUiState> = _warningUiState.asStateFlow()
 

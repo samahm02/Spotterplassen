@@ -88,7 +88,7 @@ fun MainScreen(
             var spotterBoolean by remember {
                 mutableStateOf(false)
             }
-            //Loads a list of airport data from airportData.kt
+            //Loads a list of airport data from AirportDataClass.kt
             val airports = loadAirports()
 
             // By remember keeping track of airport marker clicks

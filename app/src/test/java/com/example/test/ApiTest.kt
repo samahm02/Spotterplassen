@@ -28,7 +28,7 @@ class ApiTest {
 
     @Test
     fun testFetchFly() {
-        val dataSourceFly = DataSourceFly("https://Prebennc:Gruppe21@opensky-network.org/api/states/all")
+        val dataSourceFly = DataSourceKtor("https://Prebennc:Gruppe21@opensky-network.org/api/states/all")
         val flyData = runBlocking { dataSourceFly.fetchFly() }
         assertNotNull(flyData)
     }

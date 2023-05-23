@@ -108,7 +108,7 @@ class ViewModel : ViewModel() {
                             title = warning.content,
                             snippet = "testsnippet",
                             polygonOptions = polygonOptions {
-                                for (kordinatStreng in warning.kordinater) {
+                                for (kordinatStreng in warning.coordinates) {
                                     val split = kordinatStreng.split(" ")
 
                                     add(LatLng(split[0].toDouble(), split[1].toDouble()))

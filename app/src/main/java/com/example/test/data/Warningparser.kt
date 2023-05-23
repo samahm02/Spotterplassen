@@ -1,15 +1,17 @@
 package com.example.test.data
 
 import android.text.TextUtils
-import android.util.Log
 import com.example.test.model.Warning
 import com.example.test.model.Windshear
 import java.util.*
 
 class Warningparser {
-    //Work in progress. Må finne ut av hva som er kordinater for warnings slik at vi kan lage geometriske representasjoner av objektene på kartet.
     fun parse(input: String): List<Any> {
-        //Hardcoded testinput:
+        /*
+        * Hardcoded testinput. 2 sigmet/airmet objects at westcoast. windshear at Flesland (Bergen)
+        * To use testinput instead of the api input parameter, change Scanner parameter from
+        * input to test. (at line 37)
+         */
         val test = "ZCZC\n" +
         "WSN031 ENMI 301915\n" +
         "ENOR SIGMET M01 VALID 302000/310000 ENMI-\n" +
@@ -29,28 +31,33 @@ class Warningparser {
         "ENBR WS WRNG 01 160712 VALID 160730/161130\n" +
         "WS FCST INTSF="
 
-
-        //Lagrer først alle tokens i en liste med scanner-objekt:
         val list: MutableList<String> = mutableListOf()
-        //Change Scanner parameter to test for testing:
+        //Change Scanner parameter from input to test to use hardcoded testinput
         val s = Scanner(input)
+        /*
+        * Iterate through the entire inputstring and store objects (seperated by "ZCZC")
+        * and store them in a list
+        */
         while (s.hasNext()) {
-            //Ser om linje er en "ZCZC"
+            //Check if line is "ZCZC"
             val line = s.nextLine()
             if (line == "ZCZC") {
                 var newObjectData = ""
-                var zczc = true
-                //Legger til ny streng i lista for hver "zczc" token:
-                while (zczc) {
-                    //Det her er wack, men funker. Må ut av siste while iterasjon før filen slutter.
+                var createNewObject = true
+
+                //Create new objectdata string
+                while (createNewObject) {
+                    //Makes sure the file stil has lines
                     if (s.hasNextLine()) {
                         val line2: String = s.nextLine()
                         if (line2.isNotEmpty()) {
                             newObjectData += " $line2"
                         } else {
-                            zczc = false
+                            //If an empty line, finish creating new object
+                            createNewObject = false
                         }
                     } else {
+                        //Make sure the loop breaks if end of file is reached
                         break
                     }
                 }
@@ -58,6 +65,7 @@ class Warningparser {
             }
         }
 
+        //Determine object types
         val objectList: MutableList<Any> = mutableListOf()
         for (warningData in list) {
             if (warningData[2] == 'W') {
@@ -72,31 +80,35 @@ class Warningparser {
             }
         }
 
+        //Convert coordinates for sigmet and airmet objects
         for (warning in objectList) {
             if (warning is Warning) {
-                warning.kordinater = this.convertDDMtoLatLongList(warning.kordinater)
+                warning.coordinates = this.convertDDMtoLatLongList(warning.coordinates)
             }
         }
         return objectList
     }
 
+    //Support function for converting a list of coordinates
     fun convertDDMtoLatLongList(input: List<String>): MutableList<String> {
         val retur = mutableListOf<String>()
-        Log.d("User", "inputlistsize: ${input.size}")
         for (latLongString in input) {
             retur += this.convertDDMtoLatLong(latLongString)
         }
         return retur
     }
-
-    //Konverterer DDM til DD altså "Nxxxx Exxxxx" til "x.x x.x"
+    /*
+    Converts lat, long coordinates from DDM (Degrees and Decimal Minutes) format
+    to DD (Decimal Degrees)
+    Example: ("Nxxxx Exxxxx" til "x.x x.x")
+     */
     fun convertDDMtoLatLong(input: String): String {
         val inputList = TextUtils.split(input, " ")
         val lat: String = inputList[0]
         val long: String = inputList[1]
         val inputDegreesLat = lat[1].toString() + lat[2].toString()
         val inputMinutesLat = lat[3].toString() + lat[4].toString()
-        //Antar at første tall i Exxxxx alltid er 0!
+        //Assumes that the first number in the DDM format, Exxxxx, is always 0
         val inputDegreesLong = long[2].toString() + long[3].toString()
         val inputMinutesLong = long[4].toString() + long[5].toString()
 
@@ -105,10 +117,11 @@ class Warningparser {
         return "$latDD $longDD"
     }
 
-    //Finner lat,long punkter for Sigmets og Airmets.
+    //Isolates lat,long coordinates in the data string for sigmet and airmet objects
     private fun parseDSM(input: String): MutableList<String> {
         val coordinates = mutableListOf<String>()
-        val regex = Regex("N\\d+\\sE\\d+") // pattern to match coordinates
+        //Pattern to match coordinates
+        val regex = Regex("N\\d+\\sE\\d+")
 
         regex.findAll(input).forEach { matchResult ->
             coordinates.add(matchResult.value)
@@ -116,7 +129,7 @@ class Warningparser {
         return(coordinates)
     }
 
-    //Finner ICAO for windshear
+    //Determines airport ICAO for windshear data string
     fun parseICAO(input: String): String {
         val stringlist = input.split(" ")
         return stringlist[4]

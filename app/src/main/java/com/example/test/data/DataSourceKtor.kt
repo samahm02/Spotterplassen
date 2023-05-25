@@ -39,10 +39,27 @@ class DataSourceKtor(var path: String) {
     }
 
     suspend fun fetchWarning(): List<Any> {
-        val builder = HttpRequestBuilder()
-        builder.url(path)
-        builder.header("X-Gravitee-API-Key", "a7cc3ee4-1921-48b1-b301-40bd185e6b0b")
-        return Warningparser().parse(client.get(builder).body())
+        return try {
+            val builder = HttpRequestBuilder()
+            builder.url(path)
+            builder.header("X-Gravitee-API-Key", "a7cc3ee4-1921-48b1-b301-40bd185e6b0b")
+            Warningparser().parse(client.get(builder).body())
+        } catch(e: RedirectResponseException) {
+            //3xx responses
+            println("3xx Error: ${e.response.status.description}")
+            emptyList()
+        } catch(e: ClientRequestException) {
+            //4xx responses
+            println("4xx Error: ${e.response.status.description}")
+            emptyList()
+        } catch(e: ServerResponseException) {
+            //5xx responses
+            println("5xx Error: ${e.response.status.description}")
+            emptyList()
+        } catch(e: Exception) {
+            println("General Error: ${e.message}")
+            emptyList()
+        }
     }
 }
 

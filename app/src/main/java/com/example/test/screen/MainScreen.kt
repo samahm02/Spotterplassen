@@ -214,7 +214,7 @@ fun MainScreen(
 
             //Adds marker in the center of each polygon:
             if (state.clusterItems.isNotEmpty()) {
-                state.clusterItems.forEach { clusterItem ->
+                state.clusterItems.toList().forEach { clusterItem ->
                     PolygonMarker(polygonCenter = clusterItem.position, title = clusterItem.title)
                 }
             }

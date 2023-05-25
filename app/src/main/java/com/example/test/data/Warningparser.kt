@@ -5,6 +5,7 @@ import com.example.test.model.Warning
 import com.example.test.model.Windshear
 import java.util.*
 
+@Suppress("UNUSED_VARIABLE")
 class Warningparser {
     fun parse(input: String): List<Any> {
         /*
@@ -31,43 +32,37 @@ class Warningparser {
         "ENBR WS WRNG 01 160712 VALID 160730/161130\n" +
         "WS FCST INTSF="
 
-        val list: MutableList<String> = mutableListOf()
-        //Change Scanner parameter from input to test to use hardcoded testinput
-        val s = Scanner(input)
+        val objectListString: MutableList<String> = mutableListOf()
+        // Change Scanner parameter from 'input' to 'test' to use hardcoded test input
+        val scanner = Scanner(input)
+
         /*
-        * Iterate through the entire inputstring and store objects (seperated by "ZCZC")
-        * and store them in a list
+        * Iterate through the entire input string and store objects (separated by "ZCZC")
+        * and store them in a list.
         */
-        while (s.hasNext()) {
-            //Check if line is "ZCZC"
-            val line = s.nextLine()
+        while (scanner.hasNextLine()) {
+            val line = scanner.nextLine()
             if (line == "ZCZC") {
                 var newObjectData = ""
                 var createNewObject = true
 
-                //Create new objectdata string
-                while (createNewObject) {
-                    //Makes sure the file stil has lines
-                    if (s.hasNextLine()) {
-                        val line2: String = s.nextLine()
-                        if (line2.isNotEmpty()) {
-                            newObjectData += " $line2"
-                        } else {
-                            //If an empty line, finish creating new object
-                            createNewObject = false
-                        }
+                // Create new object data string
+                while (createNewObject && scanner.hasNextLine()) {
+                    val nextLine = scanner.nextLine()
+                    if (nextLine.isNotEmpty()) {
+                        newObjectData += " $nextLine"
                     } else {
-                        //Make sure the loop breaks if end of file is reached
-                        break
+                        // If an empty line, finish creating the new object
+                        createNewObject = false
                     }
                 }
-                list.add(newObjectData)
+                objectListString.add(newObjectData)
             }
         }
 
         //Determine object types
         val objectList: MutableList<Any> = mutableListOf()
-        for (warningData in list) {
+        for (warningData in objectListString) {
             if (warningData[2] == 'W') {
                 //Windshear:
                 val new = Windshear(warningData, this.parseICAO(warningData))

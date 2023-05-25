@@ -1,10 +1,11 @@
 package com.example.test.model
-//Kilde:
+//Source:
 //https://github.com/mitchtabian/Google-Maps-Compose
 
 import com.google.android.gms.maps.model.PolygonOptions
 import com.google.maps.android.clustering.ClusterItem
 
+//Cluster item that manages polygons
 data class ZoneClusterItem(
     val id: String,
     private val title: String,

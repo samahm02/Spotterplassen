@@ -28,39 +28,38 @@ class ViewModel : ViewModel() {
     //Ny nøkkel:
 //    private val dataSource = DataSourceFly("https://opensky-network.org/api/states/all")
     //Gammel nøkkel:
+    // DataSource instances for fetching data from different APIs
     private val dataSource = DataSourceKtor("https://Prebennc:Gruppe21@opensky-network.org/api/states/all?lamin=55.0&lomin=0.5&lamax=80.0&lomax=31.0")
     private val _flyUiState = MutableStateFlow(FlyUiState(fly = listOf()))
 
+    // MutableStateFlow instances for storing and exposing UI state
     private var endPointWarnings = DataSourceKtor("https://gw-uio.intark.uh-it.no/in2000/weatherapi/sigmets/2.0/")
     private val _warningUiState =  MutableStateFlow((WarningUiState(warnings = listOf())))
     val warningUiState: StateFlow<WarningUiState> = _warningUiState.asStateFlow()
-
     private val _weatherUiState = MutableStateFlow(
         WeatherUiState.Success(
             emptyList()
         ))
-
     private val _weatherUiStateReport = MutableStateFlow(
         WeatherUiStateReport.Success(
             emptyList()
         ))
 
+    // Exposed read-only StateFlow instances
     val weatherUiStateReport: StateFlow<WeatherUiStateReport> =  _weatherUiStateReport.asStateFlow()
-
-
     val weatherUiState: StateFlow<WeatherUiState> =  _weatherUiState.asStateFlow()
-
     val flyUiState: StateFlow<FlyUiState> = _flyUiState.asStateFlow()
 
+    // Default ICAO airport code set to Gardermoen (OSL)
     private var airPortICAO: String = "ENGM"
 
+    // The init block runs after primary constructor. Here, we load initial data
     init{
-        //airPortICAO = "ENGM"
         loadFly()
         loadWarnings()
-        //laodTafData()
     }
 
+    // Fetches data about flights and updates the flyUiState
     private fun loadFly(){
         viewModelScope.launch {
             val fly = dataSource.fetchFly()
@@ -74,11 +73,14 @@ class ViewModel : ViewModel() {
 
         }
     }
+
+    // Method to fetch new flight data
     fun lastInnNyeFly(){
         loadFly()
     }
 
-    private fun laodTafData(){
+    // Fetches forecast data for a given ICAO code and updates weatherUiState
+    private fun loadTafMetarData(){
         viewModelScope.launch {
             val forecastList = fetchXml(airPortICAO)
             val reportList = fetchXmlTafmetar(airPortICAO)
@@ -88,13 +90,16 @@ class ViewModel : ViewModel() {
         }
     }
 
+    // Changes the ICAO code and reloads Taf data
     fun changeairPortICAO(ICAO: String){
         airPortICAO = ICAO
-        laodTafData()
+        loadTafMetarData()
     }
 
+    // List to hold warning data and cluster items
     private var warnings = listOf<Any>()
     private var clusterItems = mutableListOf<ZoneClusterItem>()
+    // Fetches warning data and updates the warningUiState
     fun loadWarnings() {
         viewModelScope.launch(Dispatchers.IO) {
             warnings = endPointWarnings.fetchWarning()
@@ -122,11 +127,12 @@ class ViewModel : ViewModel() {
         }
     }
 
+    // Computed property for polygon color
     companion object {
         private val POLYGON_FILL_COLOR = Color.parseColor("#1AF44336")
     }
 
-    //Mitch sin WM:
+    // MutableState for MapState. This is used to handle state related to the map
     val state: MutableState<MapState> = mutableStateOf(
         MapState(
             lastKnownLocation = null,
@@ -134,6 +140,7 @@ class ViewModel : ViewModel() {
         )
     )
 
+    // Gets the device's last known location and updates the state
     @SuppressLint("MissingPermission")
     fun getDeviceLocation(
         fusedLocationProviderClient: FusedLocationProviderClient

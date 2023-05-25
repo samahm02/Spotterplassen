@@ -70,7 +70,7 @@ fun Navigasjon(
                             navController.navigate(Navigasjon.Airport.name)
                             selectedAirPort = it
                             ViewModel.changeairPortICAO(selectedAirPort)
-                            ViewModel.loadWarnings()
+
                             for (airportData in allAirportData) {
                                 if (airportData.icao == it) {
                                     selectedAirPortData = airportData
@@ -82,8 +82,6 @@ fun Navigasjon(
                         GlobalScope.launch(Dispatchers.Main) {
                             navController.navigate(Navigasjon.SpottingLocation.name)
                             selectedSpottingLocation = it
-                            ViewModel.loadWarnings()
-                            //ViewModel.changeSelectedSpottingLocation(selectedSpottingLocation)
                             for (spottingLocation in allPlaneSpottingLocation) {
                                 if (spottingLocation.name == it) {
                                     selectedPlaneSpottingLocation = spottingLocation
@@ -93,9 +91,9 @@ fun Navigasjon(
 
                     }
                 )
-
                 ViewModel.lastInnNyeFly()
-                ViewModel.loadWarnings()
+
+
 
 
             }

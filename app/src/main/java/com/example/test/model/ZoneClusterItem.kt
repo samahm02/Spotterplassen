@@ -1,6 +1,4 @@
 package com.example.test.model
-//Source:
-//https://github.com/mitchtabian/Google-Maps-Compose
 
 import com.google.android.gms.maps.model.PolygonOptions
 import com.google.maps.android.clustering.ClusterItem

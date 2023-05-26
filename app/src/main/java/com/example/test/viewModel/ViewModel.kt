@@ -59,12 +59,6 @@ class ViewModel : ViewModel() {
             val fly = dataSource.fetchFly()
             val listPlane = listOf(fly)
             _planeUiState.value = PlaneUiState(plane = listPlane)
-/*
-            val forecastList = fetchXML("ENGM")
-            _weatherUiState.value = WeatherUiState.Success(forecastList)
-            Log.v("----------------------",forecastList[0].issuedTime)
- */
-
         }
     }
 
@@ -153,7 +147,8 @@ class ViewModel : ViewModel() {
                 }
             }
         } catch (e: SecurityException) {
-            // Show error or something
+            // Show error in terminal for debugging
+            println(e)
         }
     }
 

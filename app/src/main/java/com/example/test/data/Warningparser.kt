@@ -33,7 +33,7 @@ class Warningparser {
         "WS FCST INTSF="
 
         val objectListString: MutableList<String> = mutableListOf()
-        // Change Scanner parameter from 'input' to 'test' to use hardcoded test input
+        // Change Scanner parameter from 'input' to 'test' to use hardcoded test input as seen here Scanner(test)
         val scanner = Scanner(input)
 
         /*

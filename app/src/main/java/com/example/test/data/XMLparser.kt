@@ -98,7 +98,6 @@ class XmlParser {
     private fun readTimePos(parser: XmlPullParser): String {
         parser.require(XmlPullParser.START_TAG, null, "metno:validTime")
         var timePosition = ""
-        Log.v("Tafmetar time", timePosition)
         try {
             while (parser.next() != XmlPullParser.END_TAG) {
                 if (parser.eventType != XmlPullParser.START_TAG) {
@@ -151,7 +150,6 @@ class XmlParser {
     private fun readMetarText(parser: XmlPullParser): String {
         parser.require(XmlPullParser.START_TAG, ns, "metno:metarText")
         val metarText = readText(parser)
-        Log.v("Tafmetar metarText", metarText)
 
         parser.require(XmlPullParser.END_TAG, ns, "metno:metarText")
         return metarText

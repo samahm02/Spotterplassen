@@ -201,7 +201,7 @@ fun MainScreen(
                     }
 
                     delay(10000)
-                    ViewModel.lastInnNyeFly()
+                    ViewModel.loadNewPlanes()
                 }
             }
 

@@ -11,7 +11,7 @@ import com.example.test.data.DataSourceKtor
 import com.example.test.data.fetchXml
 import com.example.test.data.fetchXmlTafmetar
 import com.example.test.model.*
-import com.example.test.ui.PlaneUiState
+import com.example.test.ui.FlyUiState
 import com.example.test.ui.WarningUiState
 import com.example.test.ui.WeatherUiState
 import com.example.test.ui.WeatherUiStateReport
@@ -29,9 +29,8 @@ class ViewModel : ViewModel() {
 //    private val dataSource = DataSourceFly("https://opensky-network.org/api/states/all")
     //Gammel nøkkel:
     // DataSource instances for fetching data from different APIs
-    @SuppressLint("AuthLeak")
     private val dataSource = DataSourceKtor("https://Prebennc:Gruppe21@opensky-network.org/api/states/all?lamin=55.0&lomin=0.5&lamax=80.0&lomax=31.0")
-    private val _planeUiState = MutableStateFlow(PlaneUiState(plane = listOf()))
+    private val _flyUiState = MutableStateFlow(FlyUiState(fly = listOf()))
 
     // MutableStateFlow instances for storing and exposing UI state
     private var endPointWarnings = DataSourceKtor("https://gw-uio.intark.uh-it.no/in2000/weatherapi/sigmets/2.0/")
@@ -49,7 +48,7 @@ class ViewModel : ViewModel() {
     // Exposed read-only StateFlow instances
     val weatherUiStateReport: StateFlow<WeatherUiStateReport> =  _weatherUiStateReport.asStateFlow()
     val weatherUiState: StateFlow<WeatherUiState> =  _weatherUiState.asStateFlow()
-    val planeUiState: StateFlow<PlaneUiState> = _planeUiState.asStateFlow()
+    val flyUiState: StateFlow<FlyUiState> = _flyUiState.asStateFlow()
 
     // Default ICAO airport code set to Gardermoen (OSL)
     private var airPortICAO: String = "ENGM"
@@ -64,8 +63,8 @@ class ViewModel : ViewModel() {
     private fun loadFly(){
         viewModelScope.launch {
             val fly = dataSource.fetchFly()
-            val test = listOf(fly)
-            _planeUiState.value = PlaneUiState(plane = test)
+            val listPlane = listOf(fly)
+            _flyUiState.value = FlyUiState(fly = listPlane)
 /*
             val forecastList = fetchXML("ENGM")
             _weatherUiState.value = WeatherUiState.Success(forecastList)
@@ -76,7 +75,7 @@ class ViewModel : ViewModel() {
     }
 
     // Method to fetch new flight data
-    fun lastInnNyeFly(){
+    fun loadNewPlanes(){
         loadFly()
     }
 

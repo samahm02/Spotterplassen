@@ -63,8 +63,8 @@ class ViewModel : ViewModel() {
     private fun loadFly(){
         viewModelScope.launch {
             val fly = dataSource.fetchFly()
-            val test = listOf(fly)
-            _flyUiState.value = FlyUiState(fly = test)
+            val listPlane = listOf(fly)
+            _flyUiState.value = FlyUiState(fly = listPlane)
 /*
             val forecastList = fetchXML("ENGM")
             _weatherUiState.value = WeatherUiState.Success(forecastList)
@@ -75,7 +75,7 @@ class ViewModel : ViewModel() {
     }
 
     // Method to fetch new flight data
-    fun lastInnNyeFly(){
+    fun loadNewPlanes(){
         loadFly()
     }
 

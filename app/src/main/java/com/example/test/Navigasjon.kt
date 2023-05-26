@@ -91,7 +91,7 @@ fun Navigasjon(
 
                     }
                 )
-                ViewModel.lastInnNyeFly()
+                ViewModel.loadNewPlanes()
 
 
 

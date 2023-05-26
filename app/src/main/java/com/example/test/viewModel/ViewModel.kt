@@ -11,10 +11,7 @@ import com.example.test.data.DataSourceKtor
 import com.example.test.data.fetchXml
 import com.example.test.data.fetchXmlTafmetar
 import com.example.test.model.*
-import com.example.test.ui.FlyUiState
-import com.example.test.ui.WarningUiState
-import com.example.test.ui.WeatherUiState
-import com.example.test.ui.WeatherUiStateReport
+import com.example.test.ui.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.ktx.model.polygonOptions
@@ -25,12 +22,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class ViewModel : ViewModel() {
-    //Ny nøkkel:
-//    private val dataSource = DataSourceFly("https://opensky-network.org/api/states/all")
-    //Gammel nøkkel:
     // DataSource instances for fetching data from different APIs
     private val dataSource = DataSourceKtor("https://Prebennc:Gruppe21@opensky-network.org/api/states/all?lamin=55.0&lomin=0.5&lamax=80.0&lomax=31.0")
-    private val _flyUiState = MutableStateFlow(FlyUiState(fly = listOf()))
+    private val _planeUiState = MutableStateFlow(PlaneUiState(plane = listOf()))
 
     // MutableStateFlow instances for storing and exposing UI state
     private var endPointWarnings = DataSourceKtor("https://gw-uio.intark.uh-it.no/in2000/weatherapi/sigmets/2.0/")
@@ -48,7 +42,7 @@ class ViewModel : ViewModel() {
     // Exposed read-only StateFlow instances
     val weatherUiStateReport: StateFlow<WeatherUiStateReport> =  _weatherUiStateReport.asStateFlow()
     val weatherUiState: StateFlow<WeatherUiState> =  _weatherUiState.asStateFlow()
-    val flyUiState: StateFlow<FlyUiState> = _flyUiState.asStateFlow()
+    val planeUiState: StateFlow<PlaneUiState> = _planeUiState.asStateFlow()
 
     // Default ICAO airport code set to Gardermoen (OSL)
     private var airPortICAO: String = "ENGM"
@@ -64,7 +58,7 @@ class ViewModel : ViewModel() {
         viewModelScope.launch {
             val fly = dataSource.fetchFly()
             val listPlane = listOf(fly)
-            _flyUiState.value = FlyUiState(fly = listPlane)
+            _planeUiState.value = PlaneUiState(plane = listPlane)
 /*
             val forecastList = fetchXML("ENGM")
             _weatherUiState.value = WeatherUiState.Success(forecastList)
@@ -163,23 +157,4 @@ class ViewModel : ViewModel() {
         }
     }
 
-    /*
-    fun setupClusterManager(
-        context: Context,
-        map: GoogleMap,
-    ): ZoneClusterManager {
-        val clusterManager = ZoneClusterManager(context, map)
-        clusterManager.addItems(state.value.clusterItems)
-        return clusterManager
-    }
-
-
-
-    fun calculateZoneLatLngBounds(): LatLngBounds {
-        // Get all the points from all the polygons and calculate the camera view that will show them all.
-        val latLngs = state.value.clusterItems.map { it.polygonOptions }
-            .map { it.points.map { LatLng(it.latitude, it.longitude) } }.flatten()
-        return latLngs.calculateCameraViewPoints().getCenterOfPolygon()
-    }
-     */
 }

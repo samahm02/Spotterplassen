@@ -1,4 +1,4 @@
-package com.example.test
+package com.example.test.data
 
 import android.location.Location
 import com.example.test.model.ZoneClusterItem

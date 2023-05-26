@@ -6,7 +6,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.test.MapState
+import com.example.test.data.MapState
 import com.example.test.data.DataSourceKtor
 import com.example.test.data.fetchXml
 import com.example.test.data.fetchXmlTafmetar
@@ -23,6 +23,7 @@ import kotlinx.coroutines.launch
 
 class ViewModel : ViewModel() {
     // DataSource instances for fetching data from different APIs
+    // Possible credential leak addressed in the report section: 5.7 and 7.2
     private val dataSource = DataSourceKtor("https://Prebennc:Gruppe21@opensky-network.org/api/states/all?lamin=55.0&lomin=0.5&lamax=80.0&lomax=31.0")
     private val _planeUiState = MutableStateFlow(PlaneUiState(plane = listOf()))
 
@@ -89,23 +90,35 @@ class ViewModel : ViewModel() {
     private var clusterItems = mutableListOf<ZoneClusterItem>()
     // Fetches warning data and updates the warningUiState
     fun loadWarnings() {
+        // This function is responsible for loading warnings.
+        // It is executed on the viewModelScope coroutine in the IO dispatcher.
         viewModelScope.launch(Dispatchers.IO) {
+            // Fetch warnings from the endPointWarnings
             warnings = endPointWarnings.fetchWarning()
+
+            // Update the value of _warningUiState LiveData with the fetched warnings
             _warningUiState.value = WarningUiState(warnings = warnings)
 
+            // Iterate through each warning in the fetched warnings
             for (warning in warnings) {
+                // Check if the warning is of type Warning
                 if (warning is Warning) {
+                    // Create a ZoneClusterItem and add it to the clusterItems list
                     clusterItems.add(
                         ZoneClusterItem(
-                            id = "testid",
+                            id = "Unused",
                             title = warning.content,
-                            snippet = "testsnippet",
+                            snippet = "Unused",
                             polygonOptions = polygonOptions {
-                                for (kordinatStreng in warning.coordinates) {
-                                    val split = kordinatStreng.split(" ")
+                                // Iterate through each coordinate string in the warning's coordinates
+                                for (coordinateString in warning.coordinates) {
+                                    // Split the coordinate string by a space to extract latitude and longitude values
+                                    val split = coordinateString.split(" ")
 
+                                    // Create a LatLng object with the extracted latitude and longitude values
                                     add(LatLng(split[0].toDouble(), split[1].toDouble()))
                                 }
+                                // Set the fill color of the polygonOptions to a specified value
                                 fillColor(POLYGON_FILL_COLOR)
                             }
                         )

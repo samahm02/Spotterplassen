@@ -34,7 +34,7 @@ class Warningparser {
 
         val objectListString: MutableList<String> = mutableListOf()
         // Change Scanner parameter from 'input' to 'test' to use hardcoded test input
-        val scanner = Scanner(input)
+        val scanner = Scanner(test)
 
         /*
         * Iterate through the entire input string and store objects (separated by "ZCZC")

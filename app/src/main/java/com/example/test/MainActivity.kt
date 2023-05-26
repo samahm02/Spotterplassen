@@ -41,7 +41,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-
     // FusedLocationProviderClient is an API from Google Play services that simplifies getting the device's location.
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
@@ -60,7 +59,6 @@ class MainActivity : ComponentActivity() {
         setContentView(
             ComposeView(this).apply {
                 setContent {
-
                     Navigasjon(viewModel)
                 }
             }

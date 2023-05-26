@@ -16,7 +16,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
-import com.example.test.MapState
+import com.example.test.data.MapState
 import com.example.test.R
 import com.example.test.data.loadPlaneSpottingLocation
 import com.example.test.data.PlaneSpottingLocation
@@ -65,7 +65,6 @@ fun MainScreen(
             // Shows user position on map
             isMyLocationEnabled = state.lastKnownLocation != null,
         )
-    //println("LASTKNOWNLOCATION: ${state.lastKnownLocation}")
     //UI-related configurations
     val mapUiSettings by remember {
         mutableStateOf(

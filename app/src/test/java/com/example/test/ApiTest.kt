@@ -27,10 +27,10 @@ class ApiTest {
     }
 
     @Test
-    fun testFetchFly() {
-        val dataSourceFly = DataSourceKtor("https://Prebennc:Gruppe21@opensky-network.org/api/states/all")
-        val flyData = runBlocking { dataSourceFly.fetchFly() }
-        assertNotNull(flyData)
+    fun testFetchPlane() {
+        val dataSourcePlane = DataSourceKtor("https://Prebennc:Gruppe21@opensky-network.org/api/states/all")
+        val planeData = runBlocking { dataSourcePlane.fetchPlane() }
+        assertNotNull(planeData)
     }
 
     private val warningparser = Warningparser()

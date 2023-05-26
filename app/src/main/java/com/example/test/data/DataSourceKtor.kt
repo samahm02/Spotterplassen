@@ -19,7 +19,7 @@ class DataSourceKtor(var path: String) {
     }
 
     // Asynchronous function to fetch plane data
-    suspend fun fetchFly(): PlaneData {
+    suspend fun fetchPlane(): PlaneData {
         return try {
             // Get the request body from the client
             client.get(path).body()

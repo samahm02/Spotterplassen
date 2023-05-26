@@ -49,14 +49,14 @@ class ViewModel : ViewModel() {
 
     // The init block runs after primary constructor. Here, we load initial data
     init{
-        loadFly()
+        loadPlane()
         loadWarnings()
     }
 
     // Fetches data about flights and updates the flyUiState
-    private fun loadFly(){
+    private fun loadPlane(){
         viewModelScope.launch {
-            val fly = dataSource.fetchFly()
+            val fly = dataSource.fetchPlane()
             val listPlane = listOf(fly)
             _planeUiState.value = PlaneUiState(plane = listPlane)
         }
@@ -64,7 +64,7 @@ class ViewModel : ViewModel() {
 
     // Method to fetch new flight data
     fun loadNewPlanes(){
-        loadFly()
+        loadPlane()
     }
 
     // Fetches forecast data for a given ICAO code and updates weatherUiState

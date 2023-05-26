@@ -13,9 +13,9 @@ data class AirportData(
     val latitude: Double,
     val longitude: Double,
     val altitude: Int,
-    val timezone: Int,
+    val timeZone: Int,
     val dst: String,
-    val timeZone: String,
+    val timeZoneString: String,
     val type: String,
     val source: String
 )
@@ -28,5 +28,5 @@ data class PlaneSpottingLocation(
     val latitude: Double,
     val longitude: Double,
     val description: String,
-    val flyplassIcao: String
+    val AirportIcao: String
 )

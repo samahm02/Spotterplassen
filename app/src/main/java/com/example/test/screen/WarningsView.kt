@@ -206,7 +206,6 @@ fun MetarCard(meteorologicalAerodromeReport: MeteorologicalAerodromeReport) {
     }
 
 
-    //Log.v("width", configuration.screenWidthDp.dp.toString())
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -214,14 +213,12 @@ fun MetarCard(meteorologicalAerodromeReport: MeteorologicalAerodromeReport) {
         shape = RoundedCornerShape(size = 26.dp),
         border = BorderStroke(width = 1.dp, color = Color.Black),
         elevation = 4.dp,
-        //backgroundColor = Color.Green.copy(alpha = 0.2f)
 
     ) {
         Column(
             modifier = Modifier.width(screenWidth.dp).background(Color(android.graphics.Color.parseColor("#fff3f3f3"))),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            //Spacer(modifier = Modifier.height(20.dp).fillMaxWidth())
             Text(
                 modifier = Modifier.padding(horizontal = 1.dp, vertical = 5.dp),
                 text = "Time position: " + meteorologicalAerodromeReport.timePosition

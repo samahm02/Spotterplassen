@@ -96,7 +96,7 @@ fun MainScreen(
 
             // Loops through all airport, adds markers, if spotterBoolean add sportting markers
             for (airport in airports) {
-                val planeSpottingLocations = loadPlaneSpottingLocation().filter { it.flyplassIcao == airport.icao }
+                val planeSpottingLocations = loadPlaneSpottingLocation().filter { it.AirportIcao == airport.icao }
                 Marker(
                     icon= BitmapDescriptorFactory.fromResource(R.drawable.free_airport_location_icon_2959_thumb),
                     state = MarkerState(position = LatLng(airport.latitude, airport.longitude)),
@@ -139,8 +139,8 @@ fun MainScreen(
                 val poly = mutableListOf<Polygon>()
                 // Function waits at this point until fly in flyUiState isn't empty or fly is changed
                 while (true) {
-                    val test = ViewModel.flyUiState.value.fly
-                    while (ViewModel.flyUiState.value.fly.isEmpty() || ViewModel.flyUiState.value.fly == test) {
+                    val test = ViewModel.planeUiState.value.plane
+                    while (ViewModel.planeUiState.value.plane.isEmpty() || ViewModel.planeUiState.value.plane == test) {
                         delay(100)
                     }
 
@@ -154,7 +154,7 @@ fun MainScreen(
                     markers.clear()
 
                     // Retrieves states of planes
-                    val flyStates = ViewModel.flyUiState.value.fly[0].states
+                    val flyStates = ViewModel.planeUiState.value.plane[0].states
                     // Loops plane state data and creates plane emoticons
                     for (i in flyStates) {
 
@@ -192,13 +192,6 @@ fun MainScreen(
 
                     // Checks for sigmet/airmet:
                     if (state.clusterItems.isNotEmpty()) {
-                        /*
-                        Mitch's markers. onClick doesn't work with .map
-                        val clusterManager = setupClusterManager(context, map)
-                        map.setOnCameraIdleListener(clusterManager)
-                        map.setOnMarkerClickListener(clusterManager)
-
-                         */
                         // Adds polygons to map
                         state.clusterItems.forEach { clusterItem ->
                             poly.add(

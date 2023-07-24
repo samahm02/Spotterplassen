@@ -5,4 +5,5 @@ Appen vil også tilby brukeren relevante værrapporter og prognoser, slik at bru
 Videre vil applikasjonen vise relevante advarsler om værforhold som kan påvirke flygninger, for å gi brukeren et bedre innblikk i potensielle flykanselleringer.
 
 Api fra met: Sigmets og Tafmetar
+
 Andre Api: Opensky

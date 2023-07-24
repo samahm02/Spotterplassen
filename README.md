@@ -1,4 +1,4 @@
-IN2000 vår 2023
+IN2000 vår 2023:
 
 Appen var "Spotterplassen" har blitt spesialdesignet for flyspottere og flyentusiaster som liker å observere fly.
 Applikasjonen vil gjøre det enklere for flyspottere å finne flyene sin posisjon, samt identifisere de beste områdene å spotte dem. 
